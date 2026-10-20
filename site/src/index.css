@@ -1,0 +1,63 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Geist Mono', ui-monospace, SFMono-Regular, monospace;
+  --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, monospace;
+  --font-pixel: 'Geist Pixel', 'Geist Mono', ui-monospace, monospace;
+  /* Soft editorial serif for quotes and the about text */
+  --font-serif: 'Instrument Serif', 'Times New Roman', serif;
+
+  /* Beauty palette: cocoa ink, ivory paper, taupe greys */
+  --color-ink: #15100e;
+  --color-paper: #f4ece4;
+  --color-stone: #9c8b82;
+  --color-line: #2e2420;
+  /* Accent: only on small details. Defaults to ivory = no accent colour.
+     Set at runtime from THEME in src/data/site.ts */
+  --color-accent: #f4ece4;
+  --color-accent-ink: #15100e;
+  /* Small section labels: taupe without accent, accent otherwise */
+  --color-label: #9c8b82;
+
+  --animate-blink: blink 1.05s steps(1) infinite;
+
+  @keyframes blink {
+    50% {
+      opacity: 0;
+    }
+  }
+}
+
+@layer base {
+  html {
+    background: var(--color-ink);
+  }
+
+  body {
+    @apply bg-ink font-mono text-paper antialiased;
+  }
+
+  ::selection {
+    @apply bg-accent text-accent-ink;
+  }
+}
+
+/* Film grain laid over the whole site */
+@utility grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* The custom pixel cursor replaces the native one on precise pointers */
+html.has-pixel-cursor,
+html.has-pixel-cursor * {
+  cursor: none !important;
+}
+
+@keyframes pixel-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

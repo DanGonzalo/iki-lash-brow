@@ -1,0 +1,70 @@
+{
+	"hero": [
+		{
+			"src": "/media/hero/01.jpg",
+			"alt": "glowing skin nude lips"
+		},
+		{
+			"src": "/media/hero/02.jpg",
+			"alt": "defined brow close up"
+		},
+		{
+			"src": "/media/hero/03.jpg",
+			"alt": "bold brows berry lips"
+		},
+		{
+			"src": "/media/hero/04.jpg",
+			"alt": "soft nude lips"
+		},
+		{
+			"src": "/media/hero/05.jpg",
+			"alt": "fine eyeliner freckles"
+		},
+		{
+			"src": "/media/hero/06.jpg",
+			"alt": "golden light eye"
+		},
+		{
+			"src": "/media/hero/07.jpg",
+			"alt": "warm glam portrait"
+		},
+		{
+			"src": "/media/hero/08.jpg",
+			"alt": "soft brows blue eyes"
+		},
+		{
+			"src": "/media/hero/09.jpg",
+			"alt": "natural brows copper hair"
+		},
+		{
+			"src": "/media/hero/10.jpg",
+			"alt": "warm nude makeup"
+		},
+		{
+			"src": "/media/hero/11.jpg",
+			"alt": "lip colour application"
+		},
+		{
+			"src": "/media/hero/12.jpg",
+			"alt": "smoky liner portrait"
+		}
+	],
+	"about": {
+		"src": "/media/about/01.jpg",
+		"alt": "makeup artist with brushes"
+	},
+	"testimonials": [
+		{
+			"src": "/media/testimonials/01.jpg",
+			"alt": "powder brows"
+		},
+		{
+			"src": "/media/testimonials/02.jpg",
+			"alt": "bridal makeup"
+		},
+		{
+			"src": "/media/testimonials/03.jpg",
+			"alt": "lip blush"
+		}
+	]
+}

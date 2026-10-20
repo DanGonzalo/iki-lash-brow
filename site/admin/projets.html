@@ -1,0 +1,1719 @@
+<title>Portfolio Projects</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500&family=Geist+Pixel&display=swap">
+<style>
+/* Layout: one dark workspace — project list on the left, the selected project's
+   editor on the right (in working order: title, image, infos, text, gallery),
+   a publish bar on top. Same pixel world and palette as the site
+   (cocoa ink, ivory paper, powder-pink accent). The interface speaks English
+   and German (switch in the top bar); every project text exists in both. */
+:root {
+	--ink: #15100e;
+	--panel: #1e1714;
+	--line: #2e2420;
+	--line-2: #43362f;
+	--paper: #f4ece4;
+	--stone: #9c8b82;
+	--accent: #d9a19a;
+	--danger: #ff6b5b;
+	--pixel: 'Geist Pixel', 'Geist Mono', ui-monospace, monospace;
+	--mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+	color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { background: var(--ink); color: var(--paper); }
+body { font: 13px/1.55 var(--mono); padding-inline: 16px; padding-block: 0 40px; -webkit-font-smoothing: antialiased; }
+button, input, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; background: none; border: 0; padding: 0; }
+button:disabled { cursor: not-allowed; }
+:focus-visible { outline: 1px solid var(--paper); outline-offset: 2px; }
+.label { font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: var(--stone); }
+.sq { display: inline-block; width: 7px; height: 7px; background: var(--paper); flex: none; }
+.sq.o { background: none; border: 1px solid var(--paper); }
+.sq.ok { background: var(--paper); }
+.sq.bad { background: var(--danger); }
+@keyframes blink { 50% { opacity: 0; } }
+.blink { animation: blink 1.05s steps(1) infinite; }
+@media (prefers-reduced-motion: reduce) { .blink { animation: none; } }
+[hidden] { display: none !important; }
+
+/* ---------- Buttons ---------- */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; border: 1px solid var(--paper); padding: 11px 16px; font-size: 11px; letter-spacing: .18em; text-transform: uppercase; transition: background .15s steps(2), color .15s steps(2); white-space: nowrap; }
+.btn:hover:not(:disabled) { background: var(--paper); color: var(--ink); }
+.btn.primary { background: var(--paper); color: var(--ink); }
+.btn.primary:hover:not(:disabled) { background: var(--ink); color: var(--paper); }
+.btn:disabled { opacity: .35; }
+.btn.state { opacity: 1; border-color: var(--line-2); background: transparent; color: var(--stone); cursor: default; }
+.btn.small { padding: 7px 10px; font-size: 10px; }
+.btn.ghost { border-color: var(--line-2); color: var(--stone); }
+.btn.ghost:hover:not(:disabled) { border-color: var(--paper); color: var(--ink); }
+.btn.danger { border-color: var(--danger); color: var(--danger); }
+.btn.danger:hover:not(:disabled) { background: var(--danger); color: var(--ink); }
+.count { display: inline-grid; place-items: center; min-width: 18px; height: 18px; padding: 0 4px; background: var(--ink); color: var(--paper); font-size: 10px; letter-spacing: 0; }
+.btn.primary:hover .count { background: var(--paper); color: var(--ink); }
+
+/* ---------- Top bar ---------- */
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--ink); border-bottom: 1px solid var(--line); margin-inline: -16px; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px 20px; flex-wrap: wrap; }
+.brand { display: flex; align-items: center; gap: 10px; font: 16px var(--pixel); letter-spacing: .16em; text-transform: uppercase; min-width: 0; }
+.brand b { font-weight: 400; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.logo { display: block; height: 20px; width: auto; flex: none; }
+.brand small { font: 10px var(--mono); letter-spacing: .22em; color: var(--stone); white-space: nowrap; }
+.publish { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; justify-content: flex-end; }
+.status { display: flex; align-items: center; gap: 8px; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; min-width: 0; white-space: nowrap; cursor: default; }
+.status.err { color: var(--danger); }
+.status.err .sq { background: var(--danger); }
+
+.notice { margin-top: 16px; border: 1px solid var(--line); padding: 12px 14px; display: flex; gap: 12px; align-items: flex-start; }
+.notice p { margin: 0; color: var(--stone); }
+.notice strong { color: var(--paper); font-weight: 500; }
+
+/* ---------- Workspace ---------- */
+.work { display: grid; grid-template-columns: minmax(0, 320px) minmax(0, 1fr); gap: 24px; margin-top: 20px; align-items: start; }
+@media (max-width: 880px) { .work { grid-template-columns: minmax(0, 1fr); } }
+
+/* Project list */
+.side { position: sticky; top: calc(env(safe-area-inset-top, 0px) + 78px); display: flex; flex-direction: column; gap: 10px; }
+@media (max-width: 880px) { .side { position: static; } }
+.side-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); max-height: calc(100vh - 190px); overflow-y: auto; }
+@media (max-width: 880px) { .list { max-height: none; } }
+.row { display: grid; grid-template-columns: 40px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 8px 6px; border-bottom: 1px solid var(--line); cursor: pointer; position: relative; }
+.row:hover { background: var(--panel); }
+.row.sel { background: var(--paper); color: var(--ink); }
+.row.off .thumb, .row.off .rt b { opacity: .45; }
+.thumb { width: 40px; height: 50px; background: var(--line); object-fit: cover; display: block; filter: grayscale(1); }
+.rt { min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.rt b { font: 15px/1.1 var(--pixel); text-transform: uppercase; font-weight: 400; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.meta { display: flex; align-items: center; gap: 6px; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--stone); overflow: hidden; white-space: nowrap; }
+.row.sel .meta { color: rgba(21,16,14,.6); }
+.pill { font-size: 9px; letter-spacing: .14em; text-transform: uppercase; border: 1px solid currentColor; padding: 0 4px; line-height: 15px; }
+.move { display: flex; flex-direction: column; gap: 2px; opacity: 0; }
+.row:hover .move, .row.sel .move, .row:focus-within .move { opacity: 1; }
+@media (hover: none) { .move { opacity: 1; } }
+.move button { width: 22px; height: 20px; border: 1px solid currentColor; font-size: 10px; line-height: 1; }
+.move button:disabled { opacity: .2; }
+.empty { border: 1px dashed var(--line); padding: 26px 18px; text-align: center; color: var(--stone); }
+
+/* Editor */
+.editor { border: 1px solid var(--line); min-width: 0; }
+.ed-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 14px; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+.back { display: none; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--stone); }
+@media (max-width: 880px) { .back { display: inline-flex; } }
+.saved { font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--stone); display: flex; align-items: center; gap: 8px; margin-left: auto; }
+.ed-body { padding: 22px 18px 26px; display: flex; flex-direction: column; gap: 36px; }
+@media (min-width: 1100px) { .ed-body { padding: 28px 32px 34px; } }
+
+.title-in { width: 100%; background: transparent; border: 0; border-bottom: 1px solid transparent; font: clamp(30px, 4.4vw, 54px)/1 var(--pixel); text-transform: uppercase; padding: 4px 0 8px; outline: none; }
+.title-in:hover { border-color: var(--line); }
+.title-in:focus { border-color: var(--paper); }
+.title-in::placeholder { color: #4a3d36; }
+.ready { display: flex; align-items: center; gap: 8px; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--stone); margin-top: 10px; flex-wrap: wrap; }
+.ready.ok { color: var(--paper); }
+.ready button { text-decoration: underline; text-underline-offset: 3px; text-transform: uppercase; letter-spacing: .1em; font-size: 11px; color: var(--paper); }
+
+section.blk { display: flex; flex-direction: column; gap: 16px; }
+.blk-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; border-bottom: 1px solid var(--line); padding-bottom: 8px; }
+.blk-head h2 { margin: 0; font: 20px var(--pixel); text-transform: uppercase; font-weight: 400; }
+.field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.field input, .field textarea { width: 100%; background: transparent; border: 0; border-bottom: 1px solid var(--line); padding: 8px 0; font-size: 14px; outline: none; border-radius: 0; }
+.field textarea { resize: vertical; min-height: 130px; line-height: 1.6; }
+.field input:focus, .field textarea:focus { border-color: var(--paper); }
+input::placeholder, textarea::placeholder { color: #5a4b43; }
+.field.invalid input { border-color: var(--danger); }
+.hint { font-size: 11px; color: var(--stone); margin: 0; }
+.hint.warn { color: var(--danger); }
+.req { color: var(--paper); }
+
+/* Category chips */
+.chips { display: flex; flex-wrap: wrap; gap: 6px; padding-top: 4px; }
+.chip { border: 1px solid var(--line-2); padding: 6px 10px; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; transition: background .12s steps(2), color .12s steps(2), border-color .12s; }
+.chip:hover:not(:disabled) { border-color: var(--paper); }
+.chip[aria-pressed="true"] { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+.chip.add { border-style: dashed; color: var(--stone); }
+.chip-in { border: 1px solid var(--paper); background: transparent; padding: 6px 10px; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; width: 170px; outline: none; }
+
+/* Extra info rows */
+.infos { border-top: 1px solid var(--line); }
+#infoRows { border-top: 0; }
+.info-row { display: grid; grid-template-columns: 150px minmax(0, 1fr) 28px; gap: 12px; align-items: center; border-bottom: 1px solid var(--line); min-height: 44px; }
+@media (max-width: 520px) { .info-row { grid-template-columns: 100px minmax(0, 1fr) 28px; } }
+.info-row label { font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--stone); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.info-row input { background: transparent; border: 0; padding: 12px 0; font-size: 14px; outline: none; width: 100%; }
+.info-row:focus-within { border-bottom-color: var(--paper); }
+.info-row.invalid { border-bottom-color: var(--danger); }
+.info-row.de { grid-template-columns: 120px 150px minmax(0, 1fr); }
+@media (max-width: 520px) { .info-row.de { grid-template-columns: 90px 110px minmax(0, 1fr); } }
+.info-row.de input.lbl { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--paper); border-right: 1px solid var(--line); }
+.blk.de { border-left: 2px solid var(--accent); padding-left: 16px; }
+.lang { display: inline-block; margin-left: 6px; padding: 0 5px; font-size: 9px; line-height: 15px; letter-spacing: .14em; background: var(--accent); color: var(--ink); vertical-align: 1px; }
+.info-row .x { width: 26px; height: 26px; border: 1px solid transparent; color: var(--stone); font-size: 14px; opacity: 0; }
+.info-row:hover .x, .info-row .x:focus-visible { opacity: 1; }
+@media (hover: none) { .info-row .x { opacity: 1; } }
+.info-row .x:hover { border-color: var(--danger); color: var(--danger); }
+.info-confirm { grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; padding: 10px 0; }
+.add-info { display: flex; flex-direction: column; gap: 10px; padding-top: 4px; }
+.add-form { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; border: 1px dashed var(--line-2); padding: 12px; }
+.add-form input { background: transparent; border: 0; border-bottom: 1px solid var(--paper); padding: 6px 0; font-size: 13px; outline: none; flex: 1 1 200px; min-width: 0; max-width: 320px; }
+
+/* Images */
+.drop { border: 1px dashed var(--line-2); padding: 26px 18px; text-align: center; color: var(--stone); display: flex; flex-direction: column; align-items: center; gap: 10px; transition: border-color .15s, background .15s; }
+.drop.over { border-color: var(--paper); background: var(--panel); color: var(--paper); }
+.drop strong { color: var(--paper); font-weight: 400; }
+.cover { display: grid; grid-template-columns: minmax(0, 280px) minmax(0, 1fr); gap: 20px; align-items: start; }
+@media (max-width: 620px) { .cover { grid-template-columns: minmax(0, 1fr); } }
+.frame { position: relative; background: var(--line); aspect-ratio: 4 / 5; overflow: hidden; max-width: 100%; }
+.frame img, .frame video { width: 100%; height: 100%; object-fit: cover; display: block; filter: grayscale(1); transition: filter .4s; }
+.frame:hover img, .frame:hover video { filter: none; }
+.embed-tile { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 12px; text-align: center; background: var(--panel); }
+.embed-tile b { font: 30px/1 var(--pixel); font-weight: 400; }
+.embed-tile span { font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--stone); overflow-wrap: anywhere; }
+.badge.right { left: auto; right: 8px; }
+.link-form { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; border: 1px dashed var(--line-2); padding: 12px; }
+.link-form input { flex: 1 1 260px; background: transparent; border: 0; border-bottom: 1px solid var(--paper); padding: 6px 0; font-size: 13px; outline: none; min-width: 0; }
+.badge { position: absolute; left: 8px; top: 8px; background: var(--ink); font-size: 9px; letter-spacing: .18em; text-transform: uppercase; padding: 3px 6px; }
+.gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 14px; }
+.gitem { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.gitem .frame { aspect-ratio: 1 / 1; }
+.gtools { position: absolute; inset: auto 6px 6px 6px; display: flex; gap: 4px; justify-content: space-between; opacity: 0; transition: opacity .15s; }
+.gitem:hover .gtools, .gitem:focus-within .gtools { opacity: 1; }
+@media (hover: none) { .gtools { opacity: 1; } }
+.gtools span { display: flex; gap: 4px; }
+.gtools button { background: var(--ink); border: 1px solid var(--paper); min-width: 26px; height: 24px; padding: 0 6px; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; }
+.gtools button:hover:not(:disabled) { background: var(--paper); color: var(--ink); }
+.gtools button:disabled { opacity: .3; }
+.gtools button.warn { border-color: var(--danger); color: var(--danger); }
+.gitem input { background: transparent; border: 0; border-bottom: 1px solid var(--line); padding: 4px 0; font-size: 11px; width: 100%; outline: none; }
+.gitem input:focus { border-color: var(--paper); }
+.uploading { display: grid; place-items: center; aspect-ratio: 1 / 1; border: 1px dashed var(--line-2); font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--stone); }
+
+/* Visibility switch */
+.switch { display: inline-flex; align-items: center; gap: 10px; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; }
+.switch .track { width: 34px; height: 18px; border: 1px solid var(--paper); position: relative; flex: none; }
+.switch .track::after { content: ""; position: absolute; top: 3px; left: 3px; width: 10px; height: 10px; background: var(--paper); transition: transform .15s steps(3); }
+.switch[aria-checked="false"] .track::after { transform: translateX(16px); background: var(--stone); }
+.switch[aria-checked="false"] { color: var(--stone); }
+
+.danger-zone { border-top: 1px solid var(--line); padding-top: 18px; display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.confirm { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+
+.foot { margin-top: 24px; border-top: 1px solid var(--line); padding-top: 14px; display: flex; gap: 10px; align-items: flex-start; color: var(--stone); font-size: 11px; }
+/* History & trash */
+.hist { margin-top: 20px; display: flex; flex-direction: column; gap: 36px; max-width: 980px; }
+.hist-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.hist-head h2 { margin: 0; font: clamp(26px, 3.4vw, 40px)/1 var(--pixel); text-transform: uppercase; font-weight: 400; }
+.hlist { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+.hrow { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 16px; align-items: center; padding: 12px 6px; border-bottom: 1px solid var(--line); }
+.hrow b { font: 15px/1.2 var(--pixel); text-transform: uppercase; font-weight: 400; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.hrow .meta { margin-top: 4px; white-space: normal; }
+.hrow .confirm { justify-content: flex-end; }
+.hrow .hint { grid-column: 1 / -1; }
+.hrow.trash { grid-template-columns: 40px minmax(0, 1fr) auto; }
+.hrow.now { background: var(--panel); }
+#historyBtn[aria-pressed="true"] { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+.toast { position: fixed; left: 50%; bottom: calc(env(safe-area-inset-bottom, 0px) + 20px); transform: translateX(-50%); background: var(--paper); color: var(--ink); padding: 10px 14px; font-size: 11px; letter-spacing: .14em; text-transform: uppercase; z-index: 10; max-width: calc(100% - 32px); }
+
+/* ---------- Language switch & bilingual fields ---------- */
+.langsw { display: flex; border: 1px solid var(--line-2); flex: none; }
+.langsw button { min-width: 34px; height: 30px; padding: 0 8px; font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--stone); transition: background .15s steps(2), color .15s steps(2); }
+.langsw button:hover { color: var(--paper); }
+.langsw button[aria-pressed="true"] { background: var(--accent); color: var(--ink); }
+.lang { display: inline-block; margin-left: 6px; padding: 0 5px; font-size: 9px; line-height: 15px; letter-spacing: .14em; background: var(--line-2); color: var(--paper); vertical-align: 1px; }
+.lang.de { background: var(--accent); color: var(--ink); }
+.bi { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px 26px; }
+@media (max-width: 720px) { .bi { grid-template-columns: minmax(0, 1fr); } }
+.title-in.second { font-size: clamp(22px, 3vw, 36px); color: var(--paper); }
+.titles { display: flex; flex-direction: column; gap: 10px; }
+.info-head, .info-row.bi3 { display: grid; grid-template-columns: 150px minmax(0, 1fr) minmax(0, 1fr) 28px; gap: 12px; align-items: center; }
+@media (max-width: 620px) { .info-head, .info-row.bi3 { grid-template-columns: 92px minmax(0, 1fr) minmax(0, 1fr) 28px; } }
+.info-head { padding: 0 0 6px; border-bottom: 1px solid var(--line); }
+.lblcell { display: flex; flex-direction: column; gap: 2px; min-width: 0; padding: 6px 0; }
+.lblcell > span { font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--stone); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lblcell input { padding: 2px 0 !important; font-size: 10px !important; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); }
+.info-row.bi3 input.val { border-left: 1px solid var(--line); padding-left: 10px; }
+.catde { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
+.catde input { flex: 1 1 auto; max-width: 320px; background: transparent; border: 0; border-bottom: 1px solid var(--line); padding: 6px 0; font-size: 13px; outline: none; }
+.catde input:focus { border-color: var(--paper); }
+.cat-form { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; border: 1px dashed var(--line-2); padding: 10px; width: 100%; }
+.cat-form input { background: transparent; border: 0; border-bottom: 1px solid var(--paper); padding: 6px 0; font-size: 12px; outline: none; flex: 1 1 140px; min-width: 0; max-width: 220px; }
+.caps { display: flex; flex-direction: column; gap: 2px; }
+.caps label { display: flex; align-items: center; gap: 6px; }
+.caps label .lang { margin: 0; flex: none; }
+.cover-caps { display: flex; flex-direction: column; gap: 10px; }
+.ready .tr { color: var(--accent); }
+.ready .tr::before { content: "◇ "; }
+</style>
+
+<header class="top">
+	<div class="brand">
+		<svg class="logo" id="logo" viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true"><rect x="3" y="0" width="5" height="5" fill="#d9a19a"/><rect x="0" y="5" width="3" height="3" fill="#f4ece4"/></svg>
+		<b id="siteName">Portfolio</b><small data-i18n="brandSub">/ Projects</small>
+	</div>
+	<div class="publish">
+		<div class="langsw" role="group" id="langSwitch" aria-label="Language">
+			<button type="button" data-lang="en" lang="en">EN</button><button type="button" data-lang="de" lang="de">DE</button>
+		</div>
+		<button class="btn small ghost" id="historyBtn" aria-pressed="false" disabled data-i18n="history">History</button>
+		<div class="status" id="status" aria-live="polite"><span class="sq o"></span><span data-i18n="connecting">Connecting…</span></div>
+		<button class="btn primary" id="publishBtn" disabled data-i18n="publish">Publish</button>
+	</div>
+</header>
+
+<div id="notice"></div>
+
+<main class="work">
+	<aside class="side" id="side">
+		<div class="side-head">
+			<span class="label" id="count" data-i18n="projects">Projects</span>
+			<button class="btn small" id="addBtn" disabled data-i18n="newProject">+ New project</button>
+		</div>
+		<ul class="list" id="list"><li class="empty" data-i18n="loadingProjects">Loading projects…</li></ul>
+	</aside>
+
+	<section class="editor" id="editor" aria-label="Project editor">
+		<div class="empty" style="border:0" data-i18n="pickProject">Pick a project from the list, or create a new one.</div>
+	</section>
+</main>
+
+<section class="hist" id="history" hidden aria-label="History"></section>
+
+<p class="foot" id="foot"><span class="sq o" style="margin-top:4px"></span><span data-i18n="foot">Your changes are saved automatically on this page. To put them online, click “Publish to site” at the top right.</span></p>
+
+<input type="file" id="fileInput" accept="image/jpeg,image/png,image/webp,image/*" multiple hidden>
+
+<script>
+(() => {
+	'use strict';
+
+	const $ = (s, el = document) => el.querySelector(s);
+	const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+	const blob = (id) => '/_blob/' + id;
+	const nowIso = () => new Date().toISOString();
+	const pad = (n) => String(n).padStart(2, '0');
+	const VIDEO_TYPES = ['video/mp4', 'video/webm'];
+	const MAX_VIDEO = 20 * 1024 * 1024;
+	const isVideoFile = (f) => f.type.startsWith('video/') || /\.(mp4|webm|mov|m4v)$/i.test(f.name);
+	const isImageFile = (f) => f.type.startsWith('image/') || /\.(jpe?g|png|webp|heic)$/i.test(f.name);
+
+	// ---------- Interface language (English / German) ----------
+	const LANG_KEY = 'portfolio-admin-lang';
+	let L = (() => {
+		try { const s = localStorage.getItem(LANG_KEY); if (s === 'en' || s === 'de') return s; } catch (_) { /* storage blocked */ }
+		return (navigator.language || '').toLowerCase().startsWith('de') ? 'de' : 'en';
+	})();
+	const s = (n, one, many) => (n === 1 ? one : many);
+	const I18N = {
+		en: {
+			locale: 'en-GB',
+			docTitle: 'Portfolio Projects',
+			brandSub: '/ Projects',
+			langLabel: 'Interface language',
+			history: 'History',
+			connecting: 'Connecting…',
+			publish: 'Publish',
+			projects: 'Projects',
+			newProject: '+ New project',
+			loadingProjects: 'Loading projects…',
+			editorAria: 'Project editor',
+			pickProject: 'Pick a project from the list, or create a new one.',
+			foot: 'Your changes are saved automatically on this page. To put them online, click “Publish to site” at the top right.',
+			justNow: 'just now',
+			minAgo: (n) => `${n} min ago`,
+			hAgo: (n) => `${n} h ago`,
+			mTitle: 'title', mCover: 'featured image', mCategory: 'category',
+			theSite: 'the site',
+			offline: 'Offline',
+			requested: (ago) => `Requested ${ago}`,
+			every: (m) => (m < 60 ? `${m} min` : `${Math.round(m / 60)} h`),
+			pendingTip: (every) => `Claude will publish on the next run of the task (every ${every}). To publish right now: Scheduled tasks → “Run now”.`,
+			publishing: 'Claude is publishing…',
+			failed: 'Publishing failed',
+			toPublish: (n) => `${n} to publish`,
+			changesToPublish: 'Changes to publish',
+			upToDate: (ago) => `Up to date · ${ago}`,
+			publishedOn: (host) => `Published on ${host}`,
+			notYet: 'Not published yet',
+			btnBusy: 'Publishing…',
+			btnUpToDate: 'Up to date ✓',
+			btnCancel: 'Cancel request',
+			btnPublish: 'Publish to site',
+			cancelTip: 'Publishing is already requested: Claude will do it on the next run. Click to cancel.',
+			ariaBusy: 'Publishing in progress',
+			ariaUpToDate: 'The site is up to date',
+			ariaCancel: 'Cancel the publish request',
+			ariaPublish: (n) => `Publish ${n || ''} ${s(n, 'change', 'changes')} to the site`,
+			cancelled: 'Publish request cancelled',
+			failedRetry: 'Failed, please try again',
+			incomplete: (title) => `“${title}” is incomplete: complete it or hide it`,
+			untitled: 'Untitled',
+			publishRequested: 'Publish requested',
+			requestFailed: 'The request could not be sent, please try again',
+			countLine: (n, v) => `${pad(n)} ${s(n, 'project', 'projects')} · ${pad(v)} online`,
+			emptyList: 'No projects yet.<br>Create the first one with “+ New project”.',
+			pillHidden: 'Hidden', pillIncomplete: 'To complete', pillToPublish: 'To publish',
+			moveUp: 'Move up', moveDown: 'Move down',
+			moveFailed: 'Moving failed',
+			createFailed: 'Could not create the project',
+			saving: 'Saving…', saveError: 'Not saved · retrying', dirty: 'Editing…', saved: 'Saved',
+			configFailed: 'The setting could not be saved',
+			back: '← Projects',
+			visOn: 'Online on the site', visOff: 'Hidden from the site',
+			titleLabel: 'Project title',
+			titlePhEn: 'Project title in English', titlePhDe: 'Project title in German',
+			coverHead: 'Featured image', coverSub: 'Site grid',
+			infoHead: 'Details', infoSub: 'Project sheet',
+			category: 'Category',
+			categoryDe: 'Category in German',
+			catHint: 'Each category has an English and a German name.',
+			newCatEn: 'Name in English', newCatDe: 'Name in German',
+			otherCat: '+ New category',
+			ok: 'OK',
+			extraInfo: 'Additional details', extraInfoHint: 'shown only when filled in',
+			year: 'Year', yearPh: '— YYYY', yearBad: 'Year with 4 digits (e.g. 2025)',
+			textHead: 'Text', textSub: 'Optional · both languages',
+			summary: 'Tagline',
+			summaryPhEn: 'One sentence that sums up the project', summaryPhDe: 'Ein Satz, der das Projekt zusammenfasst',
+			description: 'Description',
+			descPhEn: 'Tell the story of the project. A blank line starts a new paragraph.',
+			descPhDe: 'Erzähl die Geschichte des Projekts. Eine Leerzeile beginnt einen neuen Absatz.',
+			galleryHead: 'Gallery',
+			ready: 'Ready to publish',
+			missing: 'Missing:',
+			translation: 'Translation missing:',
+			fTitle: 'title', fCategory: 'category', fSummary: 'tagline', fDescription: 'description',
+			removeFieldConfirm: (label) => `Remove “${label}” from all projects?`,
+			cancel: 'Cancel', remove: 'Remove',
+			removeFieldAria: (label) => `Remove the detail ${label} from all projects`,
+			removeFieldTitle: 'Remove this detail',
+			labelDeAria: (label) => `German label of ${label}`,
+			valueAria: (label, lang) => `${label} (${lang})`,
+			addInfo: '+ Add a detail',
+			newFieldPhEn: 'Label in English (e.g. Technique)', newFieldPhDe: 'Label in German (e.g. Technik)',
+			add: 'Add',
+			addInfoHint: 'The detail is added to all projects. Left empty, it does not appear on the site.',
+			fieldExists: 'This detail already exists',
+			fieldRemoved: 'Detail removed from all projects',
+			noFields: 'No additional details yet.',
+			dropGallery: 'Drag your photos or videos here, or', dropCover: 'Drag your photo here, or',
+			pickFile: 'Choose from computer',
+			dropGalleryHint: 'Photos JPG, PNG or WebP · videos MP4 or WebM, 20 MB max',
+			dropCoverHint: 'JPG, PNG or WebP · resized automatically',
+			addMainPhoto: 'Add the main photo',
+			featured: 'Featured',
+			caption: 'Caption',
+			captionPhEn: 'Describe the photo in English', captionPhDe: 'Beschreibe das Foto auf Deutsch',
+			replacePhoto: 'Replace photo',
+			starTip: 'Tip: in the gallery, “★” features another photo.',
+			video: 'Video', videoFile: 'Video file',
+			galCount: (p, v) => `${pad(p)} ${s(p, 'photo', 'photos')} · ${pad(v)} ${s(v, 'video', 'videos')}`,
+			moveLeft: 'Move left', moveRight: 'Move right', feature: 'Feature',
+			removeImg: 'Remove', removeImgConfirm: 'Remove?',
+			captionAria: (i, lang) => `Caption ${i} (${lang})`,
+			uploading: 'Uploading…',
+			videoLinkPh: 'YouTube, Vimeo, Dailymotion, Loom, Streamable, Google Drive or .mp4 link',
+			videoLinkAria: 'Video link',
+			addVideoLink: '+ Video link',
+			videoLinkHint: 'YouTube, Vimeo, Dailymotion, Loom, Streamable, Google Drive or .mp4 file · for videos over 20 MB',
+			addMoreMedia: 'Add more photos or videos', addMedia: 'Add the project photos and videos',
+			linkUnknown: 'Link not recognised: YouTube, Vimeo, Dailymotion, Loom, Streamable, Google Drive or .mp4 file',
+			videoAdded: (p) => `${p} video added`,
+			deleteConfirm: (title) => `Delete “${title}”? It will disappear from the site at the next publish (recoverable in History).`,
+			delete: 'Delete',
+			deleteHint: 'To remove a project temporarily, hide it rather than deleting it.',
+			deleteProject: 'Delete project',
+			deleted: 'Project moved to the trash · recoverable in History',
+			deleteFailed: 'Deleting failed',
+			coverMustBeImage: 'The featured image must be a photo (JPG, PNG or WebP)',
+			pickMedia: 'Choose photos or MP4 / WebM videos',
+			videoFormat: (name) => `“${name}”: MP4 or WebM videos only`,
+			videoTooBig: (name) => `“${name}” is over 20 MB: add it as a video link instead (YouTube, Vimeo…)`,
+			tooLarge: 'File too large (20 MB max)',
+			quota: 'Storage is full',
+			unsupported: 'Format not supported',
+			unsupportedImg: 'Format not supported (JPG, PNG or WebP)',
+			uploadFailed: 'A file could not be uploaded',
+			filesAdded: (n) => `${n} files added`,
+			labelPublish: 'Publish', labelBeforeRestore: 'Before restore',
+			snapshotFailed: 'Backup copy impossible (too large)',
+			nProjects: (n) => `${pad(n)} ${s(n, 'project', 'projects')}`,
+			added: (n) => `+${n} added`, removed: (n) => `−${n} removed`, changed: (n) => `${n} changed`,
+			noChange: 'no change',
+			restore: 'Restore',
+			restoreHint: (names) => `Projects will return to this state (${names}). The current state is saved here first, just in case. You will then need to publish.`,
+			deletedAgo: (ago) => `deleted ${ago}`,
+			erase: 'Erase', eraseTitle: 'Delete permanently', recover: 'Recover',
+			historyTitle: 'History', backToProjects: '← Back to projects',
+			trash: 'Trash', noTrash: 'No deleted projects.',
+			trashHint: (n) => `A recovered project returns at the end of the list; publish to put it back on the site. The trash keeps the last ${n} deleted projects.`,
+			publications: 'Publishes', lastN: (n) => `last ${n}`,
+			noPublications: 'A copy is kept every time you click “Publish to site”.',
+			restored: (date) => `Version of ${date} restored · publish to update the site`,
+			restoreFailed: 'Restoring failed, please try again',
+			recovered: (title) => `“${title}” recovered`,
+			recoverFailed: 'Recovering failed, please try again',
+			openFromClaude: '<strong>Open this page from claude.ai</strong>, signed in to your account: that is where your projects are stored.',
+			unavailable: 'Projects unavailable here.',
+			readOnly: '<strong>Read only.</strong> Only the site owner can edit and publish projects.',
+			noUploads: '<strong>Photo uploads are unavailable here.</strong> Open the page in claude.ai to add photos.',
+			loadFailed: 'Could not load the projects. Reload the page.',
+		},
+		de: {
+			locale: 'de-DE',
+			docTitle: 'Portfolio-Projekte',
+			brandSub: '/ Projekte',
+			langLabel: 'Sprache der Oberfläche',
+			history: 'Verlauf',
+			connecting: 'Verbinde …',
+			publish: 'Veröffentlichen',
+			projects: 'Projekte',
+			newProject: '+ Neues Projekt',
+			loadingProjects: 'Projekte werden geladen …',
+			editorAria: 'Projekt bearbeiten',
+			pickProject: 'Wähle ein Projekt aus der Liste oder lege ein neues an.',
+			foot: 'Deine Änderungen werden auf dieser Seite automatisch gespeichert. Um sie online zu stellen, klicke oben rechts auf „Veröffentlichen“.',
+			justNow: 'gerade eben',
+			minAgo: (n) => `vor ${n} Min.`,
+			hAgo: (n) => `vor ${n} Std.`,
+			mTitle: 'Titel', mCover: 'Titelbild', mCategory: 'Kategorie',
+			theSite: 'die Website',
+			offline: 'Offline',
+			requested: (ago) => `Angefragt ${ago}`,
+			every: (m) => (m < 60 ? `${m} Min.` : `${Math.round(m / 60)} Std.`),
+			pendingTip: (every) => `Claude veröffentlicht beim nächsten Durchlauf der Aufgabe (alle ${every}). Sofort veröffentlichen: Geplante Aufgaben → „Jetzt ausführen“.`,
+			publishing: 'Claude veröffentlicht …',
+			failed: 'Veröffentlichung fehlgeschlagen',
+			toPublish: (n) => `${n} zu veröffentlichen`,
+			changesToPublish: 'Änderungen zu veröffentlichen',
+			upToDate: (ago) => `Aktuell · ${ago}`,
+			publishedOn: (host) => `Veröffentlicht auf ${host}`,
+			notYet: 'Noch nicht veröffentlicht',
+			btnBusy: 'Wird veröffentlicht …',
+			btnUpToDate: 'Aktuell ✓',
+			btnCancel: 'Anfrage abbrechen',
+			btnPublish: 'Veröffentlichen',
+			cancelTip: 'Die Veröffentlichung ist bereits angefragt: Claude erledigt sie beim nächsten Durchlauf. Klicken zum Abbrechen.',
+			ariaBusy: 'Veröffentlichung läuft',
+			ariaUpToDate: 'Die Website ist aktuell',
+			ariaCancel: 'Veröffentlichungsanfrage abbrechen',
+			ariaPublish: (n) => `${n || ''} ${s(n, 'Änderung', 'Änderungen')} auf der Website veröffentlichen`,
+			cancelled: 'Veröffentlichungsanfrage abgebrochen',
+			failedRetry: 'Fehlgeschlagen, bitte erneut versuchen',
+			incomplete: (title) => `„${title}“ ist unvollständig: ergänze es oder blende es aus`,
+			untitled: 'Ohne Titel',
+			publishRequested: 'Veröffentlichung angefragt',
+			requestFailed: 'Die Anfrage konnte nicht gesendet werden, bitte erneut versuchen',
+			countLine: (n, v) => `${pad(n)} ${s(n, 'Projekt', 'Projekte')} · ${pad(v)} online`,
+			emptyList: 'Noch keine Projekte.<br>Lege das erste mit „+ Neues Projekt“ an.',
+			pillHidden: 'Ausgeblendet', pillIncomplete: 'Unvollständig', pillToPublish: 'Zu veröffentlichen',
+			moveUp: 'Nach oben', moveDown: 'Nach unten',
+			moveFailed: 'Verschieben fehlgeschlagen',
+			createFailed: 'Projekt konnte nicht angelegt werden',
+			saving: 'Speichern …', saveError: 'Nicht gespeichert · neuer Versuch', dirty: 'Bearbeitung …', saved: 'Gespeichert',
+			configFailed: 'Die Einstellung konnte nicht gespeichert werden',
+			back: '← Projekte',
+			visOn: 'Online auf der Website', visOff: 'Auf der Website ausgeblendet',
+			titleLabel: 'Projekttitel',
+			titlePhEn: 'Projekttitel auf Englisch', titlePhDe: 'Projekttitel auf Deutsch',
+			coverHead: 'Titelbild', coverSub: 'Raster der Website',
+			infoHead: 'Details', infoSub: 'Projektdaten',
+			category: 'Kategorie',
+			categoryDe: 'Kategorie auf Deutsch',
+			catHint: 'Jede Kategorie hat einen englischen und einen deutschen Namen.',
+			newCatEn: 'Name auf Englisch', newCatDe: 'Name auf Deutsch',
+			otherCat: '+ Neue Kategorie',
+			ok: 'OK',
+			extraInfo: 'Weitere Angaben', extraInfoHint: 'nur sichtbar, wenn ausgefüllt',
+			year: 'Jahr', yearPh: '— JJJJ', yearBad: 'Jahr mit 4 Ziffern (z. B. 2025)',
+			textHead: 'Text', textSub: 'Optional · beide Sprachen',
+			summary: 'Kurzbeschreibung',
+			summaryPhEn: 'One sentence that sums up the project', summaryPhDe: 'Ein Satz, der das Projekt zusammenfasst',
+			description: 'Beschreibung',
+			descPhEn: 'Tell the story of the project. A blank line starts a new paragraph.',
+			descPhDe: 'Erzähl die Geschichte des Projekts. Eine Leerzeile beginnt einen neuen Absatz.',
+			galleryHead: 'Galerie',
+			ready: 'Bereit zur Veröffentlichung',
+			missing: 'Es fehlt:',
+			translation: 'Übersetzung fehlt:',
+			fTitle: 'Titel', fCategory: 'Kategorie', fSummary: 'Kurzbeschreibung', fDescription: 'Beschreibung',
+			removeFieldConfirm: (label) => `„${label}“ aus allen Projekten entfernen?`,
+			cancel: 'Abbrechen', remove: 'Entfernen',
+			removeFieldAria: (label) => `Angabe ${label} aus allen Projekten entfernen`,
+			removeFieldTitle: 'Diese Angabe entfernen',
+			labelDeAria: (label) => `Deutsche Bezeichnung von ${label}`,
+			valueAria: (label, lang) => `${label} (${lang})`,
+			addInfo: '+ Angabe hinzufügen',
+			newFieldPhEn: 'Bezeichnung auf Englisch (z. B. Technique)', newFieldPhDe: 'Bezeichnung auf Deutsch (z. B. Technik)',
+			add: 'Hinzufügen',
+			addInfoHint: 'Die Angabe wird allen Projekten hinzugefügt. Leer gelassen, erscheint sie nicht auf der Website.',
+			fieldExists: 'Diese Angabe gibt es bereits',
+			fieldRemoved: 'Angabe aus allen Projekten entfernt',
+			noFields: 'Noch keine weiteren Angaben.',
+			dropGallery: 'Zieh deine Fotos oder Videos hierher, oder', dropCover: 'Zieh dein Foto hierher, oder',
+			pickFile: 'Vom Computer auswählen',
+			dropGalleryHint: 'Fotos JPG, PNG oder WebP · Videos MP4 oder WebM, max. 20 MB',
+			dropCoverHint: 'JPG, PNG oder WebP · wird automatisch verkleinert',
+			addMainPhoto: 'Titelbild hinzufügen',
+			featured: 'Titelbild',
+			caption: 'Bildunterschrift',
+			captionPhEn: 'Describe the photo in English', captionPhDe: 'Beschreibe das Foto auf Deutsch',
+			replacePhoto: 'Foto ersetzen',
+			starTip: 'Tipp: In der Galerie macht „★“ ein anderes Foto zum Titelbild.',
+			video: 'Video', videoFile: 'Videodatei',
+			galCount: (p, v) => `${pad(p)} ${s(p, 'Foto', 'Fotos')} · ${pad(v)} ${s(v, 'Video', 'Videos')}`,
+			moveLeft: 'Nach links', moveRight: 'Nach rechts', feature: 'Als Titelbild',
+			removeImg: 'Entfernen', removeImgConfirm: 'Entfernen?',
+			captionAria: (i, lang) => `Bildunterschrift ${i} (${lang})`,
+			uploading: 'Wird hochgeladen …',
+			videoLinkPh: 'Link zu YouTube, Vimeo, Dailymotion, Loom, Streamable, Google Drive oder .mp4',
+			videoLinkAria: 'Video-Link',
+			addVideoLink: '+ Video-Link',
+			videoLinkHint: 'YouTube, Vimeo, Dailymotion, Loom, Streamable, Google Drive oder .mp4-Datei · für Videos über 20 MB',
+			addMoreMedia: 'Weitere Fotos oder Videos hinzufügen', addMedia: 'Fotos und Videos des Projekts hinzufügen',
+			linkUnknown: 'Link nicht erkannt: YouTube, Vimeo, Dailymotion, Loom, Streamable, Google Drive oder .mp4-Datei',
+			videoAdded: (p) => `${p}-Video hinzugefügt`,
+			deleteConfirm: (title) => `„${title}“ löschen? Es verschwindet bei der nächsten Veröffentlichung von der Website (im Verlauf wiederherstellbar).`,
+			delete: 'Löschen',
+			deleteHint: 'Um ein Projekt vorübergehend zu entfernen, blende es lieber aus, statt es zu löschen.',
+			deleteProject: 'Projekt löschen',
+			deleted: 'Projekt im Papierkorb · im Verlauf wiederherstellbar',
+			deleteFailed: 'Löschen fehlgeschlagen',
+			coverMustBeImage: 'Das Titelbild muss ein Foto sein (JPG, PNG oder WebP)',
+			pickMedia: 'Wähle Fotos oder MP4-/WebM-Videos',
+			videoFormat: (name) => `„${name}“: nur MP4- oder WebM-Videos`,
+			videoTooBig: (name) => `„${name}“ ist größer als 20 MB: füge es lieber als Video-Link hinzu (YouTube, Vimeo …)`,
+			tooLarge: 'Datei zu groß (max. 20 MB)',
+			quota: 'Speicher voll',
+			unsupported: 'Format nicht unterstützt',
+			unsupportedImg: 'Format nicht unterstützt (JPG, PNG oder WebP)',
+			uploadFailed: 'Eine Datei konnte nicht hochgeladen werden',
+			filesAdded: (n) => `${n} Dateien hinzugefügt`,
+			labelPublish: 'Veröffentlichung', labelBeforeRestore: 'Vor Wiederherstellung',
+			snapshotFailed: 'Sicherungskopie nicht möglich (zu groß)',
+			nProjects: (n) => `${pad(n)} ${s(n, 'Projekt', 'Projekte')}`,
+			added: (n) => `+${n} hinzugefügt`, removed: (n) => `−${n} entfernt`, changed: (n) => `${n} geändert`,
+			noChange: 'keine Änderung',
+			restore: 'Wiederherstellen',
+			restoreHint: (names) => `Die Projekte kehren zu diesem Stand zurück (${names}). Der aktuelle Stand wird vorher hier gesichert, für alle Fälle. Danach musst du veröffentlichen.`,
+			deletedAgo: (ago) => `gelöscht ${ago}`,
+			erase: 'Endgültig löschen', eraseTitle: 'Endgültig löschen', recover: 'Wiederherstellen',
+			historyTitle: 'Verlauf', backToProjects: '← Zurück zu den Projekten',
+			trash: 'Papierkorb', noTrash: 'Keine gelöschten Projekte.',
+			trashHint: (n) => `Ein wiederhergestelltes Projekt kommt ans Ende der Liste; veröffentliche, um es wieder auf die Website zu bringen. Der Papierkorb behält die letzten ${n} gelöschten Projekte.`,
+			publications: 'Veröffentlichungen', lastN: (n) => `letzte ${n}`,
+			noPublications: 'Bei jedem Klick auf „Veröffentlichen“ wird eine Kopie gespeichert.',
+			restored: (date) => `Stand vom ${date} wiederhergestellt · veröffentliche, um die Website zu aktualisieren`,
+			restoreFailed: 'Wiederherstellung fehlgeschlagen, bitte erneut versuchen',
+			recovered: (title) => `„${title}“ wiederhergestellt`,
+			recoverFailed: 'Wiederherstellung fehlgeschlagen, bitte erneut versuchen',
+			openFromClaude: '<strong>Öffne diese Seite auf claude.ai</strong>, angemeldet mit deinem Konto: Dort sind deine Projekte gespeichert.',
+			unavailable: 'Projekte hier nicht verfügbar.',
+			readOnly: '<strong>Nur lesen.</strong> Nur die Inhaberin der Website kann Projekte bearbeiten und veröffentlichen.',
+			noUploads: '<strong>Foto-Upload hier nicht verfügbar.</strong> Öffne die Seite auf claude.ai, um Fotos hinzuzufügen.',
+			loadFailed: 'Projekte konnten nicht geladen werden. Lade die Seite neu.',
+		},
+	};
+	const t = (key, ...args) => {
+		const v = I18N[L][key] ?? I18N.en[key] ?? key;
+		return typeof v === 'function' ? v(...args) : v;
+	};
+	const badge = (lang) => `<span class="lang ${lang}">${lang.toUpperCase()}</span>`;
+
+	// Static texts of the page, in the interface language
+	function applyStatic() {
+		document.documentElement.lang = L;
+		document.title = t('docTitle');
+		document.querySelectorAll('[data-i18n]').forEach((el) => { el.textContent = t(el.dataset.i18n); });
+		$('#editor').setAttribute('aria-label', t('editorAria'));
+		$('#history').setAttribute('aria-label', t('historyTitle'));
+		$('#langSwitch').setAttribute('aria-label', t('langLabel'));
+		document.querySelectorAll('#langSwitch [data-lang]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.lang === L)));
+	}
+
+	// Video link → provider name, or null when not supported
+	// (same list as scripts/apply-projects.mjs)
+	function videoProvider(url) {
+		try {
+			const u = new URL(url.trim());
+			if (!/^https?:$/.test(u.protocol)) return null;
+			const h = u.hostname.replace(/^www\.|^m\./, '');
+			if (/\.(mp4|webm)$/i.test(u.pathname)) return t('videoFile');
+			if (h === 'youtu.be' || h.endsWith('youtube.com')) return 'YouTube';
+			if (h.endsWith('vimeo.com')) return 'Vimeo';
+			if (h.endsWith('dailymotion.com') || h === 'dai.ly') return 'Dailymotion';
+			if (h.endsWith('loom.com')) return 'Loom';
+			if (h.endsWith('streamable.com')) return 'Streamable';
+			if (h === 'drive.google.com') return 'Google Drive';
+		} catch (_) { /* not a URL */ }
+		return null;
+	}
+
+	let db = null, assets = null, uid = null, canWrite = false;
+	const state = {
+		projects: [],      // [{id, data}] sorted by order
+		selected: null,
+		draft: null,
+		deploy: null,      // site/deploy
+		edits: null,       // site/edits
+		config: { fields: [] }, // site/config
+		uploads: 0,
+		history: [],       // [{id, data}] newest first — snapshots taken at each publish
+		trash: [],         // [{id, data}] newest first — deleted projects
+		view: 'projects',
+		ui: { restoring: null, purging: null, otherCategory: false, addingInfo: false, removingField: null, deleting: false, confirmImg: -1, addingLink: false },
+	};
+
+	// ---------- Helpers ----------
+	function timeAgo(iso) {
+		if (!iso) return '';
+		const sec = Math.max(0, (Date.now() - new Date(iso).getTime()) / 1000);
+		if (sec < 60) return t('justNow');
+		if (sec < 3600) return t('minAgo', Math.round(sec / 60));
+		if (sec < 86400) return t('hAgo', Math.round(sec / 3600));
+		return new Date(iso).toLocaleDateString(t('locale'), { day: 'numeric', month: 'short' });
+	}
+	function toast(msg) {
+		document.querySelectorAll('.toast').forEach((el) => el.remove());
+		const el = document.createElement('div');
+		el.className = 'toast';
+		el.setAttribute('role', 'status');
+		el.textContent = msg;
+		document.body.appendChild(el);
+		setTimeout(() => el.remove(), 2600);
+	}
+	const validYear = (y) => Number.isInteger(y) && y >= 1900 && y <= 2100;
+	const has = (v) => (Array.isArray(v) ? v.length > 0 : !!String(v ?? '').trim());
+	// Title of a project in the interface language (falls back to the other one)
+	const titleOf = (p) => (L === 'de' ? p.title_de || p.title : p.title || p.title_de) || t('untitled');
+	const categoryOf = (p) => (L === 'de' ? p.category_de || p.category : p.category || p.category_de) || '';
+	// Blocking: a title and a category in at least one language, and a featured image
+	function missing(p) {
+		const m = [];
+		if (!has(p.title) && !has(p.title_de)) m.push('mTitle');
+		if (!p.cover?.asset) m.push('mCover');
+		if (!has(p.category) && !has(p.category_de)) m.push('mCategory');
+		return m;
+	}
+	// Not blocking: texts filled in one language only (the site then shows the other one)
+	function untranslated(p) {
+		const out = [];
+		for (const [f, label] of [['title', 'fTitle'], ['category', 'fCategory'], ['summary', 'fSummary'], ['description', 'fDescription']]) {
+			const en = has(p[f]), de = has(p[f + '_de']);
+			if (en && !de) out.push(`${t(label)} DE`);
+			if (de && !en) out.push(`${t(label)} EN`);
+		}
+		return out;
+	}
+	const fieldKey = (label) => label.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'info';
+	const isModified = (d) => !state.deploy?.lastPublishedAt || (d.updatedAt || '') > state.deploy.lastPublishedAt;
+	function blankProject(order) {
+		return { title: '', title_de: '', category: '', category_de: '', year: null, info: {}, info_de: {}, summary: '', summary_de: '', description: [], description_de: [], cover: null, gallery: [], visible: true, order, createdAt: nowIso(), updatedAt: nowIso() };
+	}
+
+	// Shrink photos before upload: max 2400 px, JPEG
+	async function prepareImage(file) {
+		try {
+			const bmp = await createImageBitmap(file);
+			const scale = Math.min(1, 2400 / Math.max(bmp.width, bmp.height));
+			const c = document.createElement('canvas');
+			c.width = Math.round(bmp.width * scale);
+			c.height = Math.round(bmp.height * scale);
+			c.getContext('2d').drawImage(bmp, 0, 0, c.width, c.height);
+			const out = await new Promise((r) => c.toBlob(r, 'image/jpeg', 0.86));
+			if (out) return out;
+		} catch (_) { /* fall through */ }
+		if (['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) return file;
+		throw new Error('format');
+	}
+
+	// ---------- Publish bar ----------
+	function pendingCount() {
+		const n = state.projects.filter((p) => isModified(cur(p))).length;
+		const editedAfter = state.edits?.lastEditAt && (!state.deploy?.lastPublishedAt || state.edits.lastEditAt > state.deploy.lastPublishedAt);
+		return { n, any: n > 0 || !!editedAfter };
+	}
+	const cur = (p) => (p.id === state.selected && state.draft ? state.draft : p.data);
+	function targetLabel() {
+		const url = state.deploy?.siteUrl;
+		if (!url) return t('theSite');
+		try { return new URL(url).host; } catch (_) { return url; }
+	}
+	function renderStatus() {
+		const el = $('#status');
+		const btn = $('#publishBtn');
+		const d = state.deploy || {};
+		const { n, any } = pendingCount();
+		const age = (iso) => (iso ? (Date.now() - new Date(iso).getTime()) / 60000 : 0);
+		// Edits made after the publish request (the task reads the latest data anyway,
+		// but a new click refreshes the request and the history copy)
+		const since = d.requestedAt || '';
+		const newer = state.projects.some((p) => (cur(p).updatedAt || '') > since) || (state.edits?.lastEditAt || '') > since;
+		const pending = d.status === 'pending';
+		const running = d.status === 'running' && age(d.startedAt || d.requestedAt) < 30;
+		let cls = '', sq = 'sq o', text, tip = d.message || '';
+
+		if (!db) text = t('offline');
+		else if (pending) {
+			sq = 'sq blink'; text = t('requested', timeAgo(d.requestedAt));
+			tip = t('pendingTip', t('every', d.checkEveryMinutes || 720));
+		}
+		else if (running) { sq = 'sq blink'; text = t('publishing'); }
+		else if (d.status === 'error') { cls = 'err'; sq = 'sq'; text = t('failed'); }
+		else if (any) { text = n ? t('toPublish', n) : t('changesToPublish'); }
+		else if (d.lastPublishedAt) { sq = 'sq'; text = t('upToDate', timeAgo(d.lastPublishedAt)); tip = t('publishedOn', targetLabel()); }
+		else text = t('notYet');
+
+		el.className = 'status ' + cls;
+		el.innerHTML = `<span class="${sq}"></span><span>${esc(text)}</span>`;
+		el.title = tip;
+
+		// What the button offers: publish, publish again (new edits since the request),
+		// cancel a waiting request, or nothing to do
+		let mode = 'publish';
+		if (running) mode = 'busy';
+		else if (pending) mode = newer ? 'publish' : 'cancel';
+		else if (!any && d.status !== 'error') mode = 'uptodate';
+		btn.dataset.mode = mode;
+		btn.disabled = !canWrite || mode === 'busy' || mode === 'uptodate';
+		btn.classList.toggle('state', mode === 'busy' || mode === 'uptodate');
+		btn.classList.toggle('ghost', mode === 'cancel');
+		btn.classList.toggle('primary', mode === 'publish');
+		btn.innerHTML = mode === 'busy' ? `<span class="sq blink"></span>${esc(t('btnBusy'))}`
+			: mode === 'uptodate' ? esc(t('btnUpToDate'))
+			: mode === 'cancel' ? esc(t('btnCancel'))
+			: `${esc(t('btnPublish'))}${n ? ` <span class="count">${n}</span>` : ''}`;
+		btn.title = mode === 'cancel' ? t('cancelTip') : '';
+		btn.setAttribute('aria-label', mode === 'busy' ? t('ariaBusy') : mode === 'uptodate' ? t('ariaUpToDate') : mode === 'cancel' ? t('ariaCancel') : t('ariaPublish', n));
+	}
+
+	async function cancelPublish() {
+		if (!canWrite) return;
+		try {
+			await db.doc('site/deploy').update({ status: 'idle', message: '' });
+			toast(t('cancelled'));
+		} catch (_) { toast(t('failedRetry')); }
+	}
+
+	async function requestPublish() {
+		if (!canWrite) return;
+		const incomplete = state.projects.find((p) => cur(p).visible && missing(cur(p)).length);
+		if (incomplete) {
+			toast(t('incomplete', titleOf(cur(incomplete))));
+			select(incomplete.id);
+			return;
+		}
+		$('#publishBtn').disabled = true;
+		try {
+			await flushSave();
+			await snapshot('publish');
+			const ref = db.doc('site/deploy');
+			const body = { status: 'pending', requestedAt: nowIso(), requestedBy: uid || null, message: '' };
+			const snap = await ref.get();
+			if (snap.exists) await ref.update(body); else await ref.set({ ...body, checkEveryMinutes: 720 });
+			toast(t('publishRequested'));
+		} catch (_) {
+			toast(t('requestFailed'));
+			renderStatus();
+		}
+	}
+
+	// ---------- List ----------
+	function renderList() {
+		const list = $('#list');
+		const visible = state.projects.filter((p) => cur(p).visible).length;
+		$('#count').textContent = t('countLine', state.projects.length, visible);
+		if (!state.projects.length) {
+			list.innerHTML = `<li class="empty">${t('emptyList')}</li>`;
+			return;
+		}
+		list.innerHTML = state.projects.map((p, i) => {
+			const d = cur(p);
+			const m = missing(d);
+			const thumb = d.cover?.asset ? `<img class="thumb" src="${blob(d.cover.asset)}" alt="" loading="lazy">` : `<span class="thumb" aria-hidden="true"></span>`;
+			let tag = '';
+			if (!d.visible) tag = `<span class="pill">${esc(t('pillHidden'))}</span>`;
+			else if (m.length) tag = `<span class="pill">${esc(t('pillIncomplete'))}</span>`;
+			else if (isModified(d)) tag = `<span class="pill">${esc(t('pillToPublish'))}</span>`;
+			return `<li class="row ${p.id === state.selected ? 'sel' : ''} ${d.visible ? '' : 'off'}" data-id="${esc(p.id)}" tabindex="0" role="button" aria-pressed="${p.id === state.selected}">
+				${thumb}
+				<span class="rt"><b>${esc(titleOf(d))}</b>
+					<span class="meta">${esc([categoryOf(d), d.year].filter(Boolean).join(' · ') || '—')} ${tag}</span></span>
+				<span class="move">
+					<button data-move="-1" aria-label="${esc(t('moveUp'))}" ${i === 0 || !canWrite ? 'disabled' : ''}>↑</button>
+					<button data-move="1" aria-label="${esc(t('moveDown'))}" ${i === state.projects.length - 1 || !canWrite ? 'disabled' : ''}>↓</button>
+				</span>
+			</li>`;
+		}).join('');
+	}
+
+	$('#list').addEventListener('click', (e) => {
+		const row = e.target.closest('.row');
+		if (!row) return;
+		const mv = e.target.closest('[data-move]');
+		if (mv) { e.stopPropagation(); move(row.dataset.id, Number(mv.dataset.move)); return; }
+		select(row.dataset.id);
+	});
+	$('#list').addEventListener('keydown', (e) => {
+		const row = e.target.closest('.row');
+		if (row && e.target === row && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); select(row.dataset.id); }
+	});
+
+	async function move(id, dir) {
+		await flushSave();
+		const i = state.projects.findIndex((p) => p.id === id);
+		const j = i + dir;
+		if (i < 0 || j < 0 || j >= state.projects.length) return;
+		// Renumber everything so orders are always distinct
+		const ordered = state.projects.map((p) => p.id);
+		[ordered[i], ordered[j]] = [ordered[j], ordered[i]];
+		const stamp = nowIso();
+		try {
+			for (const [k, pid] of ordered.entries()) {
+				const p = state.projects.find((x) => x.id === pid);
+				if (p.data.order !== k) {
+					await db.doc('projects/' + pid).update({ order: k, updatedAt: stamp });
+					if (state.draft && state.selected === pid) { state.draft.order = k; state.draft.updatedAt = stamp; }
+				}
+			}
+			touchEdits();
+		} catch (_) { toast(t('moveFailed')); }
+	}
+
+	async function addProject() {
+		if (!canWrite) return;
+		await flushSave();
+		const min = state.projects.reduce((m, p) => Math.min(m, p.data.order ?? 0), 0);
+		const id = 'p-' + Math.random().toString(36).slice(2, 8);
+		const data = blankProject(min - 1);
+		try {
+			await db.doc('projects/' + id).set(data);
+			touchEdits();
+			await select(id, data);
+			setTimeout(() => $(L === 'de' ? '#f-title_de' : '#f-title')?.focus(), 60);
+		} catch (_) { toast(t('createFailed')); }
+	}
+
+	// ---------- Saving ----------
+	let saveTimer = null, saveChain = Promise.resolve(), saveState = 'saved';
+	function setSaved(st) {
+		saveState = st;
+		const el = $('#savedState');
+		if (!el) return;
+		el.innerHTML = st === 'saving' ? `<span class="sq blink"></span>${esc(t('saving'))}`
+			: st === 'error' ? `<span class="sq bad"></span>${esc(t('saveError'))}`
+			: st === 'dirty' ? `<span class="sq o"></span>${esc(t('dirty'))}`
+			: `<span class="sq"></span>${esc(t('saved'))}`;
+	}
+	function scheduleSave(delay = 700) {
+		if (!state.draft || !canWrite) return;
+		setSaved('dirty');
+		clearTimeout(saveTimer);
+		saveTimer = setTimeout(save, delay);
+	}
+	function save() {
+		clearTimeout(saveTimer);
+		saveTimer = null;
+		if (!state.draft || !state.selected) return saveChain;
+		const id = state.selected;
+		state.draft.updatedAt = nowIso();
+		const data = JSON.parse(JSON.stringify(state.draft));
+		setSaved('saving');
+		saveChain = saveChain.then(() => db.doc('projects/' + id).set(data)).then(() => {
+			setSaved('saved');
+			touchEdits();
+			renderList();
+			renderStatus();
+		}).catch(() => { setSaved('error'); setTimeout(() => scheduleSave(0), 3000); });
+		return saveChain;
+	}
+	function flushSave() { return saveTimer ? save() : saveChain; }
+
+	let editsTimer = null;
+	function touchEdits() {
+		clearTimeout(editsTimer);
+		editsTimer = setTimeout(() => db.doc('site/edits').set({ lastEditAt: nowIso() }).catch(() => {}), 400);
+	}
+
+	let configChain = Promise.resolve();
+	function saveConfig(next) {
+		state.config = next;
+		configChain = configChain.then(() => db.doc('site/config').set(next)).catch(() => toast(t('configFailed')));
+		touchEdits();
+		return configChain;
+	}
+
+	// ---------- Editor ----------
+	async function select(id, freshData) {
+		if (state.selected && state.selected !== id) await flushSave();
+		const p = state.projects.find((x) => x.id === id);
+		const data = freshData || p?.data;
+		if (!data) return;
+		state.selected = id;
+		state.draft = JSON.parse(JSON.stringify(data));
+		const d = state.draft;
+		for (const f of ['description', 'description_de', 'gallery']) d[f] = Array.isArray(d[f]) ? d[f] : [];
+		for (const f of ['info', 'info_de']) d[f] = d[f] && typeof d[f] === 'object' ? d[f] : {};
+		state.ui = { ...state.ui, otherCategory: false, addingInfo: false, removingField: null, deleting: false, confirmImg: -1, addingLink: false };
+		renderList();
+		renderEditor();
+		if (window.matchMedia('(max-width: 880px)').matches) $('#editor').scrollIntoView({ behavior: 'smooth', block: 'start' });
+	}
+
+	const RO = () => (canWrite ? '' : 'readonly');
+	const DIS = () => (canWrite ? '' : 'disabled');
+	const paragraphs = (v) => esc((Array.isArray(v) ? v : []).join('\n\n'));
+
+	function renderEditor() {
+		const ed = $('#editor');
+		const d = state.draft;
+		if (!d) {
+			ed.innerHTML = `<div class="empty" style="border:0">${esc(t('pickProject'))}</div>`;
+			return;
+		}
+		ed.innerHTML = `
+			<div class="ed-bar">
+				<button class="back" id="backBtn">${esc(t('back'))}</button>
+				<button class="switch" id="visToggle" role="switch" aria-checked="${!!d.visible}" ${DIS()}>
+					<span class="track"></span><span id="visText">${esc(d.visible ? t('visOn') : t('visOff'))}</span>
+				</button>
+				<span class="saved" id="savedState"></span>
+			</div>
+			<div class="ed-body">
+				<div class="titles">
+					<label class="label" for="f-title">${esc(t('titleLabel'))} ${badge('en')} <span class="req">*</span></label>
+					<input class="title-in" id="f-title" data-f="title" lang="en" value="${esc(d.title)}" placeholder="${esc(t('titlePhEn'))}" maxlength="60" autocomplete="off" ${RO()}>
+					<label class="label" for="f-title_de">${esc(t('titleLabel'))} ${badge('de')}</label>
+					<input class="title-in second" id="f-title_de" data-f="title_de" lang="de" value="${esc(d.title_de)}" placeholder="${esc(t('titlePhDe'))}" maxlength="60" autocomplete="off" ${RO()}>
+					<div class="ready" id="readyLine"></div>
+				</div>
+
+				<section class="blk" id="blk-cover" aria-labelledby="h-cover">
+					<div class="blk-head"><h2 id="h-cover">${esc(t('coverHead'))} <span class="req">*</span></h2><span class="label">${esc(t('coverSub'))}</span></div>
+					<div id="coverBox"></div>
+				</section>
+
+				<section class="blk" id="blk-info" aria-labelledby="h-info">
+					<div class="blk-head"><h2 id="h-info">${esc(t('infoHead'))}</h2><span class="label">${esc(t('infoSub'))}</span></div>
+					<div class="field">
+						<span class="label" id="l-cat">${esc(t('category'))} <span class="req">*</span></span>
+						<div class="chips" id="catChips" role="group" aria-labelledby="l-cat"></div>
+						<div class="catde">
+							<label class="label" for="f-category_de">${esc(t('categoryDe'))} ${badge('de')}</label>
+							<input id="f-category_de" data-f="category_de" lang="de" value="${esc(d.category_de)}" placeholder="${esc(d.category || '—')}" maxlength="30" autocomplete="off" ${RO()}>
+						</div>
+						<p class="hint">${esc(t('catHint'))}</p>
+					</div>
+					<div>
+						<p class="label" style="margin:10px 0 8px">${esc(t('extraInfo'))} · <span style="text-transform:none;letter-spacing:.02em">${esc(t('extraInfoHint'))}</span></p>
+						<div class="infos">
+							<div class="info-row" id="yearField">
+								<label for="f-year">${esc(t('year'))}</label>
+								<input id="f-year" data-f="year" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" value="${esc(d.year ?? '')}" placeholder="${esc(t('yearPh'))}" autocomplete="off" aria-describedby="yearHint" ${RO()}>
+								<span></span>
+							</div>
+							<p class="hint warn" id="yearHint" aria-live="polite"></p>
+						</div>
+						<div id="infoRows"></div>
+						<div class="add-info" id="addInfo"></div>
+					</div>
+				</section>
+
+				<section class="blk" aria-labelledby="h-txt">
+					<div class="blk-head"><h2 id="h-txt">${esc(t('textHead'))}</h2><span class="label">${esc(t('textSub'))}</span></div>
+					<div class="bi">
+						<div class="field"><label class="label" for="f-summary">${esc(t('summary'))} ${badge('en')}</label>
+							<input id="f-summary" data-f="summary" lang="en" value="${esc(d.summary)}" placeholder="${esc(t('summaryPhEn'))}" maxlength="140" ${RO()}></div>
+						<div class="field"><label class="label" for="f-summary_de">${esc(t('summary'))} ${badge('de')}</label>
+							<input id="f-summary_de" data-f="summary_de" lang="de" value="${esc(d.summary_de)}" placeholder="${esc(t('summaryPhDe'))}" maxlength="140" ${RO()}></div>
+						<div class="field"><label class="label" for="f-description">${esc(t('description'))} ${badge('en')}</label>
+							<textarea id="f-description" data-f="description" lang="en" rows="7" placeholder="${esc(t('descPhEn'))}" ${RO()}>${paragraphs(d.description)}</textarea></div>
+						<div class="field"><label class="label" for="f-description_de">${esc(t('description'))} ${badge('de')}</label>
+							<textarea id="f-description_de" data-f="description_de" lang="de" rows="7" placeholder="${esc(t('descPhDe'))}" ${RO()}>${paragraphs(d.description_de)}</textarea></div>
+					</div>
+				</section>
+
+				<section class="blk" aria-labelledby="h-gal">
+					<div class="blk-head"><h2 id="h-gal">${esc(t('galleryHead'))}</h2><span class="label" id="galCount"></span></div>
+					<div class="gallery" id="galleryBox"></div>
+				</section>
+
+				${canWrite ? `<div class="danger-zone" id="dangerZone"></div>` : ''}
+			</div>`;
+
+		renderReady();
+		renderCover();
+		renderCategories();
+		renderYear();
+		renderInfos();
+		renderGallery();
+		renderDanger();
+		setSaved(saveState === 'error' ? 'error' : 'saved');
+	}
+
+	function renderReady() {
+		const el = $('#readyLine');
+		if (!el) return;
+		const m = missing(state.draft);
+		const tr = untranslated(state.draft);
+		const trLine = tr.length ? ` <span class="tr">${esc(t('translation'))} ${esc(tr.join(', '))}</span>` : '';
+		if (!m.length) {
+			el.className = 'ready ok';
+			el.innerHTML = `<span class="sq ok"></span>${esc(t('ready'))}${trLine}`;
+		} else {
+			el.className = 'ready';
+			const target = { mCover: 'blk-cover', mCategory: 'blk-info', mTitle: 'f-title' };
+			el.innerHTML = `<span class="sq o"></span>${esc(t('missing'))} ` + m.map((x) => `<button data-goto="${target[x]}">${esc(t(x))}</button>`).join(', ') + trLine;
+		}
+	}
+
+	// Categories: chips with the English name (and the German one), shared by all projects
+	function knownCategories() {
+		const map = new Map();
+		for (const p of state.projects) {
+			const d = cur(p);
+			const en = (d.category || '').trim();
+			if (en && !map.has(en)) map.set(en, (d.category_de || '').trim());
+			else if (en && !map.get(en) && d.category_de) map.set(en, d.category_de.trim());
+		}
+		const current = (state.draft.category || '').trim();
+		if (current && !map.has(current)) map.set(current, state.draft.category_de || '');
+		return [...map].sort((a, b) => a[0].localeCompare(b[0], 'en'));
+	}
+
+	function renderCategories() {
+		const box = $('#catChips');
+		if (!box) return;
+		const current = state.draft.category || '';
+		const chips = knownCategories().map(([en, de]) => `<button class="chip" data-cat="${esc(en)}" aria-pressed="${en === current}" ${DIS()}>${esc(en)}${de && de !== en ? ` <span style="opacity:.6">· ${esc(de)}</span>` : ''}</button>`).join('');
+		const other = state.ui.otherCategory
+			? `<div class="cat-form">
+				<input id="f-catnew" lang="en" placeholder="${esc(t('newCatEn'))}" maxlength="30" aria-label="${esc(t('newCatEn'))}">
+				<input id="f-catnew-de" lang="de" placeholder="${esc(t('newCatDe'))}" maxlength="30" aria-label="${esc(t('newCatDe'))}">
+				<button class="btn small" id="catNewOk">${esc(t('ok'))}</button>
+				<button class="btn small ghost" id="catNewCancel">${esc(t('cancel'))}</button>
+			</div>`
+			: (canWrite ? `<button class="chip add" id="catAdd">${esc(t('otherCat'))}</button>` : '');
+		box.innerHTML = chips + other;
+		if (state.ui.otherCategory) setTimeout(() => $('#f-catnew')?.focus(), 0);
+	}
+
+	function addCategory() {
+		const en = ($('#f-catnew')?.value || '').trim().replace(/\s+/g, ' ');
+		const de = ($('#f-catnew-de')?.value || '').trim().replace(/\s+/g, ' ');
+		if (!en && !de) return;
+		state.draft.category = en || de;
+		state.draft.category_de = de || en;
+		state.ui.otherCategory = false;
+		const field = $('#f-category_de');
+		if (field) field.value = state.draft.category_de;
+		renderCategories(); renderReady(); scheduleSave(0);
+	}
+
+	function renderYear() {
+		const y = state.draft.year;
+		const raw = $('#f-year')?.value ?? '';
+		const bad = raw !== '' && !validYear(Number(raw));
+		$('#yearField')?.classList.toggle('invalid', bad);
+		const hint = $('#yearHint');
+		if (hint) { hint.textContent = bad ? t('yearBad') : ''; hint.style.margin = bad ? '6px 0' : '0'; }
+		return y;
+	}
+
+	// Extra details: one row per field, the English and German values side by side.
+	// The German label of each field is shared by all projects (site/config).
+	function renderInfos() {
+		const rows = $('#infoRows');
+		if (!rows) return;
+		if (rows.contains(document.activeElement) && !state.ui.removingField) return;
+		const fields = state.config.fields || [];
+		const head = fields.length ? `<div class="info-head"><span></span><span class="label">${badge('en')}</span><span class="label">${badge('de')}</span><span></span></div>` : '';
+		rows.innerHTML = head + (fields.length ? fields.map((f) => {
+			if (state.ui.removingField === f.key) {
+				return `<div class="info-row"><div class="info-confirm">
+					<span class="hint">${esc(t('removeFieldConfirm', f.label))}</span>
+					<span class="confirm"><button class="btn small ghost" data-cancel-field>${esc(t('cancel'))}</button><button class="btn small danger" data-confirm-field="${esc(f.key)}">${esc(t('remove'))}</button></span>
+				</div></div>`;
+			}
+			return `<div class="info-row bi3">
+				<div class="lblcell">
+					<span title="${esc(f.label)}">${esc(f.label)}</span>
+					<input class="lbl" data-labelde="${esc(f.key)}" lang="de" value="${esc(f.label_de ?? '')}" placeholder="${esc(f.label)} · DE" maxlength="24" aria-label="${esc(t('labelDeAria', f.label))}" ${RO()}>
+				</div>
+				<input class="val" id="i-${esc(f.key)}" data-info="${esc(f.key)}" lang="en" value="${esc(state.draft.info?.[f.key] ?? '')}" placeholder="—" maxlength="80" aria-label="${esc(t('valueAria', f.label, 'EN'))}" ${RO()}>
+				<input class="val" data-infode="${esc(f.key)}" lang="de" value="${esc(state.draft.info_de?.[f.key] ?? '')}" placeholder="${esc(state.draft.info?.[f.key] || '—')}" maxlength="80" aria-label="${esc(t('valueAria', f.label_de || f.label, 'DE'))}" ${RO()}>
+				${canWrite ? `<button class="x" data-remove-field="${esc(f.key)}" aria-label="${esc(t('removeFieldAria', f.label))}" title="${esc(t('removeFieldTitle'))}">×</button>` : '<span></span>'}
+			</div>`;
+		}).join('') : `<p class="hint" style="padding:10px 0">${esc(t('noFields'))}</p>`);
+
+		const add = $('#addInfo');
+		if (!canWrite) { add.innerHTML = ''; return; }
+		if (!state.ui.addingInfo) {
+			add.innerHTML = `<div><button class="btn small ghost" id="addInfoBtn">${esc(t('addInfo'))}</button></div>`;
+			return;
+		}
+		add.innerHTML = `<div class="add-form">
+			<input id="f-newfield" lang="en" placeholder="${esc(t('newFieldPhEn'))}" maxlength="24" aria-label="${esc(t('newFieldPhEn'))}">
+			<input id="f-newfield-de" lang="de" placeholder="${esc(t('newFieldPhDe'))}" maxlength="24" aria-label="${esc(t('newFieldPhDe'))}">
+			<button class="btn small" id="newFieldOk">${esc(t('add'))}</button>
+			<button class="btn small ghost" id="newFieldCancel">${esc(t('cancel'))}</button>
+		</div>
+		<p class="hint">${esc(t('addInfoHint'))}</p>`;
+	}
+
+	function addField(labelEn, labelDe) {
+		labelEn = (labelEn || '').trim().replace(/\s+/g, ' ');
+		labelDe = (labelDe || '').trim().replace(/\s+/g, ' ');
+		const label = labelEn || labelDe;
+		if (!label) return;
+		const fields = [...(state.config.fields || [])];
+		if (/^(year|years|jahr|jahre|ann[ée]es?)$/i.test(label) || fields.some((f) => f.label.toLowerCase() === label.toLowerCase())) { toast(t('fieldExists')); return; }
+		let key = fieldKey(label);
+		for (let n = 2; fields.some((f) => f.key === key); n++) key = `${fieldKey(label)}-${n}`;
+		fields.push({ key, label, label_de: labelDe || label });
+		state.ui.addingInfo = false;
+		saveConfig({ ...state.config, fields });
+		renderInfos();
+		setTimeout(() => $(`#i-${CSS.escape(key)}`)?.focus(), 0);
+	}
+
+	let labelDeTimer = null;
+	function setLabelDe(key, value) {
+		state.config = { ...state.config, fields: (state.config.fields || []).map((f) => (f.key === key ? { ...f, label_de: value.trim() } : f)) };
+		clearTimeout(labelDeTimer);
+		labelDeTimer = setTimeout(() => saveConfig(state.config), 600);
+	}
+
+	function dropZone(target, title) {
+		const gallery = target === 'gallery';
+		return `<div class="drop" data-drop="${target}">
+			<strong>${esc(title)}</strong>
+			<span>${esc(gallery ? t('dropGallery') : t('dropCover'))}</span>
+			<button class="btn small" data-pick="${target}" ${canWrite && assets ? '' : 'disabled'}>${esc(t('pickFile'))}</button>
+			<span class="hint">${esc(gallery ? t('dropGalleryHint') : t('dropCoverHint'))}</span>
+		</div>`;
+	}
+
+	// Two captions per photo: English and German
+	function captionInputs(key, item, compact) {
+		const n = key === 'cover' ? t('featured') : Number(key) + 1;
+		return `<div class="caps">
+			<label>${badge('en')}<input data-alt="${key}" lang="en" value="${esc(item.alt)}" placeholder="${esc(compact ? t('caption') : t('captionPhEn'))}" maxlength="90" aria-label="${esc(t('captionAria', n, 'EN'))}" ${RO()}></label>
+			<label>${badge('de')}<input data-altde="${key}" lang="de" value="${esc(item.alt_de)}" placeholder="${esc(compact ? t('caption') : t('captionPhDe'))}" maxlength="90" aria-label="${esc(t('captionAria', n, 'DE'))}" ${RO()}></label>
+		</div>`;
+	}
+
+	function renderCover() {
+		const box = $('#coverBox');
+		if (!box) return;
+		const c = state.draft.cover;
+		if (!c?.asset) { box.innerHTML = dropZone('cover', t('addMainPhoto')); return; }
+		box.innerHTML = `<div class="cover">
+			<div class="frame"><img src="${blob(c.asset)}" alt=""><span class="badge">${esc(t('featured'))}</span></div>
+			<div class="cover-caps" style="min-width:0">
+				<div class="field"><span class="label">${esc(t('caption'))}</span>${captionInputs('cover', c, false)}</div>
+				${canWrite && assets ? `<div><button class="btn small" data-pick="cover">${esc(t('replacePhoto'))}</button></div>` : ''}
+				<p class="hint">${esc(t('starTip'))}</p>
+			</div>
+		</div>`;
+	}
+
+	function galleryTile(item) {
+		if (item.kind === 'embed') {
+			return `<div class="embed-tile"><b>▶</b><span>${esc(videoProvider(item.embed) || t('video'))}</span><span>${esc(item.embed.replace(/^https?:\/\/(www\.)?/, '').slice(0, 40))}</span></div>`;
+		}
+		if (item.kind === 'video') {
+			return `<video src="${blob(item.asset)}" muted loop playsinline preload="metadata" data-hover-play></video><span class="badge right">${esc(t('video'))}</span>`;
+		}
+		return `<img src="${blob(item.asset)}" alt="" loading="lazy">`;
+	}
+
+	function renderGallery() {
+		const box = $('#galleryBox');
+		if (!box) return;
+		const g = state.draft.gallery;
+		const videos = g.filter((x) => x.kind === 'video' || x.kind === 'embed').length;
+		$('#galCount').textContent = t('galCount', g.length - videos, videos);
+		const items = g.map((item, i) => `
+			<div class="gitem" data-i="${i}">
+				<div class="frame">
+					${galleryTile(item)}
+					${canWrite ? `<div class="gtools">
+						<span>
+							<button data-g="left" aria-label="${esc(t('moveLeft'))}" ${i === 0 ? 'disabled' : ''}>←</button>
+							<button data-g="right" aria-label="${esc(t('moveRight'))}" ${i === g.length - 1 ? 'disabled' : ''}>→</button>
+						</span>
+						<span>
+							${item.kind ? '' : `<button data-g="star" aria-label="${esc(t('feature'))}" title="${esc(t('feature'))}">★</button>`}
+							<button data-g="del" class="${state.ui.confirmImg === i ? 'warn' : ''}" aria-label="${esc(t('removeImg'))}" title="${esc(t('removeImg'))}">${state.ui.confirmImg === i ? esc(t('removeImgConfirm')) : '×'}</button>
+						</span>
+					</div>` : ''}
+				</div>
+				${captionInputs(String(i), item, true)}
+			</div>`).join('');
+		const pending = Array.from({ length: state.uploads }, () => `<div class="uploading"><span class="blink">${esc(t('uploading'))}</span></div>`).join('');
+		const linkUi = !canWrite ? '' : state.ui.addingLink
+			? `<div class="link-form">
+				<input id="f-videolink" type="url" placeholder="${esc(t('videoLinkPh'))}" aria-label="${esc(t('videoLinkAria'))}">
+				<button class="btn small" id="linkOk">${esc(t('add'))}</button>
+				<button class="btn small ghost" id="linkCancel">${esc(t('cancel'))}</button>
+			</div>`
+			: `<div><button class="btn small ghost" id="addLinkBtn">${esc(t('addVideoLink'))}</button> <span class="hint" style="display:inline">${esc(t('videoLinkHint'))}</span></div>`;
+		box.innerHTML = items + pending + (canWrite && assets ? `<div style="grid-column:1/-1;display:flex;flex-direction:column;gap:12px">${dropZone('gallery', g.length ? t('addMoreMedia') : t('addMedia'))}${linkUi}</div>` : '');
+	}
+
+	function addVideoLink(url) {
+		const provider = videoProvider(url || '');
+		if (!provider) { toast(t('linkUnknown')); return; }
+		state.draft.gallery.push({ kind: 'embed', embed: url.trim(), alt: '', alt_de: '' });
+		state.ui.addingLink = false;
+		renderGallery();
+		scheduleSave(0);
+		toast(t('videoAdded', provider));
+	}
+
+	function renderDanger() {
+		const z = $('#dangerZone');
+		if (!z) return;
+		z.innerHTML = state.ui.deleting
+			? `<span class="hint">${esc(t('deleteConfirm', titleOf(state.draft)))}</span>
+				<span class="confirm"><button class="btn small ghost" id="delCancel">${esc(t('cancel'))}</button><button class="btn small danger" id="delYes">${esc(t('delete'))}</button></span>`
+			: `<span class="hint">${esc(t('deleteHint'))}</span>
+				<button class="btn small danger" id="delBtn">${esc(t('deleteProject'))}</button>`;
+	}
+
+	// ---------- Editor events ----------
+	$('#editor').addEventListener('input', (e) => {
+		if (!state.draft || !canWrite) return;
+		const el = e.target;
+		if (el.dataset.f) {
+			const f = el.dataset.f;
+			let v = el.value;
+			if (f === 'year') {
+				v = v.replace(/\D/g, '').slice(0, 4);
+				if (el.value !== v) el.value = v;
+				const n = Number(v);
+				state.draft.year = validYear(n) ? n : null;
+				renderYear();
+			} else if (f === 'description' || f === 'description_de') {
+				state.draft[f] = v.split(/\n\s*\n/).map((x) => x.trim()).filter(Boolean);
+			} else {
+				state.draft[f] = v;
+			}
+			renderReady();
+			scheduleSave();
+		} else if (el.dataset.info) {
+			state.draft.info = { ...state.draft.info, [el.dataset.info]: el.value };
+			scheduleSave();
+		} else if (el.dataset.infode) {
+			state.draft.info_de = { ...(state.draft.info_de || {}), [el.dataset.infode]: el.value };
+			scheduleSave();
+		} else if (el.dataset.labelde) {
+			setLabelDe(el.dataset.labelde, el.value);
+		} else if (el.dataset.alt !== undefined || el.dataset.altde !== undefined) {
+			const key = el.dataset.alt ?? el.dataset.altde;
+			const target = key === 'cover' ? state.draft.cover : state.draft.gallery[Number(key)];
+			if (target) target[el.dataset.alt !== undefined ? 'alt' : 'alt_de'] = el.value;
+			scheduleSave();
+		}
+	});
+
+	$('#editor').addEventListener('keydown', (e) => {
+		if (e.key !== 'Enter') return;
+		const id = e.target.id;
+		if (id === 'f-newfield' || id === 'f-newfield-de') { e.preventDefault(); addField($('#f-newfield').value, $('#f-newfield-de').value); }
+		if (id === 'f-videolink') { e.preventDefault(); addVideoLink(e.target.value); }
+		if (id === 'f-catnew' || id === 'f-catnew-de') { e.preventDefault(); addCategory(); }
+	});
+
+	let pickTarget = 'gallery';
+	$('#editor').addEventListener('click', async (e) => {
+		const b = e.target.closest('button');
+		if (!b || !state.draft) return;
+		const d = state.draft;
+
+		if (b.id === 'backBtn') { $('#side').scrollIntoView({ behavior: 'smooth' }); return; }
+		if (b.dataset.goto) { const el = document.getElementById(b.dataset.goto); el?.scrollIntoView({ behavior: 'smooth', block: 'center' }); if (el?.tagName === 'INPUT') el.focus(); return; }
+		if (!canWrite) return;
+
+		if (b.id === 'visToggle') {
+			d.visible = !d.visible;
+			b.setAttribute('aria-checked', String(d.visible));
+			$('#visText').textContent = d.visible ? t('visOn') : t('visOff');
+			scheduleSave(0);
+			renderList();
+			return;
+		}
+		if (b.dataset.cat !== undefined) {
+			d.category = d.category === b.dataset.cat ? '' : b.dataset.cat;
+			// Reuse the German name already given to this category
+			const known = knownCategories().find(([en]) => en === d.category);
+			d.category_de = d.category ? (known?.[1] || d.category_de || '') : '';
+			const field = $('#f-category_de');
+			if (field) { field.value = d.category_de; field.placeholder = d.category || '—'; }
+			renderCategories(); renderReady(); scheduleSave(0);
+			return;
+		}
+		if (b.id === 'catAdd') { state.ui.otherCategory = true; renderCategories(); return; }
+		if (b.id === 'catNewOk') { addCategory(); return; }
+		if (b.id === 'catNewCancel') { state.ui.otherCategory = false; renderCategories(); return; }
+		if (b.id === 'addInfoBtn') { state.ui.addingInfo = true; renderInfos(); setTimeout(() => $('#f-newfield')?.focus(), 0); return; }
+		if (b.id === 'newFieldCancel') { state.ui.addingInfo = false; renderInfos(); return; }
+		if (b.id === 'newFieldOk') { addField($('#f-newfield').value, $('#f-newfield-de').value); return; }
+		if (b.dataset.removeField) { state.ui.removingField = b.dataset.removeField; renderInfos(); return; }
+		if (b.dataset.cancelField !== undefined) { state.ui.removingField = null; renderInfos(); return; }
+		if (b.dataset.confirmField) {
+			const key = b.dataset.confirmField;
+			state.ui.removingField = null;
+			saveConfig({ ...state.config, fields: (state.config.fields || []).filter((f) => f.key !== key) });
+			renderInfos();
+			toast(t('fieldRemoved'));
+			return;
+		}
+		if (b.dataset.pick) {
+			pickTarget = b.dataset.pick;
+			const input = $('#fileInput');
+			input.multiple = pickTarget === 'gallery';
+			input.accept = pickTarget === 'gallery' ? 'image/jpeg,image/png,image/webp,image/*,video/mp4,video/webm' : 'image/jpeg,image/png,image/webp,image/*';
+			input.click();
+			return;
+		}
+		if (b.id === 'addLinkBtn') { state.ui.addingLink = true; renderGallery(); setTimeout(() => $('#f-videolink')?.focus(), 0); return; }
+		if (b.id === 'linkCancel') { state.ui.addingLink = false; renderGallery(); return; }
+		if (b.id === 'linkOk') { addVideoLink($('#f-videolink').value); return; }
+		if (b.id === 'delBtn') { state.ui.deleting = true; renderDanger(); return; }
+		if (b.id === 'delCancel') { state.ui.deleting = false; renderDanger(); return; }
+		if (b.id === 'delYes') {
+			const id = state.selected;
+			clearTimeout(saveTimer); saveTimer = null;
+			try {
+				await saveChain;
+				const data = state.projects.find((p) => p.id === id)?.data || state.draft;
+				await db.doc('trash/' + id).set({ project: data, deletedAt: nowIso() });
+				await db.doc('projects/' + id).delete();
+				touchEdits();
+				state.selected = null; state.draft = null;
+				state.ui.deleting = false;
+				renderEditor();
+				toast(t('deleted'));
+			} catch (_) { toast(t('deleteFailed')); }
+			return;
+		}
+
+		const g = b.dataset.g;
+		if (g) {
+			const i = Number(b.closest('.gitem').dataset.i);
+			const arr = d.gallery;
+			if (g === 'left' && i > 0) [arr[i - 1], arr[i]] = [arr[i], arr[i - 1]];
+			if (g === 'right' && i < arr.length - 1) [arr[i + 1], arr[i]] = [arr[i], arr[i + 1]];
+			if (g === 'star' && !arr[i].kind) {
+				const prev = d.cover;
+				d.cover = arr[i];
+				if (prev?.asset) arr[i] = prev; else arr.splice(i, 1);
+				renderCover(); renderList();
+			}
+			if (g === 'del') {
+				if (state.ui.confirmImg !== i) {
+					state.ui.confirmImg = i;
+					renderGallery();
+					setTimeout(() => { if (state.ui.confirmImg === i) { state.ui.confirmImg = -1; renderGallery(); } }, 2500);
+					return;
+				}
+				arr.splice(i, 1);
+			}
+			state.ui.confirmImg = -1;
+			renderGallery(); renderReady(); scheduleSave(0);
+		}
+	});
+
+	// ---------- Uploads ----------
+	async function uploadFiles(files, target) {
+		if (!assets || !canWrite || !state.draft) return;
+		const all = [...files];
+		let list = all.filter((f) => isImageFile(f) || (target === 'gallery' && isVideoFile(f)));
+		if (!list.length) {
+			toast(target === 'cover' ? t('coverMustBeImage') : t('pickMedia'));
+			return;
+		}
+		// Videos: MP4 / WebM only, 20 MB max (the artifact's storage limit)
+		list = list.filter((f) => {
+			if (!isVideoFile(f)) return true;
+			if (!VIDEO_TYPES.includes(f.type)) { toast(t('videoFormat', f.name)); return false; }
+			if (f.size > MAX_VIDEO) { toast(t('videoTooBig', f.name)); return false; }
+			return true;
+		});
+		if (!list.length) return;
+		const id = state.selected;
+		const batch = target === 'cover' ? list.slice(0, 1) : list;
+		state.uploads += batch.length;
+		renderGallery();
+		let ok = 0;
+		for (const file of batch) {
+			try {
+				const video = isVideoFile(file);
+				const body = video ? file : await prepareImage(file);
+				const res = await assets.upload(body, { type: video ? file.type : body.type || 'image/jpeg' });
+				if (state.selected !== id || !state.draft) continue;
+				const entry = video ? { kind: 'video', asset: res.id, alt: '', alt_de: '' } : { asset: res.id, alt: '', alt_de: '' };
+				if (target === 'cover') {
+					if (state.draft.cover?.asset) state.draft.gallery.unshift(state.draft.cover);
+					state.draft.cover = entry;
+				} else state.draft.gallery.push(entry);
+				ok++;
+			} catch (err) {
+				const code = err?.code;
+				toast(code === 'too_large' ? t('tooLarge')
+					: code === 'quota_or_state' ? t('quota')
+					: code === 'unsupported_type' ? t('unsupported')
+					: err?.message === 'format' ? t('unsupportedImg')
+					: t('uploadFailed'));
+			} finally {
+				state.uploads--;
+				if (state.selected === id) { renderCover(); renderGallery(); renderReady(); }
+			}
+		}
+		if (state.selected === id && ok) { scheduleSave(0); renderList(); }
+		if (ok > 1) toast(t('filesAdded', ok));
+	}
+
+	$('#fileInput').addEventListener('change', (e) => { uploadFiles(e.target.files, pickTarget); e.target.value = ''; });
+	$('#editor').addEventListener('dragover', (e) => { const z = e.target.closest('[data-drop]'); if (!z) return; e.preventDefault(); z.classList.add('over'); });
+	$('#editor').addEventListener('dragleave', (e) => e.target.closest('[data-drop]')?.classList.remove('over'));
+	$('#editor').addEventListener('drop', (e) => {
+		const z = e.target.closest('[data-drop]');
+		if (!z) return;
+		e.preventDefault();
+		z.classList.remove('over');
+		uploadFiles(e.dataTransfer.files, z.dataset.drop);
+	});
+
+	// Gallery videos play while hovered
+	$('#editor').addEventListener('mouseover', (e) => { const v = e.target.closest?.('video[data-hover-play]'); if (v) v.play().catch(() => {}); });
+	$('#editor').addEventListener('mouseout', (e) => { const v = e.target.closest?.('video[data-hover-play]'); if (v) v.pause(); });
+
+	$('#addBtn').addEventListener('click', addProject);
+	$('#publishBtn').addEventListener('click', () => ($('#publishBtn').dataset.mode === 'cancel' ? cancelPublish() : requestPublish()));
+	setInterval(renderStatus, 30000);
+
+	// Interface language switch: everything is re-rendered, nothing is lost
+	$('#langSwitch').addEventListener('click', (e) => {
+		const b = e.target.closest('[data-lang]');
+		if (!b || b.dataset.lang === L) return;
+		L = b.dataset.lang;
+		try { localStorage.setItem(LANG_KEY, L); } catch (_) { /* storage blocked */ }
+		applyStatic();
+		renderStatus();
+		renderList();
+		if (state.view === 'history') renderHistory();
+		if (state.draft) {
+			const focused = document.activeElement?.id;
+			renderEditor();
+			if (focused) document.getElementById(focused)?.focus();
+		} else renderEditor();
+	});
+
+	// ---------- History & trash ----------
+	// Every publish keeps a copy of all projects (photos are never deleted from
+	// the asset store, so a copy is enough to bring a version back). Deleted
+	// projects go to the trash first. Both live outside `projects`, so the
+	// publishing task never sees them.
+	const KEEP_HISTORY = 12;
+	const KEEP_TRASH = 30;
+	const fmtDate = (iso) => new Date(iso).toLocaleString(t('locale'), { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+	// History labels are stored as keys, shown in the interface language
+	const historyLabel = (label) => (label === 'before-restore' ? t('labelBeforeRestore') : t('labelPublish'));
+
+	async function snapshot(label) {
+		const projects = state.projects.map((p) => ({ id: p.id, data: cur(p) }));
+		const id = 'h-' + Date.now();
+		try {
+			await db.doc('history/' + id).set({ at: nowIso(), label, projects, fields: state.config.fields || [] });
+		} catch (_) {
+			toast(t('snapshotFailed'));
+			return false;
+		}
+		const old = [...state.history.map((h) => h.id), id].sort().reverse().slice(KEEP_HISTORY);
+		for (const h of old) await db.doc('history/' + h).delete().catch(() => {});
+		return true;
+	}
+
+	// What changed between a snapshot and the one before it
+	function diffLabel(entry, prev) {
+		const list = entry.data.projects || [];
+		const parts = [t('nProjects', list.length)];
+		if (!prev) return parts.join(' · ');
+		const before = new Map((prev.data.projects || []).map((p) => [p.id, p.data]));
+		const now = new Set(list.map((p) => p.id));
+		const added = list.filter((p) => !before.has(p.id)).length;
+		const removed = [...before.keys()].filter((id) => !now.has(id)).length;
+		const changed = list.filter((p) => before.has(p.id) && JSON.stringify(before.get(p.id)) !== JSON.stringify(p.data)).length;
+		if (added) parts.push(t('added', added));
+		if (removed) parts.push(t('removed', removed));
+		if (changed) parts.push(t('changed', changed));
+		if (!added && !removed && !changed) parts.push(t('noChange'));
+		return parts.join(' · ');
+	}
+
+	function renderHistory() {
+		const el = $('#history');
+		if (state.view !== 'history') return;
+		const h = state.history;
+		const rows = h.map((e, i) => {
+			const confirming = state.ui.restoring === e.id;
+			const names = (e.data.projects || []).map((p) => titleOf(p.data));
+			return `<li class="hrow">
+				<span><b>${esc(historyLabel(e.data.label))} · ${esc(fmtDate(e.data.at))}</b>
+					<span class="meta">${esc(diffLabel(e, h[i + 1]))}</span></span>
+				${!canWrite ? '<span></span>' : confirming
+					? `<span class="confirm"><button class="btn small ghost" data-restore-cancel>${esc(t('cancel'))}</button><button class="btn small danger" data-restore-yes="${esc(e.id)}">${esc(t('restore'))}</button></span>
+						<span class="hint">${esc(t('restoreHint', names.slice(0, 4).join(', ') + (names.length > 4 ? '…' : '')))}</span>`
+					: `<button class="btn small" data-restore="${esc(e.id)}">${esc(t('restore'))}</button>`}
+			</li>`;
+		}).join('');
+		const trash = state.trash.map((tr) => {
+			const d = tr.data.project || {};
+			const thumb = d.cover?.asset ? `<img class="thumb" src="${blob(d.cover.asset)}" alt="" loading="lazy">` : '<span class="thumb" aria-hidden="true"></span>';
+			const purging = state.ui.purging === tr.id;
+			return `<li class="hrow trash">${thumb}
+				<span><b>${esc(titleOf(d))}</b><span class="meta">${esc(categoryOf(d) || '—')} · ${esc(t('deletedAgo', timeAgo(tr.data.deletedAt)))}</span></span>
+				${!canWrite ? '<span></span>' : purging
+					? `<span class="confirm"><button class="btn small ghost" data-purge-cancel>${esc(t('cancel'))}</button><button class="btn small danger" data-purge-yes="${esc(tr.id)}">${esc(t('erase'))}</button></span>`
+					: `<span class="confirm"><button class="btn small ghost" data-purge="${esc(tr.id)}" title="${esc(t('eraseTitle'))}">×</button><button class="btn small" data-untrash="${esc(tr.id)}">${esc(t('recover'))}</button></span>`}
+			</li>`;
+		}).join('');
+		el.innerHTML = `
+			<div class="hist-head"><h2>${esc(t('historyTitle'))}</h2><button class="btn small ghost" data-close-history>${esc(t('backToProjects'))}</button></div>
+			<section class="blk" aria-labelledby="h-trash">
+				<div class="blk-head"><h2 id="h-trash">${esc(t('trash'))}</h2><span class="label">${esc(t('nProjects', state.trash.length))}</span></div>
+				${trash ? `<ul class="hlist">${trash}</ul>` : `<p class="empty">${esc(t('noTrash'))}</p>`}
+				<p class="hint">${esc(t('trashHint', KEEP_TRASH))}</p>
+			</section>
+			<section class="blk" aria-labelledby="h-pub">
+				<div class="blk-head"><h2 id="h-pub">${esc(t('publications'))}</h2><span class="label">${esc(t('lastN', KEEP_HISTORY))}</span></div>
+				${rows ? `<ul class="hlist">${rows}</ul>` : `<p class="empty">${esc(t('noPublications'))}</p>`}
+			</section>`;
+	}
+
+	function setView(view) {
+		state.view = view;
+		$('main.work').hidden = view === 'history';
+		$('#history').hidden = view !== 'history';
+		$('#historyBtn').setAttribute('aria-pressed', String(view === 'history'));
+		state.ui.restoring = null; state.ui.purging = null;
+		renderHistory();
+		window.scrollTo(0, 0);
+	}
+
+	async function restoreSnapshot(hid) {
+		const entry = state.history.find((h) => h.id === hid);
+		if (!entry || !canWrite) return;
+		state.ui.restoring = null;
+		try {
+			await flushSave();
+			if (!(await snapshot('before-restore'))) return;
+			const keep = new Set(entry.data.projects.map((p) => p.id));
+			state.selected = null; state.draft = null;
+			for (const p of state.projects) if (!keep.has(p.id)) await db.doc('projects/' + p.id).delete();
+			const stamp = nowIso();
+			for (const p of entry.data.projects) await db.doc('projects/' + p.id).set({ ...p.data, updatedAt: stamp });
+			for (const tr of state.trash) if (keep.has(tr.id)) await db.doc('trash/' + tr.id).delete().catch(() => {});
+			// Bring back info fields the version used, keep the ones added since
+			const fields = [...(state.config.fields || [])];
+			for (const f of entry.data.fields || []) if (!fields.some((x) => x.key === f.key)) fields.push(f);
+			if (fields.length !== (state.config.fields || []).length) await db.doc('site/config').set({ ...state.config, fields });
+			touchEdits();
+			renderEditor();
+			setView('projects');
+			toast(t('restored', fmtDate(entry.data.at)));
+		} catch (_) {
+			toast(t('restoreFailed'));
+			renderHistory();
+		}
+	}
+
+	async function untrash(tid) {
+		const tr = state.trash.find((x) => x.id === tid);
+		if (!tr || !canWrite) return;
+		try {
+			const max = state.projects.reduce((m, p) => Math.max(m, p.data.order ?? 0), 0);
+			await db.doc('projects/' + tid).set({ ...tr.data.project, order: max + 1, updatedAt: nowIso() });
+			await db.doc('trash/' + tid).delete();
+			touchEdits();
+			toast(t('recovered', titleOf(tr.data.project || {})));
+		} catch (_) { toast(t('recoverFailed')); }
+	}
+
+	$('#historyBtn').addEventListener('click', () => setView(state.view === 'history' ? 'projects' : 'history'));
+	$('#history').addEventListener('click', async (e) => {
+		const b = e.target.closest('button');
+		if (!b) return;
+		const ds = b.dataset;
+		if (ds.closeHistory !== undefined) return setView('projects');
+		if (ds.restore) { state.ui.restoring = ds.restore; return renderHistory(); }
+		if (ds.restoreCancel !== undefined) { state.ui.restoring = null; return renderHistory(); }
+		if (ds.restoreYes) { b.disabled = true; return restoreSnapshot(ds.restoreYes); }
+		if (ds.untrash) { b.disabled = true; return untrash(ds.untrash); }
+		if (ds.purge) { state.ui.purging = ds.purge; return renderHistory(); }
+		if (ds.purgeCancel !== undefined) { state.ui.purging = null; return renderHistory(); }
+		if (ds.purgeYes) { state.ui.purging = null; await db.doc('trash/' + ds.purgeYes).delete().catch(() => toast(t('failedRetry'))); }
+	});
+
+	// ---------- Data ----------
+	function onProjects(snap) {
+		state.projects = snap.docs.map((d) => ({ id: d.id, data: d.data() }))
+			.sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0) || a.id.localeCompare(b.id));
+		const sel = state.projects.find((p) => p.id === state.selected);
+		if (state.selected && !sel) { state.selected = null; state.draft = null; renderEditor(); }
+		else if (sel && state.draft && !saveTimer && saveState !== 'saving' && !snap.metadata.hasPendingWrites
+			&& (sel.data.updatedAt || '') > (state.draft.updatedAt || '')) {
+			// Changed elsewhere (another tab) while nothing is pending here
+			select(sel.id);
+		}
+		if (!state.selected && state.projects.length && !window.matchMedia('(max-width: 880px)').matches) select(state.projects[0].id);
+		renderList();
+		renderStatus();
+		if (state.draft && !state.ui.otherCategory) renderCategories();
+	}
+
+	function showNotice(html) { $('#notice').innerHTML = `<div class="notice"><span class="sq o" style="margin-top:5px"></span><p>${html}</p></div>`; }
+
+	applyStatic();
+
+	(async () => {
+		db = await window.claude?.use?.('db');
+		if (!db) {
+			showNotice(t('openFromClaude'));
+			$('#list').innerHTML = `<li class="empty">${esc(t('unavailable'))}</li>`;
+			renderStatus();
+			return;
+		}
+		const [userCap, assetsCap] = await Promise.all([window.claude.use('user'), window.claude.use('assets')]);
+		assets = assetsCap;
+		try { uid = userCap ? await userCap.id() : null; } catch (_) { /* no id */ }
+		try { canWrite = userCap ? await userCap.canEdit() : true; } catch (_) { canWrite = true; }
+		if (!canWrite) showNotice(t('readOnly'));
+		else if (!assets) showNotice(t('noUploads'));
+		$('#addBtn').disabled = !canWrite;
+
+		db.collection('projects').onSnapshot(onProjects, () => { $('#list').innerHTML = `<li class="empty">${esc(t('loadFailed'))}</li>`; });
+		const byNewest = (snap) => snap.docs.map((d) => ({ id: d.id, data: d.data() })).sort((a, b) => b.id.localeCompare(a.id));
+		db.collection('history').onSnapshot((snap) => { state.history = byNewest(snap); renderHistory(); }, () => {});
+		db.collection('trash').onSnapshot((snap) => {
+			state.trash = snap.docs.map((d) => ({ id: d.id, data: d.data() })).sort((a, b) => (b.data.deletedAt || '').localeCompare(a.data.deletedAt || ''));
+			// Keep the trash bounded: drop the oldest beyond the limit
+			if (canWrite) state.trash.slice(KEEP_TRASH).forEach((tr) => db.doc('trash/' + tr.id).delete().catch(() => {}));
+			renderHistory();
+		}, () => {});
+		$('#historyBtn').disabled = false;
+		db.doc('site/deploy').onSnapshot((snap) => { state.deploy = snap.exists ? snap.data() : null; renderStatus(); renderList(); }, () => {});
+		db.doc('site/edits').onSnapshot((snap) => { state.edits = snap.exists ? snap.data() : null; renderStatus(); }, () => {});
+		db.doc('site/config').onSnapshot((snap) => {
+			const c = snap.exists ? snap.data() : {};
+			state.config = { ...c, fields: Array.isArray(c.fields) ? c.fields : [] };
+			$('#siteName').textContent = c.name || 'Portfolio';
+			if (state.draft) renderInfos();
+		}, () => {});
+		renderStatus();
+	})();
+
+	window.addEventListener('beforeunload', () => { if (saveTimer) save(); });
+})();
+</script>
