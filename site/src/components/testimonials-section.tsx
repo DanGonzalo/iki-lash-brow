@@ -109,7 +109,7 @@ function PixelArrow({
 				className
 			)}
 		>
-			<span className="font-pixel text-2xl leading-none transition-transform duration-150 group-hover:scale-110 md:text-3xl xl:text-4xl">
+			<span className="font-pixel font-light text-2xl leading-none transition-transform duration-150 group-hover:scale-110 md:text-3xl xl:text-4xl">
 				{direction === 'prev' ? '←' : '→'}
 			</span>
 		</button>
@@ -192,7 +192,7 @@ export default function TestimonialsSection() {
 				>
 					{/* Quote */}
 					<div className="relative z-10 p-6 xl:absolute xl:left-0 xl:top-0 xl:max-w-[46%] xl:p-10 2xl:p-12">
-						<span aria-hidden="true" className="font-pixel text-5xl leading-none xl:text-7xl">
+						<span aria-hidden="true" className="font-pixel font-light text-5xl leading-none xl:text-7xl">
 							“
 						</span>
 						<blockquote className="mt-3 font-serif text-[1.7rem] leading-[1.15] md:text-[2.1rem] xl:text-[2.3rem] 2xl:text-[2.6rem]" aria-live="polite">

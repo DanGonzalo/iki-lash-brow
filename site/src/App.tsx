@@ -48,7 +48,7 @@ export default function App() {
       <PixelCursor />
 
       {/* Film grain over the whole site */}
-      <div aria-hidden="true" className="grain pointer-events-none fixed inset-0 z-[60] opacity-[0.07]" />
+      <div aria-hidden="true" className="grain pointer-events-none fixed inset-0 z-[60] opacity-[0.045]" />
     </>
   );
 }

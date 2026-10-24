@@ -23,7 +23,7 @@ function Step({ step, index, lit }: { step: Content['process'][number]; index: n
 				<span className="text-[10px] uppercase tracking-[0.25em] text-stone">{step.duration}</span>
 			</div>
 			<p className="mt-10 text-[11px] tabular-nums tracking-[0.2em] text-stone">{pad(index + 1)}</p>
-			<h3 className="mt-2 font-pixel text-3xl uppercase leading-none md:text-4xl">
+			<h3 className="mt-2 font-pixel font-light text-3xl leading-none md:text-4xl">
 				<DecodeText text={step.title} play={lit} duration={1500} />
 			</h3>
 			<p className="mt-4 max-w-xs text-[13px] leading-relaxed text-paper/70">{step.text}</p>
@@ -71,7 +71,7 @@ export default function ProcessSection() {
 			<div className="mx-auto max-w-[1400px] px-5 py-24 md:px-10 md:py-36">
 				<div className="flex flex-col items-center text-center">
 					<DecodeText as="p" text={COPY.process.label} className="text-[11px] uppercase tracking-[0.25em] text-label" />
-					<h2 className="mt-5 font-pixel text-[clamp(2.5rem,7vw,6rem)] uppercase leading-[0.9] tracking-tight">
+					<h2 className="mt-5 font-pixel font-light text-[clamp(2.5rem,7vw,6rem)] leading-[0.95]">
 						{COPY.process.title.map((line, i) => (
 							<DecodeText key={i} text={line} className="block" delay={i * 150} duration={1200 + i * 100} />
 						))}

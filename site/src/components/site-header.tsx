@@ -1,6 +1,6 @@
 import { useEffect, useState, type MouseEvent } from 'react';
 import DecodeText from '@/components/ui/decode-text';
-import PixelLogo from '@/components/ui/pixel-logo';
+import BrandLogo from '@/components/ui/brand-logo';
 import PixelCurtain from '@/components/ui/pixel-curtain';
 import LangSwitch from '@/components/lang-switch';
 import { CONTENT, SITE } from '@/data/site';
@@ -65,16 +65,17 @@ export default function SiteHeader() {
 
 	return (
 		<>
-			<header className="fixed inset-x-0 top-0 z-50 border-b border-line bg-ink/70 backdrop-blur-md">
+			<header className="fixed inset-x-0 top-0 z-50 border-b border-line bg-ink/90 backdrop-blur-md">
 				<div className="mx-auto flex h-16 max-w-[1400px] items-center justify-between gap-3 px-4 sm:gap-6 sm:px-5 md:h-20 md:px-10">
 					<a
 						href="#top"
 						onClick={goTo('top')}
-						className="flex min-w-0 items-center gap-2 whitespace-nowrap sm:gap-2.5 font-pixel text-[13px] uppercase tracking-[0.08em] min-[380px]:text-sm min-[380px]:tracking-[0.12em] sm:text-base sm:tracking-[0.18em] md:text-lg"
+						aria-label={SITE.name}
+						className="flex min-w-0 flex-col items-start gap-1 whitespace-nowrap"
 					>
-						<PixelLogo />
-						<span className="min-w-0 truncate">
-							<DecodeText text={SITE.name} duration={900} />
+						<BrandLogo className="h-6 md:h-7" />
+						<span className="min-w-0 truncate pl-[0.35em] text-[8px] uppercase tracking-[0.42em] text-stone md:text-[9px]">
+							<DecodeText text={SITE.heroLines[1]} duration={900} />
 						</span>
 					</a>
 
@@ -105,7 +106,7 @@ export default function SiteHeader() {
 						<a
 							href="#contact"
 							onClick={goTo('contact')}
-							className="flex items-center gap-3 whitespace-nowrap h-[38px] bg-paper px-2.5 text-[10px] font-medium uppercase tracking-[0.12em] min-[380px]:px-3 min-[380px]:tracking-[0.16em] text-ink sm:px-4 sm:tracking-[0.2em] transition-colors hover:bg-paper/85 md:h-auto md:px-6 md:py-3 md:text-[11px]"
+							className="flex items-center gap-3 whitespace-nowrap rounded-full h-[38px] bg-paper px-3.5 text-[10px] font-semibold uppercase tracking-[0.12em] min-[380px]:px-4 min-[380px]:tracking-[0.16em] text-ink sm:px-5 sm:tracking-[0.2em] transition-colors hover:bg-paper/85 md:h-auto md:px-6 md:py-3 md:text-[11px]"
 						>
 							<span className="sm:hidden">{copy.header.ctaShort}</span>
 							<span className="hidden sm:inline">{copy.header.cta}</span>
@@ -117,7 +118,7 @@ export default function SiteHeader() {
 							aria-expanded={menuOpen}
 							aria-controls="mobile-menu"
 							aria-label={menuOpen ? ui.header.closeMenu : ui.header.openMenu}
-							className="grid h-[38px] w-[38px] shrink-0 cursor-pointer place-items-center border border-line xl:hidden"
+							className="grid h-[38px] w-[38px] shrink-0 cursor-pointer place-items-center rounded-full border border-line xl:hidden"
 						>
 							<span aria-hidden="true" className="flex w-4 flex-col gap-[4px]">
 								<span className={cn('h-[2px] bg-paper transition-transform', menuOpen && 'translate-y-[6px] rotate-45')} />
@@ -150,7 +151,7 @@ export default function SiteHeader() {
 									href={`#${item.id}`}
 									onClick={goTo(item.id)}
 									tabIndex={menuOpen ? 0 : -1}
-									className="flex items-baseline gap-4 border-b border-line py-4 font-pixel text-4xl uppercase"
+									className="flex items-baseline gap-4 border-b border-line py-4 font-pixel font-light text-[2.6rem] leading-none"
 								>
 									<span className="font-mono text-[11px] text-stone">{String(i + 1).padStart(2, '0')}</span>
 									{menuOpen ? <DecodeText text={item.label} play delay={200 + i * 70} duration={600} /> : item.label}

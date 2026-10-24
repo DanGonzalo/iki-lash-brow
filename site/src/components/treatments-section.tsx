@@ -26,7 +26,7 @@ function Treatment({ item, index }: { item: Content['treatments'][number]; index
 					<PixelIcon name={item.icon as PixelIconName | PixelBitmap} on={inView} replay={hover} className="w-11 text-accent md:w-12" />
 					<span className="text-[10px] tabular-nums tracking-[0.25em] text-stone">{pad(index + 1)}</span>
 				</div>
-				<h3 className="font-pixel text-3xl uppercase leading-[0.95] hyphens-auto [overflow-wrap:anywhere] md:text-[2.4rem]">
+				<h3 className="font-pixel font-light text-3xl leading-[0.95] hyphens-auto [overflow-wrap:anywhere] md:text-[2.4rem]">
 					<DecodeText text={item.name} replay={hover} duration={900} />
 				</h3>
 				<p className="text-[13px] leading-relaxed text-paper/75">{item.text}</p>
@@ -72,7 +72,7 @@ export default function TreatmentsSection() {
 				<div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
 					<div>
 						<DecodeText as="p" text={c.label} className="text-[11px] uppercase tracking-[0.25em] text-label" />
-						<h2 className="mt-5 font-pixel text-[clamp(2.75rem,8vw,7rem)] uppercase leading-[0.88] tracking-tight">
+						<h2 className="mt-5 font-pixel font-light text-[clamp(2.75rem,8vw,7rem)] leading-[0.95]">
 							{c.title.map((line, i) => (
 								<DecodeText key={i} text={line} className="block" delay={i * 150} duration={1100 + i * 100} />
 							))}

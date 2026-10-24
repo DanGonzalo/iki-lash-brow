@@ -115,7 +115,8 @@ export default function PixelEdgeImage({
 		const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 		const styles = getComputedStyle(document.documentElement);
 		const ink = styles.getPropertyValue('--color-ink').trim() || '#15100e';
-		const paper = styles.getPropertyValue('--color-paper').trim() || '#f4ece4';
+		// Stray pixels around the portrait take the accent (champagne)
+		const paper = styles.getPropertyValue('--color-accent').trim() || '#c9b79a';
 		let elapsed = 0;
 		let start = 0;
 		let frame = 0;

@@ -1,23 +1,24 @@
 @import 'tailwindcss';
 
 @theme {
-  --font-sans: 'Geist Mono', ui-monospace, SFMono-Regular, monospace;
-  --font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, monospace;
-  --font-pixel: 'Geist Pixel', 'Geist Mono', ui-monospace, monospace;
-  /* Soft editorial serif for quotes and the about text */
-  --font-serif: 'Instrument Serif', 'Times New Roman', serif;
+  /* Body & interface: Manrope · titles & logo: Cormorant Garamond */
+  --font-sans: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'Manrope', ui-sans-serif, system-ui, sans-serif;
+  --font-pixel: 'Cormorant Garamond', 'Times New Roman', serif;
+  --font-serif: 'Cormorant Garamond', 'Times New Roman', serif;
 
-  /* Beauty palette: cocoa ink, ivory paper, taupe greys */
-  --color-ink: #15100e;
-  --color-paper: #f4ece4;
-  --color-stone: #9c8b82;
-  --color-line: #2e2420;
-  /* Accent: only on small details. Defaults to ivory = no accent colour.
-     Set at runtime from THEME in src/data/site.ts */
-  --color-accent: #f4ece4;
-  --color-accent-ink: #15100e;
-  /* Small section labels: taupe without accent, accent otherwise */
-  --color-label: #9c8b82;
+  /* IKI palette: Atelier Ivory, Warm Sand, Soft Taupe, Champagne, Deep Espresso, Ink Black.
+     "ink" is the background and "paper" the text: light sections by default,
+     dark ones (intro, footer) swap them with .theme-dark */
+  --color-ink: #f5f0eb;
+  --color-paper: #3a322b;
+  --color-stone: #75675a;
+  --color-line: #e0d5c8;
+  /* Accent: champagne, on small details only. Set at runtime from THEME in src/data/site.ts */
+  --color-accent: #c9b79a;
+  --color-accent-ink: #1e1d1b;
+  /* Section labels: a deeper champagne, readable on ivory */
+  --color-label: #7f6a4f;
 
   --animate-blink: blink 1.05s steps(1) infinite;
 
@@ -42,6 +43,15 @@
   }
 }
 
+/* Dark sections (intro, footer): Deep Espresso background, ivory text */
+.theme-dark {
+  --color-ink: #3a322b;
+  --color-paper: #f5f0eb;
+  --color-stone: #b7a89a;
+  --color-line: #51473e;
+  --color-label: #c9b79a;
+}
+
 /* Film grain laid over the whole site */
 @utility grain {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
@@ -59,5 +69,24 @@ html.has-pixel-cursor * {
   }
   to {
     opacity: 1;
+  }
+}
+
+/* The lash strokes of the logo, drawn in the intro */
+@keyframes draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes wipe {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
   }
 }

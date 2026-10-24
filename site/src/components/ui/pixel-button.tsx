@@ -23,7 +23,7 @@ export default function PixelButton({
 	const [hover, setHover] = useState(false);
 	const filled = className?.includes('bg-paper') ?? false;
 	const classes = cn(
-		'group relative inline-flex cursor-pointer items-center justify-center gap-3 overflow-hidden border border-paper px-6 py-4 text-[11px] uppercase tracking-[0.2em] outline-none transition-colors duration-200 [transition-timing-function:steps(2)] focus-visible:ring-1 focus-visible:ring-paper focus-visible:ring-offset-4 focus-visible:ring-offset-ink',
+		'group relative inline-flex cursor-pointer items-center justify-center gap-3 overflow-hidden rounded-full border border-paper px-7 py-4 text-[11px] font-semibold uppercase tracking-[0.2em] outline-none transition-colors duration-200 [transition-timing-function:steps(2)] focus-visible:ring-1 focus-visible:ring-paper focus-visible:ring-offset-4 focus-visible:ring-offset-ink',
 		className,
 		filled ? (hover ? 'text-paper' : 'text-ink') : hover ? 'text-ink' : 'text-paper'
 	);

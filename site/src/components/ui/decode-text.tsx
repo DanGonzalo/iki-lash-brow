@@ -23,7 +23,7 @@ interface DecodeTextProps {
 const BLANK = '\u00A0';
 // Global tempo: <1 = faster. Durations and delays passed as props are scaled.
 const TEMPO = 0.5;
-// Pigment dots, big and small: the text is "tattooed" in, dot by dot
+// Dots, big and small: the text appears dot by dot, like pigment or lashes placed one by one
 const DOTS = ['•', '·', '•', ':'];
 const randomDot = () => DOTS[Math.floor(Math.random() * DOTS.length)];
 

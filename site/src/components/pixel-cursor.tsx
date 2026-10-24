@@ -74,7 +74,7 @@ export default function PixelCursor() {
 		>
 			<div
 				className={cn(
-					'-translate-x-1/2 -translate-y-1/2 bg-paper text-ink transition-[width,height,padding] duration-150 [transition-timing-function:steps(3)]',
+					'-translate-x-1/2 -translate-y-1/2 bg-[#f5f0eb] text-[#1e1d1b] transition-[width,height,padding] duration-150 [transition-timing-function:steps(3)]',
 					label
 						? 'whitespace-nowrap px-2.5 py-1.5 text-[10px] font-medium uppercase tracking-[0.2em]'
 						: pressed

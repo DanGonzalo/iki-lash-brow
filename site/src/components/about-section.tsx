@@ -24,7 +24,7 @@ export default function AboutSection() {
 
 				<div className="lg:col-span-6 lg:col-start-7">
 					<DecodeText as="p" text={COPY.about.label} className="text-[11px] uppercase tracking-[0.25em] text-label" />
-					<h2 className="mt-5 font-pixel text-[clamp(2.5rem,8vw,5rem)] uppercase leading-[0.9] tracking-tight lg:text-[clamp(2.5rem,4.8vw,5rem)]">
+					<h2 className="mt-5 font-pixel font-light text-[clamp(2.5rem,8vw,5rem)] leading-[0.95] lg:text-[clamp(2.5rem,4.8vw,5rem)]">
 						{COPY.about.title.map((line, i) => (
 							<DecodeText key={i} text={line} className="block" delay={i * 150} duration={1100} />
 						))}

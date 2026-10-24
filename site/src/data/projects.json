@@ -1,5 +1,171 @@
 [
 	{
+		"slug": "natural-lash-set",
+		"title": "Natural Lash Set",
+		"category": "Lashes",
+		"year": 2025,
+		"details": [
+			{
+				"label": "Technique",
+				"value": "Classic lashes",
+				"labelDe": "Technik",
+				"valueDe": "Klassische Wimpern"
+			},
+			{
+				"label": "Duration",
+				"value": "2 h",
+				"labelDe": "Dauer",
+				"valueDe": "2 Std."
+			},
+			{
+				"label": "Lasts",
+				"value": "3–4 weeks",
+				"labelDe": "Haltbarkeit",
+				"valueDe": "3–4 Wochen"
+			},
+			{
+				"label": "Location",
+				"value": "Atelier",
+				"labelDe": "Ort"
+			}
+		],
+		"summary": "A light classic set, one extension per natural lash, for eyes that look awake from the moment you wake up.",
+		"description": [
+			"Lea wanted to stop wearing mascara without anyone noticing a change. We chose fine 0.07 mm lashes in a soft C curl, one length shorter than she first asked for, so they would follow her own lash line.",
+			"Two hours on the lash bed, eyes closed, then a quick brush and a mirror. Photographed one week later, after her first shower and swim."
+		],
+		"cover": {
+			"src": "/projects/assets/1cfeb3cb4d5e9557886223636bba7f12.jpg",
+			"alt": "Natural set, one week later",
+			"altDe": "Natürliches Set, eine Woche später",
+			"thumb": "/projects/assets/1cfeb3cb4d5e9557886223636bba7f12.w900.jpg",
+			"width": 2000,
+			"height": 3000
+		},
+		"gallery": [
+			{
+				"src": "/projects/assets/8d907690676387c7f11570c195656491.jpg",
+				"alt": "Lash by lash with fine tweezers",
+				"altDe": "Wimper für Wimper mit feiner Pinzette",
+				"thumb": "/projects/assets/8d907690676387c7f11570c195656491.w900.jpg",
+				"type": "image"
+			},
+			{
+				"src": "/projects/assets/657f7425be0ccc0189a7183b6f93f01f.jpg",
+				"alt": "Isolation and placement",
+				"altDe": "Isolieren und Setzen",
+				"thumb": "/projects/assets/657f7425be0ccc0189a7183b6f93f01f.w900.jpg",
+				"type": "image"
+			},
+			{
+				"src": "/projects/assets/697310a09a94ddaf1d18ba640bbb387c.jpg",
+				"alt": "The lash tray: lengths and curls",
+				"altDe": "Die Wimpernpalette: Längen und Schwünge",
+				"thumb": "/projects/assets/697310a09a94ddaf1d18ba640bbb387c.w900.jpg",
+				"type": "image"
+			},
+			{
+				"src": "/projects/assets/d013afab3b5ab097ad7945299151dde3.jpg",
+				"alt": "Soft and full, no mascara",
+				"altDe": "Weich und voll, ohne Mascara",
+				"thumb": "/projects/assets/d013afab3b5ab097ad7945299151dde3.w900.jpg",
+				"type": "image"
+			}
+		],
+		"de": {
+			"title": "Natürliches Wimpernset",
+			"category": "Wimpern",
+			"summary": "Ein leichtes klassisches Set, eine Extension pro Naturwimper, für Augen, die schon beim Aufwachen wach aussehen.",
+			"description": [
+				"Lea wollte auf Mascara verzichten, ohne dass jemand eine Veränderung bemerkt. Wir haben feine 0,07-mm-Wimpern mit sanftem C-Schwung gewählt, eine Länge kürzer als zuerst gewünscht, damit sie ihrem eigenen Wimpernkranz folgen.",
+				"Zwei Stunden auf der Liege, Augen zu, dann ein kurzes Bürsten und ein Blick in den Spiegel. Fotografiert eine Woche später, nach der ersten Dusche und dem ersten Schwimmen."
+			]
+		}
+	},
+	{
+		"slug": "signature-lash-design",
+		"title": "Signature Lash Design",
+		"category": "Lashes",
+		"year": 2025,
+		"details": [
+			{
+				"label": "Technique",
+				"value": "Light volume",
+				"labelDe": "Technik",
+				"valueDe": "Leichtes Volumen"
+			},
+			{
+				"label": "Duration",
+				"value": "2 h 30",
+				"labelDe": "Dauer",
+				"valueDe": "2,5 Std."
+			},
+			{
+				"label": "Lasts",
+				"value": "3–4 weeks",
+				"labelDe": "Haltbarkeit",
+				"valueDe": "3–4 Wochen"
+			},
+			{
+				"label": "Location",
+				"value": "Atelier",
+				"labelDe": "Ort"
+			}
+		],
+		"summary": "A tailored lash map with a lifted outer corner and more density, designed for a bride who wanted definition in every photo.",
+		"description": [
+			"We mapped the lashes in five zones: shorter at the inner corner, longest just past the centre, then a soft flick outwards to open her almond-shaped eyes.",
+			"Light volume fans gave depth without weight. An infill two days before the wedding kept the line perfect for the photos."
+		],
+		"cover": {
+			"src": "/projects/assets/8b441b96e67da0b00e9c4025e12afa15.jpg",
+			"alt": "Lifted outer corner",
+			"altDe": "Angehobener äußerer Augenwinkel",
+			"thumb": "/projects/assets/8b441b96e67da0b00e9c4025e12afa15.w900.jpg",
+			"width": 2000,
+			"height": 2000
+		},
+		"gallery": [
+			{
+				"src": "/projects/assets/bf345a208bec4c65959444a45d409cc5.jpg",
+				"alt": "Mapping before the set",
+				"altDe": "Mapping vor dem Set",
+				"thumb": "/projects/assets/bf345a208bec4c65959444a45d409cc5.w900.jpg",
+				"type": "image"
+			},
+			{
+				"src": "/projects/assets/17dbde08413ac8e98dcbb66ecde45c80.jpg",
+				"alt": "In the atelier",
+				"altDe": "Im Atelier",
+				"thumb": "/projects/assets/17dbde08413ac8e98dcbb66ecde45c80.w900.jpg",
+				"type": "image"
+			},
+			{
+				"src": "/projects/assets/d657e3be753f734e36b7e9143c4af3bf.jpg",
+				"alt": "Profile: a soft lift",
+				"altDe": "Profil: ein sanfter Schwung",
+				"thumb": "/projects/assets/d657e3be753f734e36b7e9143c4af3bf.w900.jpg",
+				"type": "image"
+			},
+			{
+				"src": "/projects/assets/f4c860b8d1ee0a26655930bd2c95a005.jpg",
+				"alt": "Finishing the look",
+				"altDe": "Der letzte Schliff",
+				"thumb": "/projects/assets/f4c860b8d1ee0a26655930bd2c95a005.w900.jpg",
+				"type": "image"
+			}
+		],
+		"de": {
+			"title": "Signature Lash Design",
+			"category": "Wimpern",
+			"summary": "Ein maßgeschneidertes Wimperndesign mit angehobenem äußeren Augenwinkel und mehr Dichte – für eine Braut, die auf jedem Foto Ausdruck wollte.",
+			"description": [
+				"Wir haben die Wimpern in fünf Zonen geplant: kürzer am inneren Augenwinkel, am längsten kurz nach der Mitte, dann ein sanfter Schwung nach außen, der ihre mandelförmigen Augen öffnet.",
+				"Leichte Volumenfächer gaben Tiefe ohne Gewicht. Ein Auffüllen zwei Tage vor der Hochzeit hielt die Linie perfekt für die Fotos."
+			]
+		}
+	},
+	{
 		"slug": "soft-powder-brows",
 		"title": "Soft Powder Brows",
 		"category": "Brows",
@@ -72,6 +238,7 @@
 			}
 		],
 		"de": {
+			"title": "Soft Powder Brows",
 			"category": "Augenbrauen",
 			"summary": "Lichte Brauen, aufgebaut zu einem weichen, pudrigen Farbton, der wie Make-up aussieht, nur ohne morgendliche Routine.",
 			"description": [
@@ -331,84 +498,6 @@
 		}
 	},
 	{
-		"slug": "copper-glow",
-		"title": "Copper Glow",
-		"category": "Editorial",
-		"year": 2023,
-		"details": [
-			{
-				"label": "Technique",
-				"value": "Beauty makeup",
-				"labelDe": "Technik",
-				"valueDe": "Beauty-Make-up"
-			},
-			{
-				"label": "Duration",
-				"value": "Full day",
-				"labelDe": "Dauer",
-				"valueDe": "Ganzer Tag"
-			},
-			{
-				"label": "Location",
-				"value": "Photo studio",
-				"labelDe": "Ort",
-				"valueDe": "Fotostudio"
-			}
-		],
-		"summary": "A warm copper eye for a beauty shoot with a local photographer.",
-		"description": [
-			"Copper, peach and bronze pressed into the lid, with a clean brow to keep it modern. The challenge was to stay soft enough for daylight and bold enough for the close-ups.",
-			"Four looks in one day, from glowy minimal to deep plum."
-		],
-		"cover": {
-			"src": "/projects/assets/e6a2df6fa52e8a606bb35dafee49986e.jpg",
-			"alt": "Copper on the lid",
-			"altDe": "Kupfer auf dem Lid",
-			"thumb": "/projects/assets/e6a2df6fa52e8a606bb35dafee49986e.w900.jpg",
-			"width": 2000,
-			"height": 1676
-		},
-		"gallery": [
-			{
-				"src": "/projects/assets/25888bbff61b3f9e0edcfc158ea1b4ed.jpg",
-				"alt": "Plum variation",
-				"altDe": "Pflaumen-Variante",
-				"thumb": "/projects/assets/25888bbff61b3f9e0edcfc158ea1b4ed.w900.jpg",
-				"type": "image"
-			},
-			{
-				"src": "/projects/assets/f7f0880f362588a52357bba469294976.jpg",
-				"alt": "Red lip, soft eyes",
-				"altDe": "Rote Lippe, sanfte Augen",
-				"thumb": "/projects/assets/f7f0880f362588a52357bba469294976.w900.jpg",
-				"type": "image"
-			},
-			{
-				"src": "/projects/assets/b67434fd5338bb71b479ee63cf5d0d3e.jpg",
-				"alt": "Shimmer in daylight",
-				"altDe": "Schimmer bei Tageslicht",
-				"thumb": "/projects/assets/b67434fd5338bb71b479ee63cf5d0d3e.w900.jpg",
-				"type": "image"
-			},
-			{
-				"src": "/projects/assets/b288ba38cdb1aa9e8b6d90c4e62f49bb.jpg",
-				"alt": "Minimal glow",
-				"altDe": "Minimalistischer Glow",
-				"thumb": "/projects/assets/b288ba38cdb1aa9e8b6d90c4e62f49bb.w900.jpg",
-				"type": "image"
-			}
-		],
-		"de": {
-			"title": "Kupfer-Glow",
-			"category": "Editorial",
-			"summary": "Ein warmes Kupfer-Augen-Make-up für ein Beauty-Shooting mit einer Fotografin aus der Region.",
-			"description": [
-				"Kupfer, Pfirsich und Bronze auf dem Lid, dazu eine klare Braue, damit es modern bleibt. Die Herausforderung: weich genug für Tageslicht, kräftig genug für die Nahaufnahmen.",
-				"Vier Looks an einem Tag, von minimalistisch-strahlend bis tiefem Pflaume."
-			]
-		}
-	},
-	{
 		"slug": "ombre-brows",
 		"title": "Ombré Brows",
 		"category": "Brows",
@@ -482,6 +571,7 @@
 			}
 		],
 		"de": {
+			"title": "Ombré Brows",
 			"category": "Augenbrauen",
 			"summary": "Ein kräftigerer Ombré-Effekt für eine Kundin, die Struktur wollte, die Sport, Sonne und Schwimmen übersteht.",
 			"description": [
@@ -577,7 +667,7 @@
 	{
 		"slug": "lash-line-enhancement",
 		"title": "Lash Line Enhancement",
-		"category": "Eyes",
+		"category": "Lashes",
 		"year": 2024,
 		"details": [
 			{
@@ -649,88 +739,11 @@
 		],
 		"de": {
 			"title": "Wimpernkranzverdichtung",
-			"category": "Augen",
+			"category": "Wimpern",
 			"summary": "Pigment zwischen den Wimpern für einen dichteren Wimpernkranz, ganz ohne sichtbaren Strich.",
 			"description": [
 				"Die dezenteste Behandlung, die ich anbiete: Winzige Pigmentpunkte zwischen den Wimpern lassen sie dichter und die Augen ausdrucksstärker wirken, auch ohne Mascara.",
 				"Ideal bei hellen Wimpern, Kontaktlinsen oder empfindlichen Augen. Für die Fotos mit einem klassischen Wimpern-Styling kombiniert."
-			]
-		}
-	},
-	{
-		"slug": "ruby-editorial",
-		"title": "Ruby Editorial",
-		"category": "Editorial",
-		"year": 2024,
-		"details": [
-			{
-				"label": "Technique",
-				"value": "Editorial makeup",
-				"labelDe": "Technik",
-				"valueDe": "Editorial-Make-up"
-			},
-			{
-				"label": "Duration",
-				"value": "Full day",
-				"labelDe": "Dauer",
-				"valueDe": "Ganzer Tag"
-			},
-			{
-				"label": "Location",
-				"value": "Photo studio",
-				"labelDe": "Ort",
-				"valueDe": "Fotostudio"
-			}
-		],
-		"summary": "A red-lip beauty story for a designer’s lookbook, built around one perfect ruby.",
-		"description": [
-			"The brief: skin that looks like skin, and a lip strong enough to carry the whole collection. I prepped the skin for two hours under studio light and lined the lips by hand for a crisp edge.",
-			"Touch-ups between every look kept the colour sharp from the first frame to the last."
-		],
-		"cover": {
-			"src": "/projects/assets/1599cbbd395aa287d1bc153eeec9f1b0.jpg",
-			"alt": "Ruby lip, matte skin",
-			"altDe": "Rubinrote Lippe, matte Haut",
-			"thumb": "/projects/assets/1599cbbd395aa287d1bc153eeec9f1b0.w900.jpg",
-			"width": 2000,
-			"height": 2500
-		},
-		"gallery": [
-			{
-				"src": "/projects/assets/7cd9c78bec8d2e8dec55372e7b9f1cf9.jpg",
-				"alt": "Close-up for the lookbook",
-				"altDe": "Close-up für das Lookbook",
-				"thumb": "/projects/assets/7cd9c78bec8d2e8dec55372e7b9f1cf9.w900.jpg",
-				"type": "image"
-			},
-			{
-				"src": "/projects/assets/14cc0482e5a3e69d809f7acfec9e608c.jpg",
-				"alt": "Bold liner, bold lip",
-				"altDe": "Kräftiger Lidstrich, kräftige Lippe",
-				"thumb": "/projects/assets/14cc0482e5a3e69d809f7acfec9e608c.w900.jpg",
-				"type": "image"
-			},
-			{
-				"src": "/projects/assets/32d2bf248675ae70a6f746828731a997.jpg",
-				"alt": "Last touch before the shot",
-				"altDe": "Letzter Schliff vor dem Shooting",
-				"thumb": "/projects/assets/32d2bf248675ae70a6f746828731a997.w900.jpg",
-				"type": "image"
-			},
-			{
-				"src": "/projects/assets/92c9116ffaa7c459434e5ef8b233ff8a.jpg",
-				"alt": "Portrait with soft glow",
-				"altDe": "Porträt mit sanftem Glow",
-				"thumb": "/projects/assets/92c9116ffaa7c459434e5ef8b233ff8a.w900.jpg",
-				"type": "image"
-			}
-		],
-		"de": {
-			"category": "Editorial",
-			"summary": "Eine Beauty-Strecke mit rotem Lippenstift für das Lookbook einer Designerin, rund um ein perfektes Rubinrot.",
-			"description": [
-				"Das Briefing: Haut, die nach Haut aussieht, und eine Lippe, die stark genug ist, die ganze Kollektion zu tragen. Ich habe die Haut für zwei Stunden Studiolicht vorbereitet und die Lippen von Hand konturiert, für eine klare Kante.",
-				"Nachbesserungen zwischen jedem Look hielten die Farbe vom ersten bis zum letzten Bild präzise."
 			]
 		}
 	}

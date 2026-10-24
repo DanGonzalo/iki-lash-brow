@@ -7,7 +7,7 @@ export default function LangSwitch({ className, tabIndex }: { className?: string
 	const { lang, setLang } = useLang();
 	const { ui } = useContent();
 	return (
-		<div role="group" aria-label={ui.languageLabel} className={cn('flex h-[38px] border border-line md:h-[42px]', className)}>
+		<div role="group" aria-label={ui.languageLabel} className={cn('flex h-[38px] overflow-hidden rounded-full border border-line md:h-[42px]', className)}>
 			{LANGS.map((option) => (
 				<button
 					key={option}

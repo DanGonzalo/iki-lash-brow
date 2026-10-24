@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useProgress } from '@react-three/drei';
 import InfiniteGallery from '@/components/ui/3d-gallery-photography';
+import BrandLogo from '@/components/ui/brand-logo';
 import DecodeText from '@/components/ui/decode-text';
 import { media } from '@/data/media';
 import { IS_BOT } from '@/lib/bot';
@@ -140,13 +141,14 @@ export default function PhotographyHero({
 
 	const started = phase !== 'loading';
 	const leaving = scrolledAway;
-	const words = lines.map((line) => line.toUpperCase());
+	// lines[0] is the wordmark (drawn as the logo), the rest is spelled out under it
+	const [brand, ...rest] = lines;
 
 	return (
 		<section
 			ref={sectionRef}
 			aria-label={ui.hero.section}
-			className="sticky top-0 h-svh w-full overflow-hidden bg-ink text-paper"
+			className="theme-dark sticky top-0 h-svh w-full overflow-hidden bg-ink text-paper"
 		>
 			<div
 				className="absolute inset-0 origin-center will-change-transform"
@@ -204,25 +206,23 @@ export default function PhotographyHero({
 						delay={300}
 						className="mb-6 block text-[11px] uppercase tracking-[0.25em] md:mb-8"
 					/>
-					<span className="font-pixel text-[clamp(3.25rem,12vw,10.5rem)] uppercase leading-[0.86] tracking-tight">
-					{words.map((word, i) => (
-						<span key={i} className="flex items-center justify-center">
-							<DecodeText
-								text={word}
-								play={started}
-								out={leaving}
-								delay={250 + i * 250}
-								duration={1300}
-							/>
-							{i === words.length - 1 && (
-								<span
-									aria-hidden="true"
-									className="ml-[0.06em] inline-block h-[0.72em] w-[0.42em] animate-blink bg-accent"
-								/>
-							)}
-						</span>
-					))}
-					</span>
+					<span className="sr-only">{brand} </span>
+					{/* The wordmark fades in, then its lash strokes are drawn */}
+					<BrandLogo
+						draw={started && !leaving}
+						className={cn(
+							'h-[clamp(5.5rem,17vw,13.5rem)] transition-opacity duration-700',
+							started && !leaving ? 'opacity-100' : 'opacity-0'
+						)}
+					/>
+					<DecodeText
+						text={rest.join(' ')}
+						play={started}
+						out={leaving}
+						delay={700}
+						duration={1300}
+						className="mt-5 block pl-[0.6em] text-[clamp(0.8rem,1.7vw,1.15rem)] font-medium uppercase tracking-[0.6em] md:mt-7"
+					/>
 				</h1>
 				<DecodeText
 					as="p"

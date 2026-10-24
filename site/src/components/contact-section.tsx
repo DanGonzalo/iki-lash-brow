@@ -111,11 +111,11 @@ export default function ContactSection() {
 				{/* Pitch + direct contact */}
 				<div className="lg:col-span-5">
 					<DecodeText as="p" text={COPY.contact.label} className="text-[11px] uppercase tracking-[0.25em] text-label" />
-					<h2 className="mt-8 font-pixel text-[clamp(3rem,8vw,7.5rem)] uppercase leading-[0.86] tracking-tight">
+					<h2 className="mt-8 font-pixel font-light text-[clamp(3rem,8vw,7.5rem)] leading-[0.95]">
 						<DecodeText text={COPY.contact.title[0]} className="block" duration={1100} />
 						<span className="flex items-center">
 							<DecodeText text={COPY.contact.title[1] ?? ''} delay={180} duration={1200} />
-							<span aria-hidden="true" className="ml-[0.06em] inline-block h-[0.7em] w-[0.4em] animate-blink bg-accent" />
+							<span aria-hidden="true" className="ml-[0.08em] inline-block h-[0.75em] w-[0.06em] animate-blink bg-accent" />
 						</span>
 					</h2>
 					<p className="mt-8 max-w-sm text-[13px] leading-relaxed text-paper/70">
@@ -160,7 +160,7 @@ export default function ContactSection() {
 					<div className="border border-line">
 						{status === 'sent' || status === 'mailto' ? (
 							<div className="flex min-h-[22rem] flex-col items-start justify-center gap-6 p-6 md:p-10" role="status">
-								<p className="font-pixel text-4xl uppercase leading-none md:text-5xl">
+								<p className="font-pixel font-light text-4xl leading-none md:text-5xl">
 									<DecodeText text={status === 'sent' ? t.sentTitle : t.mailtoTitle} play />
 								</p>
 								<p className="max-w-sm text-[13px] leading-relaxed text-paper/70">
@@ -226,7 +226,7 @@ export default function ContactSection() {
 												lang={ui.locale}
 												type={EXTRA.kind}
 												placeholder={EXTRA.kind === 'text' ? EXTRA.placeholder : undefined}
-												className={cn(inputClass, '[color-scheme:dark]')}
+												className={cn(inputClass, '[color-scheme:light]')}
 											/>
 										)}
 									</Field>

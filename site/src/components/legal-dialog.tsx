@@ -69,7 +69,7 @@ export default function LegalDialog() {
 		<div className="fixed inset-0 z-[80] overflow-y-auto overscroll-contain bg-ink/95 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="legal-title">
 			<div className="mx-auto max-w-3xl px-5 pb-24 pt-8 md:px-10 md:pt-12">
 				<div className="flex items-start justify-between gap-6 border-b border-line pb-8">
-					<h2 id="legal-title" className="font-pixel text-[clamp(2.25rem,7vw,4.5rem)] uppercase leading-[0.9]">
+					<h2 id="legal-title" className="font-pixel font-light text-[clamp(2.25rem,7vw,4.5rem)] leading-[0.95]">
 						<DecodeText text={title} play duration={900} />
 					</h2>
 					<button

@@ -152,7 +152,7 @@ function ProjectCard({
 							text={project.title}
 							replay={hover}
 							duration={1500}
-							className="block font-pixel text-2xl uppercase leading-none md:text-3xl"
+							className="block font-pixel font-light text-2xl leading-none md:text-3xl"
 						/>
 						<p className="mt-2 text-[11px] uppercase tracking-[0.2em] text-stone">
 							{project.categoryLabel ?? project.category}

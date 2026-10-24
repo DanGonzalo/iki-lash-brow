@@ -8,7 +8,7 @@ import type { Lang } from './src/data/site'
 
 /**
  * Where the site is served from. BASE_PATH = folder ('/' on its own domain,
- * '/pigment-by-mai/' on GitHub Pages). SITE_URL = address, otherwise siteUrl
+ * '/iki-lash-atelier/' on GitHub Pages). SITE_URL = address, otherwise siteUrl
  * from deploy.config.json (filled in by the publish task once the Hostinger
  * domain is known). PREVIEW=1 marks a test copy search engines must not index.
  */

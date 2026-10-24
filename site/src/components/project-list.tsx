@@ -84,7 +84,7 @@ export default function ProjectList({
 									<span className={cn('pl-2 text-[11px] tabular-nums tracking-[0.2em]', active === i ? 'text-ink' : 'text-stone')}>
 										{pad(i + 1)}
 									</span>
-									<span className="font-pixel text-2xl uppercase leading-none md:text-4xl">
+									<span className="font-pixel font-light text-2xl leading-none md:text-4xl">
 										<DecodeText text={project.title} replay={active === i ? i + 1 : 0} duration={600} />
 									</span>
 									<span className="hidden text-[11px] uppercase tracking-[0.2em] md:block">{project.categoryLabel ?? project.category}</span>
@@ -92,7 +92,7 @@ export default function ProjectList({
 									<span
 										aria-hidden="true"
 										className={cn(
-											'justify-self-end pr-2 font-pixel text-xl transition-transform duration-200',
+											'justify-self-end pr-2 font-pixel font-light text-xl transition-transform duration-200',
 											active === i && 'translate-x-1 -translate-y-1'
 										)}
 									>

@@ -9,13 +9,13 @@ export const LANGS: Lang[] = ['en', 'de'];
 export const DEFAULT_LANG: Lang = 'en';
 
 /**
- * Colour theme. `accent: null` = pure black & white. Otherwise the accent
- * colour only touches small details (cursors, squares, progress, active menu).
- * Here: powder pink on cocoa & ivory.
+ * Colour theme (IKI palette). The accent only touches small details (cursor,
+ * squares, progress, active filter); `label` colours the small section labels.
  */
-export const THEME: { accent: string | null; accentInk: string } = {
-	accent: '#D9A19A',
-	accentInk: '#15100E',
+export const THEME: { accent: string | null; accentInk: string; label?: string } = {
+	accent: '#C9B79A',
+	accentInk: '#1E1D1B',
+	label: '#7F6A4F',
 };
 
 export const ACCENT_PRESETS = {
@@ -25,14 +25,14 @@ export const ACCENT_PRESETS = {
 } as const;
 
 export const SITE = {
-	name: 'Pigment by Mai',
+	name: 'IKI Lash Atelier',
 	/** First name of the artist (about text, structured data) */
 	artist: 'Mai',
-	/** The big title of the intro, one entry per line */
-	heroLines: ['Pigment', 'by Mai'],
+	/** The wordmark (drawn as the logo), then the words spelled out under it */
+	heroLines: ['IKI', 'Lash Atelier'],
 	/**
 	 * City of the studio. The most important detail for local search
-	 * ("Permanent Make-up Hamburg"): once filled in, it is added to the page
+	 * ("Wimpernverlängerung Hamburg"): once filled in, it is added to the page
 	 * titles, the structured data and the contact section.
 	 */
 	city: '',
@@ -101,32 +101,32 @@ const BRUSH = ['.......##', '......###', '.....###.', '....##...', '...#.....', 
  */
 const en = {
 	meta: {
-		title: 'Permanent Makeup & Bridal Makeup Artist | Pigment by Mai',
+		title: 'Lash Extensions & Permanent Makeup | IKI Lash Atelier',
 		/** Used instead of `title` once SITE.city is filled in */
-		titleCity: 'Permanent Makeup & Makeup Artist in {city} | Pigment by Mai',
+		titleCity: 'Lash Extensions & Permanent Makeup in {city} | IKI Lash Atelier',
 		description:
-			'Powder brows, lip blush, permanent eyeliner and lash line enhancement, plus bridal and event makeup. Natural results, placed dot by dot for your face.',
-		jobTitle: 'Permanent makeup artist & makeup artist',
+			'Natural lash extensions, signature lash design, powder brows, lip blush and permanent eyeliner, plus bridal makeup. Naturally beautiful, individually designed.',
+		jobTitle: 'Lash artist, permanent makeup artist & makeup artist',
 		image: '/og-image.jpg',
-		imageAlt: 'Pigment by Mai — permanent makeup and makeup artist',
+		imageAlt: 'IKI Lash Atelier — lash extensions and permanent makeup',
 	},
 	copy: {
 		hero: {
-			label: '[Permanent makeup · Makeup artist]',
-			tagline: 'Brows, lips and eyes, perfected dot by dot. Eight images to step inside the studio.',
+			label: '[Lashes · Permanent makeup · Makeup artist]',
+			tagline: 'Naturally beautiful, individually designed. Eight images to step inside the atelier.',
 		},
 		intro: {
-			label: '[01] — Studio',
-			title: ['Wake up', 'ready.'],
-			text: 'Permanent makeup for brows, lips and eyes, and professional makeup for your wedding, events and shoots. Every shape is drawn for your face and every shade matched to your skin, so you look like you, only more awake.',
-			primaryCta: 'Book a free consultation',
+			label: '[01] — Atelier',
+			title: ['Naturally', 'beautiful.'],
+			text: 'Lash extensions, permanent makeup for brows, lips and eyes, and makeup for your wedding or shoot. Every look is designed for your face with precision and restraint, to enhance your natural features, never to cover them.',
+			primaryCta: 'Book an appointment',
 			secondaryCta: 'See the work',
 		},
 		services: { label: 'Services' },
 		treatments: {
 			label: '[02] — Treatments',
-			title: ['Treatments', '& looks.'],
-			text: 'Every permanent makeup treatment starts with a free consultation and includes a perfecting touch-up after six weeks.',
+			title: ['Treatments with', 'a light touch.'],
+			text: 'Every treatment starts with a free consultation. Permanent makeup includes a perfecting touch-up after six weeks.',
 			duration: 'Session',
 			lasts: 'Lasts',
 			price: 'Price',
@@ -135,17 +135,17 @@ const en = {
 		work: {
 			label: '[03] — Work',
 			title: ['Recent', 'work.'],
-			text: 'Healed results and makeup looks, photographed in natural light. Open a project to see the full series.',
+			text: 'Lash sets, healed permanent makeup and makeup looks, photographed in natural light. Open a project to see the full series.',
 		},
 		process: {
 			label: '[04] — Process',
-			title: ['From consult', 'to healed.'],
+			title: ['From consult', 'to result.'],
 		},
 		about: {
 			label: '[05] — About',
-			title: ['Dot by dot,', 'by hand.'],
-			text: 'I’m Mai, the permanent makeup artist and makeup artist behind Pigment by Mai. I place every dot of pigment by hand to enhance your features, never to change them: people should notice that you look rested, not that you had something done.',
-			cta: 'Book a free consultation',
+			title: ['Artistry', '& restraint.'],
+			text: 'I’m Mai, a Vietnamese makeup artist with a deep passion for makeup and for the details that bring a face to life. At IKI, named after the Japanese ideal of understated elegance, I design lashes, brows and lips with restraint: to enhance your natural features, never to hide them.',
+			cta: 'Book an appointment',
 		},
 		testimonials: {
 			label: '[06] — Reviews',
@@ -160,22 +160,22 @@ const en = {
 		},
 		contact: {
 			label: '[08] — Contact',
-			title: ['Book your', 'consultation.'],
-			text: 'Tell me what you have in mind, ideally with a photo without makeup. I reply within 24 h with available dates and a personal quote.',
+			title: ['Book your', 'appointment.'],
+			text: 'Tell me what you have in mind, ideally with a photo of your eyes or brows without makeup. I reply within 24 h with available dates and a personal quote.',
 			typeLabel: 'Treatment',
-			sessionTypes: ['Powder brows / microblading', 'Lip blush', 'Eyeliner & lash line', 'Bridal or event makeup', 'Other'],
+			sessionTypes: ['Lash extensions', 'Lash infill', 'Permanent makeup (brows, lips, eyes)', 'Bridal or event makeup', 'Other'],
 			// 4th field of the form, next to the type: 'date', 'select' or 'text'
 			extraField: { label: 'Preferred date', kind: 'date' } as ExtraField,
 			messageLabel: 'Your request',
-			messagePlaceholder: 'Which treatment, any previous permanent makeup, your questions… A few words are enough.',
+			messagePlaceholder: 'Which treatment, your current lashes or brows, your questions… A few words are enough.',
 			responseTime: 'Reply within 24 h',
 			mailSubject: 'Appointment request',
 		},
 		footer: {
 			description:
-				'Permanent makeup studio for powder brows, lip blush, eyeliner and lash line, and makeup artist for weddings, events and shoots.',
+				'Lash atelier for natural lash extensions and permanent makeup, and makeup artist for weddings, events and shoots.',
 		},
-		header: { cta: 'Book a session', ctaShort: 'Book' },
+		header: { cta: 'Book now', ctaShort: 'Book' },
 	},
 
 	nav: [
@@ -195,17 +195,35 @@ const en = {
 
 	/** Services scrolling in the band under the intro (short, one or two words each) */
 	services: [
+		'Lash extensions',
+		'Signature design',
+		'Infill',
 		'Powder brows',
-		'Microblading',
 		'Lip blush',
 		'Permanent eyeliner',
-		'Lash line',
 		'Bridal makeup',
-		'Event makeup',
 		'Editorial',
 	],
 
 	treatments: [
+		{
+			name: 'Natural lash extensions',
+			text: 'Fine, light lashes applied one by one and matched to your eye shape, for a fresh, natural look that needs no mascara.',
+			duration: '2 h',
+			lasts: '3–4 weeks',
+			price: '',
+			icon: LASHES,
+			form: 0,
+		},
+		{
+			name: 'Signature design',
+			text: 'An individual lash map for more definition: length, curl and density chosen to open your eyes without ever looking heavy.',
+			duration: '2.5 h',
+			lasts: '3–4 weeks',
+			price: '',
+			icon: EYE,
+			form: 0,
+		},
 		{
 			name: 'Powder brows',
 			text: 'A soft, powdery shading that fills sparse brows and looks like perfectly applied brow makeup. Ideal for oily skin and a polished, defined look.',
@@ -213,16 +231,7 @@ const en = {
 			lasts: '1–3 years',
 			price: '',
 			icon: BROW,
-			form: 0,
-		},
-		{
-			name: 'Microblading',
-			text: 'Fine, hair-like strokes drawn between your own brow hairs for a natural, feathered result. Best for normal to dry skin.',
-			duration: '2 h',
-			lasts: '1–2 years',
-			price: '',
-			icon: 'pen',
-			form: 0,
+			form: 2,
 		},
 		{
 			name: 'Lip blush',
@@ -231,24 +240,15 @@ const en = {
 			lasts: '2–3 years',
 			price: '',
 			icon: LIPS,
-			form: 1,
-		},
-		{
-			name: 'Permanent eyeliner',
-			text: 'From a barely-there line to a fine wing: eyeliner that survives swimming, sport and tears, without ever smudging.',
-			duration: '1.5 h',
-			lasts: '3–5 years',
-			price: '',
-			icon: EYE,
 			form: 2,
 		},
 		{
-			name: 'Lash line enhancement',
-			text: 'Tiny dots of pigment between the lashes make them look fuller and the eyes more defined, even without mascara. My most discreet treatment.',
-			duration: '1 h',
+			name: 'Eyeliner & lash line',
+			text: 'From a barely-there lash line enhancement to a fine wing: definition that survives swimming, sport and tears, without ever smudging.',
+			duration: '1–1.5 h',
 			lasts: '3–5 years',
 			price: '',
-			icon: LASHES,
+			icon: DROP,
 			form: 2,
 		},
 		{
@@ -265,35 +265,35 @@ const en = {
 	process: [
 		{
 			title: 'Consult',
-			text: 'A free 15-minute chat, in the studio or by video. We talk about your wishes, your skin and whether permanent makeup is right for you.',
+			text: 'A free 15-minute chat, in the atelier or by video. We talk about your wishes, your eye and face shape, and the treatment that suits you.',
 			duration: '15 min',
 			icon: 'chat',
 		},
 		{
 			title: 'Design',
-			text: 'I draw the shape directly on your face and match the shade to your skin and hair. Nothing is pigmented until you love it.',
-			duration: '45 min',
+			text: 'I map your lashes or draw the shape directly on your face, then choose length, curl or shade with you. Nothing is applied until you love it.',
+			duration: '20 min',
 			icon: 'pen',
 		},
 		{
-			title: 'Pigment',
-			text: 'Gentle pigmentation, dot by dot, with a numbing cream. Most clients relax; some even fall asleep.',
-			duration: '2 h',
-			icon: DROP,
+			title: 'Session',
+			text: 'A calm session in the atelier: lashes applied one by one, pigment placed dot by dot. Most clients relax; many fall asleep.',
+			duration: '1–2.5 h',
+			icon: LASHES,
 		},
 		{
-			title: 'Touch-up',
-			text: 'After six weeks of healing, a perfecting session refines shape and colour. Always included in the price.',
-			duration: '+6 weeks',
+			title: 'Aftercare',
+			text: 'Care advice to take home, an infill every three to four weeks for lashes, and a perfecting touch-up after six weeks for permanent makeup.',
+			duration: '+3–6 weeks',
 			icon: 'star',
 		},
 	] as ProcessStep[],
 
 	testimonials: [
 		{
-			quote: 'I wake up with perfect brows every single day. They look so natural that nobody believes they’re tattooed.',
+			quote: 'My lashes look like mine, only better. I haven’t touched a mascara since my first appointment.',
 			author: 'Lena M.',
-			role: 'Powder brows',
+			role: 'Natural lash extensions',
 		},
 		{
 			quote: 'Mai did my bridal makeup and it lasted from the ceremony to the last dance, happy tears included.',
@@ -309,6 +309,14 @@ const en = {
 
 	faq: [
 		{
+			q: 'Do lash extensions damage my natural lashes?',
+			a: 'Not when they are applied correctly. Each extension is matched to the strength of your own lash and bonded to it individually, so your natural lashes keep growing and shedding as usual.',
+		},
+		{
+			q: 'How long do lash extensions last, and when do I need an infill?',
+			a: 'They follow your natural lash cycle: an infill every three to four weeks keeps the set full. After five weeks or more, a new set is usually the better choice.',
+		},
+		{
 			q: 'Does permanent makeup hurt?',
 			a: 'Very little. A numbing cream is applied before and during the treatment, and most clients describe a light scratching feeling. Many relax completely.',
 		},
@@ -318,19 +326,11 @@ const en = {
 		},
 		{
 			q: 'How do I prepare, and how do I care for it afterwards?',
-			a: 'Avoid alcohol, caffeine and blood thinners for 24 hours before. Afterwards, keep the area clean and dry, apply the aftercare balm I give you, and skip sauna, swimming, sunbathing and makeup on the area for two weeks.',
-		},
-		{
-			q: 'What does the healing look like?',
-			a: 'The colour looks darker and sharper for the first days, then softens over four to six weeks as the skin heals. The perfecting touch-up after six weeks is included in the price.',
+			a: 'For lashes, come without mascara and keep them dry for 24 hours afterwards. For permanent makeup, avoid alcohol, caffeine and blood thinners for 24 hours before, then keep the area clean and dry and skip sauna, swimming and sunbathing for two weeks.',
 		},
 		{
 			q: 'Who should not get permanent makeup?',
 			a: 'Permanent makeup is not done during pregnancy or breastfeeding, during chemotherapy, with active skin conditions in the area or with certain medications. We check everything together in the free consultation.',
-		},
-		{
-			q: 'Do you travel for bridal makeup?',
-			a: 'Yes. A trial session takes place a few weeks before the wedding, and on the day I come to you, for the bride and her guests. Travel costs are stated clearly in the quote.',
 		},
 		{
 			q: 'How do I book an appointment?',
@@ -488,7 +488,7 @@ const en = {
 			top: 'Back to top ↑',
 			legal: 'Legal notice',
 			privacy: 'Privacy',
-			motto: 'Dot by dot.',
+			motto: 'Artistry · Restraint · Individuality',
 		},
 	},
 };
@@ -497,31 +497,31 @@ export type Content = typeof en;
 
 const de: Content = {
 	meta: {
-		title: 'Permanent Make-up & Braut-Make-up | Pigment by Mai',
-		titleCity: 'Permanent Make-up & Visagistin in {city} | Pigment by Mai',
+		title: 'Wimpernverlängerung & Permanent Make-up | IKI Lash Atelier',
+		titleCity: 'Wimpernverlängerung & Permanent Make-up in {city} | IKI Lash Atelier',
 		description:
-			'Powder Brows, Lip Blush, Permanent Eyeliner und Wimpernkranzverdichtung – dazu Braut- und Event-Make-up. Natürliche Ergebnisse, Punkt für Punkt gesetzt.',
-		jobTitle: 'Permanent-Make-up-Artistin & Visagistin',
+			'Natürliche Wimpernverlängerung, Signature Design, Powder Brows, Lip Blush und Permanent Eyeliner – dazu Braut-Make-up. Natürlich schön. Individuell gestaltet.',
+		jobTitle: 'Lash-Artistin, Permanent-Make-up-Artistin & Visagistin',
 		image: '/og-image-de.jpg',
-		imageAlt: 'Pigment by Mai — Permanent Make-up und Visagistin',
+		imageAlt: 'IKI Lash Atelier — Wimpernverlängerung und Permanent Make-up',
 	},
 	copy: {
 		hero: {
-			label: '[Permanent Make-up · Visagistin]',
-			tagline: 'Brauen, Lippen und Augen, Punkt für Punkt perfektioniert. Acht Bilder, um ins Studio zu blicken.',
+			label: '[Wimpern · Permanent Make-up · Visagistin]',
+			tagline: 'Natürlich schön. Individuell gestaltet. Acht Bilder, um ins Atelier zu blicken.',
 		},
 		intro: {
-			label: '[01] — Studio',
-			title: ['Schön', 'beim Aufwachen.'],
-			text: 'Permanent Make-up für Brauen, Lippen und Augen – und professionelles Make-up für deine Hochzeit, Events und Shootings. Jede Form wird für dein Gesicht gezeichnet, jeder Farbton auf deine Haut abgestimmt: Du siehst aus wie du, nur wacher.',
-			primaryCta: 'Kostenlose Beratung buchen',
+			label: '[01] — Atelier',
+			title: ['Natürlich', 'schön.'],
+			text: 'Wimpernverlängerung, Permanent Make-up für Brauen, Lippen und Augen und Make-up für deine Hochzeit oder dein Shooting. Jeder Look wird mit Präzision und Zurückhaltung für dein Gesicht gestaltet – um deine natürlichen Züge zu betonen, nie um sie zu überdecken.',
+			primaryCta: 'Termin buchen',
 			secondaryCta: 'Arbeiten ansehen',
 		},
 		services: { label: 'Leistungen' },
 		treatments: {
 			label: '[02] — Behandlungen',
-			title: ['Behandlungen', '& Looks.'],
-			text: 'Jede Permanent-Make-up-Behandlung beginnt mit einer kostenlosen Beratung und beinhaltet eine Nachbehandlung nach sechs Wochen.',
+			title: ['Behandlungen', 'mit Feingefühl.'],
+			text: 'Jede Behandlung beginnt mit einer kostenlosen Beratung. Beim Permanent Make-up ist eine Nachbehandlung nach sechs Wochen inklusive.',
 			duration: 'Dauer',
 			lasts: 'Hält',
 			price: 'Preis',
@@ -530,7 +530,7 @@ const de: Content = {
 		work: {
 			label: '[03] — Arbeiten',
 			title: ['Aktuelle', 'Arbeiten.'],
-			text: 'Abgeheilte Ergebnisse und Make-up-Looks, bei Tageslicht fotografiert. Öffne ein Projekt, um die ganze Serie zu sehen.',
+			text: 'Wimpernlooks, abgeheiltes Permanent Make-up und Make-up, bei Tageslicht fotografiert. Öffne ein Projekt, um die ganze Serie zu sehen.',
 		},
 		process: {
 			label: '[04] — Ablauf',
@@ -538,9 +538,9 @@ const de: Content = {
 		},
 		about: {
 			label: '[05] — Über mich',
-			title: ['Punkt für Punkt,', 'von Hand.'],
-			text: 'Ich bin Mai, Permanent-Make-up-Artistin und Visagistin hinter Pigment by Mai. Ich setze jeden Pigmentpunkt von Hand, um deine Züge zu betonen, nie um sie zu verändern: Man soll sehen, dass du erholt aussiehst, nicht, dass du etwas hast machen lassen.',
-			cta: 'Kostenlose Beratung buchen',
+			title: ['Feingefühl', '& Präzision.'],
+			text: 'Ich bin Mai, Make-up-Artistin aus Vietnam, mit einer tiefen Leidenschaft für Make-up und für die Details, die ein Gesicht zum Strahlen bringen. Bei IKI – benannt nach dem japanischen Ideal zurückhaltender Eleganz – gestalte ich Wimpern, Brauen und Lippen mit Feingefühl: um deine natürlichen Züge zu betonen, nie um sie zu verdecken.',
+			cta: 'Termin buchen',
 		},
 		testimonials: {
 			label: '[06] — Stimmen',
@@ -555,19 +555,19 @@ const de: Content = {
 		},
 		contact: {
 			label: '[08] — Kontakt',
-			title: ['Beratung', 'anfragen.'],
-			text: 'Erzähl mir, was du dir wünschst, am besten mit einem Foto ohne Make-up. Ich antworte innerhalb von 24 h mit freien Terminen und einem persönlichen Angebot.',
+			title: ['Termin', 'buchen.'],
+			text: 'Erzähl mir, was du dir wünschst, am besten mit einem Foto deiner Augen oder Brauen ohne Make-up. Ich antworte innerhalb von 24 h mit freien Terminen und einem persönlichen Angebot.',
 			typeLabel: 'Behandlung',
-			sessionTypes: ['Powder Brows / Microblading', 'Lip Blush', 'Lidstrich & Wimpernkranz', 'Braut- oder Event-Make-up', 'Sonstiges'],
+			sessionTypes: ['Wimpernverlängerung', 'Auffüllen (Infill)', 'Permanent Make-up (Brauen, Lippen, Augen)', 'Braut- oder Event-Make-up', 'Sonstiges'],
 			extraField: { label: 'Wunschtermin', kind: 'date' } as ExtraField,
 			messageLabel: 'Deine Anfrage',
-			messagePlaceholder: 'Welche Behandlung, frühere Pigmentierung, deine Fragen … Ein paar Worte genügen.',
+			messagePlaceholder: 'Welche Behandlung, deine Wimpern oder Brauen heute, deine Fragen … Ein paar Worte genügen.',
 			responseTime: 'Antwort innerhalb von 24 h',
 			mailSubject: 'Terminanfrage',
 		},
 		footer: {
 			description:
-				'Permanent-Make-up-Studio für Powder Brows, Lip Blush, Lidstrich und Wimpernkranz – und Visagistin für Hochzeiten, Events und Shootings.',
+				'Lash Atelier für natürliche Wimpernverlängerung und Permanent Make-up – und Visagistin für Hochzeiten, Events und Shootings.',
 		},
 		header: { cta: 'Termin buchen', ctaShort: 'Termin' },
 	},
@@ -588,17 +588,35 @@ const de: Content = {
 	],
 
 	services: [
+		'Wimpernverlängerung',
+		'Signature Design',
+		'Auffüllen',
 		'Powder Brows',
-		'Microblading',
 		'Lip Blush',
 		'Permanent Eyeliner',
-		'Wimpernkranz',
 		'Braut-Make-up',
-		'Event-Make-up',
 		'Editorial',
 	],
 
 	treatments: [
+		{
+			name: 'Natürliche Wimpernverlängerung',
+			text: 'Feine, leichte Wimpern, einzeln gesetzt und perfekt auf deine Augenform abgestimmt – für einen frischen, natürlichen Look ganz ohne Mascara.',
+			duration: '2 Std.',
+			lasts: '3–4 Wochen',
+			price: '',
+			icon: LASHES,
+			form: 0,
+		},
+		{
+			name: 'Signature Design',
+			text: 'Ein individuelles Wimperndesign mit mehr Definition: Länge, Schwung und Dichte so gewählt, dass sie deine Augen öffnen, ohne je schwer zu wirken.',
+			duration: '2,5 Std.',
+			lasts: '3–4 Wochen',
+			price: '',
+			icon: EYE,
+			form: 0,
+		},
 		{
 			name: 'Powder Brows',
 			text: 'Eine weiche, pudrige Schattierung, die lichte Brauen auffüllt und wie perfekt geschminkt wirkt. Ideal bei öliger Haut und für einen gepflegten, definierten Look.',
@@ -606,16 +624,7 @@ const de: Content = {
 			lasts: '1–3 Jahre',
 			price: '',
 			icon: BROW,
-			form: 0,
-		},
-		{
-			name: 'Microblading',
-			text: 'Feine, härchenartige Striche zwischen deinen eigenen Brauenhaaren für ein natürliches, gefiedertes Ergebnis. Am besten bei normaler bis trockener Haut.',
-			duration: '2 Std.',
-			lasts: '1–2 Jahre',
-			price: '',
-			icon: 'pen',
-			form: 0,
+			form: 2,
 		},
 		{
 			name: 'Lip Blush',
@@ -624,24 +633,15 @@ const de: Content = {
 			lasts: '2–3 Jahre',
 			price: '',
 			icon: LIPS,
-			form: 1,
-		},
-		{
-			name: 'Permanent Eyeliner',
-			text: 'Vom kaum sichtbaren Strich bis zum feinen Wing: ein Lidstrich, der Schwimmen, Sport und Tränen übersteht, ohne je zu verschmieren.',
-			duration: '1,5 Std.',
-			lasts: '3–5 Jahre',
-			price: '',
-			icon: EYE,
 			form: 2,
 		},
 		{
-			name: 'Wimpernkranzverdichtung',
-			text: 'Winzige Pigmentpunkte zwischen den Wimpern lassen sie dichter und die Augen ausdrucksstärker wirken, auch ohne Mascara. Meine dezenteste Behandlung.',
-			duration: '1 Std.',
+			name: 'Lidstrich & Wimpernkranz',
+			text: 'Von der dezenten Wimpernkranzverdichtung bis zum feinen Lidstrich: Definition, die Schwimmen, Sport und Tränen übersteht, ohne je zu verschmieren.',
+			duration: '1–1,5 Std.',
 			lasts: '3–5 Jahre',
 			price: '',
-			icon: LASHES,
+			icon: DROP,
 			form: 2,
 		},
 		{
@@ -658,35 +658,35 @@ const de: Content = {
 	process: [
 		{
 			title: 'Beratung',
-			text: 'Ein kostenloses 15-Minuten-Gespräch, im Studio oder per Video. Wir sprechen über deine Wünsche, deine Haut und ob Permanent Make-up zu dir passt.',
+			text: 'Ein kostenloses 15-Minuten-Gespräch, im Atelier oder per Video. Wir sprechen über deine Wünsche, deine Augen- und Gesichtsform und die Behandlung, die zu dir passt.',
 			duration: '15 Min.',
 			icon: 'chat',
 		},
 		{
 			title: 'Design',
-			text: 'Ich zeichne die Form direkt auf dein Gesicht und stimme den Farbton auf Haut und Haare ab. Pigmentiert wird erst, wenn du sie liebst.',
-			duration: '45 Min.',
+			text: 'Ich entwerfe deine Wimpern oder zeichne die Form direkt auf dein Gesicht und wähle mit dir Länge, Schwung oder Farbton. Angewendet wird erst, wenn du es liebst.',
+			duration: '20 Min.',
 			icon: 'pen',
 		},
 		{
-			title: 'Pigment',
-			text: 'Sanfte Pigmentierung, Punkt für Punkt, mit Betäubungscreme. Die meisten entspannen sich, manche schlafen sogar ein.',
-			duration: '2 Std.',
-			icon: DROP,
+			title: 'Behandlung',
+			text: 'Eine ruhige Sitzung im Atelier: Wimpern einzeln gesetzt, Pigment Punkt für Punkt. Die meisten entspannen sich, viele schlafen sogar ein.',
+			duration: '1–2,5 Std.',
+			icon: LASHES,
 		},
 		{
-			title: 'Touch-up',
-			text: 'Nach sechs Wochen Heilung verfeinert eine Nachbehandlung Form und Farbe. Immer im Preis inbegriffen.',
-			duration: '+6 Wochen',
+			title: 'Pflege',
+			text: 'Pflegetipps für zu Hause, Auffüllen alle drei bis vier Wochen bei Wimpern und eine Nachbehandlung nach sechs Wochen beim Permanent Make-up.',
+			duration: '+3–6 Wochen',
 			icon: 'star',
 		},
 	] as ProcessStep[],
 
 	testimonials: [
 		{
-			quote: 'Ich wache jeden Tag mit perfekten Brauen auf. Sie sehen so natürlich aus, dass mir niemand glaubt, dass sie pigmentiert sind.',
+			quote: 'Meine Wimpern sehen aus wie meine, nur schöner. Seit meinem ersten Termin habe ich keine Mascara mehr angefasst.',
 			author: 'Lena M.',
-			role: 'Powder Brows',
+			role: 'Natürliche Wimpernverlängerung',
 		},
 		{
 			quote: 'Mai hat mein Braut-Make-up gemacht, und es hat von der Trauung bis zum letzten Tanz gehalten, Freudentränen inklusive.',
@@ -702,6 +702,14 @@ const de: Content = {
 
 	faq: [
 		{
+			q: 'Schaden Wimpernverlängerungen meinen eigenen Wimpern?',
+			a: 'Nicht, wenn sie richtig gesetzt werden. Jede Extension wird auf die Stärke deiner eigenen Wimper abgestimmt und einzeln mit ihr verbunden – deine Naturwimpern wachsen und erneuern sich ganz normal weiter.',
+		},
+		{
+			q: 'Wie lange halten Wimpernverlängerungen und wann muss ich auffüllen?',
+			a: 'Sie folgen deinem natürlichen Wimpernzyklus: Auffüllen alle drei bis vier Wochen hält den Look voll. Nach fünf Wochen oder mehr ist meist ein neues Set die bessere Wahl.',
+		},
+		{
 			q: 'Tut Permanent Make-up weh?',
 			a: 'Kaum. Vor und während der Behandlung wird eine Betäubungscreme aufgetragen; die meisten beschreiben ein leichtes Kratzen. Viele entspannen sich völlig.',
 		},
@@ -711,19 +719,11 @@ const de: Content = {
 		},
 		{
 			q: 'Wie bereite ich mich vor und wie pflege ich es danach?',
-			a: 'Verzichte 24 Stunden vorher auf Alkohol, Koffein und blutverdünnende Mittel. Danach: den Bereich sauber und trocken halten, die Pflegecreme auftragen, die du von mir bekommst, und zwei Wochen lang auf Sauna, Schwimmen, Sonnenbaden und Make-up an der Stelle verzichten.',
-		},
-		{
-			q: 'Wie verläuft die Heilung?',
-			a: 'In den ersten Tagen wirkt die Farbe dunkler und kräftiger, dann wird sie in vier bis sechs Wochen weicher, während die Haut heilt. Die Nachbehandlung nach sechs Wochen ist im Preis inbegriffen.',
+			a: 'Für Wimpern: komm ohne Mascara und halte sie danach 24 Stunden trocken. Für Permanent Make-up: verzichte 24 Stunden vorher auf Alkohol, Koffein und blutverdünnende Mittel, halte den Bereich danach sauber und trocken und meide zwei Wochen lang Sauna, Schwimmen und Sonnenbaden.',
 		},
 		{
 			q: 'Für wen ist Permanent Make-up nicht geeignet?',
 			a: 'Nicht während Schwangerschaft und Stillzeit, während einer Chemotherapie, bei akuten Hauterkrankungen im Bereich oder bei bestimmten Medikamenten. Das klären wir gemeinsam in der kostenlosen Beratung.',
-		},
-		{
-			q: 'Kommst du für ein Braut-Make-up auch zu mir?',
-			a: 'Ja. Einige Wochen vor der Hochzeit findet ein Probe-Make-up statt, und am großen Tag komme ich zu dir, für die Braut und ihre Gäste. Die Anfahrtskosten stehen klar im Angebot.',
 		},
 		{
 			q: 'Wie buche ich einen Termin?',
@@ -880,7 +880,7 @@ const de: Content = {
 			top: 'Nach oben ↑',
 			legal: 'Impressum',
 			privacy: 'Datenschutz',
-			motto: 'Punkt für Punkt.',
+			motto: 'Natürlich schön. Individuell gestaltet.',
 		},
 	},
 };
@@ -888,4 +888,4 @@ const de: Content = {
 export const CONTENT: Record<Lang, Content> = { en, de };
 
 /** Area of the "About" portrait kept free of pixels (the face), in 0–1 coordinates */
-export const ABOUT_FACE = { x0: 0.34, y0: 0.1, x1: 0.76, y1: 0.6 };
+export const ABOUT_FACE = { x0: 0.2, y0: 0.1, x1: 0.8, y1: 0.68 };

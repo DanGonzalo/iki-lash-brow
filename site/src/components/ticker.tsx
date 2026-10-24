@@ -13,7 +13,7 @@ export default function Ticker() {
 				{SERVICES.map((service) => (
 					<span
 						key={service}
-						className="flex items-center gap-6 pr-6 font-pixel text-2xl uppercase md:gap-10 md:pr-10 md:text-4xl"
+						className="flex items-center gap-6 pr-6 font-pixel font-light italic text-2xl md:gap-10 md:pr-10 md:text-4xl"
 					>
 						{service}
 						<span aria-hidden="true" className="h-2 w-2 bg-accent md:h-2.5 md:w-2.5" />

@@ -213,7 +213,7 @@ export default function ProjectModal({ index, onClose, onNavigate }: ProjectModa
 								<p className="text-[11px] uppercase tracking-[0.25em] text-stone">
 									{t.project} {pad(shown + 1)} / {pad(total)}
 								</p>
-								<h2 id="project-title" className="mt-6 font-pixel text-5xl uppercase leading-[0.9] tracking-tight md:text-6xl">
+								<h2 id="project-title" className="mt-6 font-pixel font-light text-5xl leading-[0.95] md:text-6xl">
 									<DecodeText text={project.title} play={!covered} duration={1000} />
 								</h2>
 								<p className="mt-5 text-sm leading-relaxed text-paper">

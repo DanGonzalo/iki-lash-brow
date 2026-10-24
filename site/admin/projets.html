@@ -1,7 +1,7 @@
 <title>Portfolio Projects</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@300;400;500&family=Geist+Pixel&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,400&family=Manrope:wght@300..700&display=swap">
 <style>
 /* Layout: one dark workspace — project list on the left, the selected project's
    editor on the right (in working order: title, image, infos, text, gallery),
@@ -9,16 +9,16 @@
    (cocoa ink, ivory paper, powder-pink accent). The interface speaks English
    and German (switch in the top bar); every project text exists in both. */
 :root {
-	--ink: #15100e;
-	--panel: #1e1714;
-	--line: #2e2420;
-	--line-2: #43362f;
-	--paper: #f4ece4;
-	--stone: #9c8b82;
-	--accent: #d9a19a;
+	--ink: #2e2722;
+	--panel: #3a322b;
+	--line: #4a4038;
+	--line-2: #5f5249;
+	--paper: #f5f0eb;
+	--stone: #b7a89a;
+	--accent: #c9b79a;
 	--danger: #ff6b5b;
-	--pixel: 'Geist Pixel', 'Geist Mono', ui-monospace, monospace;
-	--mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+	--pixel: 'Cormorant Garamond', Georgia, serif;
+	--mono: 'Manrope', ui-sans-serif, system-ui, sans-serif;
 	color-scheme: dark;
 }
 * { box-sizing: border-box; }
@@ -55,9 +55,9 @@ button:disabled { cursor: not-allowed; }
 
 /* ---------- Top bar ---------- */
 .top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--ink); border-bottom: 1px solid var(--line); margin-inline: -16px; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px 20px; flex-wrap: wrap; }
-.brand { display: flex; align-items: center; gap: 10px; font: 16px var(--pixel); letter-spacing: .16em; text-transform: uppercase; min-width: 0; }
+.brand { display: flex; align-items: center; gap: 12px; font: 400 20px var(--pixel); letter-spacing: .04em; min-width: 0; }
 .brand b { font-weight: 400; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.logo { display: block; height: 20px; width: auto; flex: none; }
+.logo { display: block; height: 26px; width: auto; flex: none; overflow: visible; }
 .brand small { font: 10px var(--mono); letter-spacing: .22em; color: var(--stone); white-space: nowrap; }
 .publish { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; justify-content: flex-end; }
 .status { display: flex; align-items: center; gap: 8px; font-size: 11px; letter-spacing: .12em; text-transform: uppercase; min-width: 0; white-space: nowrap; cursor: default; }
@@ -84,9 +84,9 @@ button:disabled { cursor: not-allowed; }
 .row.off .thumb, .row.off .rt b { opacity: .45; }
 .thumb { width: 40px; height: 50px; background: var(--line); object-fit: cover; display: block; filter: grayscale(1); }
 .rt { min-width: 0; display: flex; flex-direction: column; gap: 3px; }
-.rt b { font: 15px/1.1 var(--pixel); text-transform: uppercase; font-weight: 400; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.rt b { font: 400 18px/1.1 var(--pixel); font-weight: 400; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .meta { display: flex; align-items: center; gap: 6px; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--stone); overflow: hidden; white-space: nowrap; }
-.row.sel .meta { color: rgba(21,16,14,.6); }
+.row.sel .meta { color: rgba(46,39,34,.6); }
 .pill { font-size: 9px; letter-spacing: .14em; text-transform: uppercase; border: 1px solid currentColor; padding: 0 4px; line-height: 15px; }
 .move { display: flex; flex-direction: column; gap: 2px; opacity: 0; }
 .row:hover .move, .row.sel .move, .row:focus-within .move { opacity: 1; }
@@ -104,7 +104,7 @@ button:disabled { cursor: not-allowed; }
 .ed-body { padding: 22px 18px 26px; display: flex; flex-direction: column; gap: 36px; }
 @media (min-width: 1100px) { .ed-body { padding: 28px 32px 34px; } }
 
-.title-in { width: 100%; background: transparent; border: 0; border-bottom: 1px solid transparent; font: clamp(30px, 4.4vw, 54px)/1 var(--pixel); text-transform: uppercase; padding: 4px 0 8px; outline: none; }
+.title-in { width: 100%; background: transparent; border: 0; border-bottom: 1px solid transparent; font: 300 clamp(32px, 4.6vw, 58px)/1.05 var(--pixel); padding: 4px 0 8px; outline: none; }
 .title-in:hover { border-color: var(--line); }
 .title-in:focus { border-color: var(--paper); }
 .title-in::placeholder { color: #4a3d36; }
@@ -114,7 +114,7 @@ button:disabled { cursor: not-allowed; }
 
 section.blk { display: flex; flex-direction: column; gap: 16px; }
 .blk-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; border-bottom: 1px solid var(--line); padding-bottom: 8px; }
-.blk-head h2 { margin: 0; font: 20px var(--pixel); text-transform: uppercase; font-weight: 400; }
+.blk-head h2 { margin: 0; font: 400 24px var(--pixel); font-weight: 400; }
 .field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
 .field input, .field textarea { width: 100%; background: transparent; border: 0; border-bottom: 1px solid var(--line); padding: 8px 0; font-size: 14px; outline: none; border-radius: 0; }
 .field textarea { resize: vertical; min-height: 130px; line-height: 1.6; }
@@ -201,10 +201,10 @@ input::placeholder, textarea::placeholder { color: #5a4b43; }
 /* History & trash */
 .hist { margin-top: 20px; display: flex; flex-direction: column; gap: 36px; max-width: 980px; }
 .hist-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
-.hist-head h2 { margin: 0; font: clamp(26px, 3.4vw, 40px)/1 var(--pixel); text-transform: uppercase; font-weight: 400; }
+.hist-head h2 { margin: 0; font: 300 clamp(30px, 3.8vw, 46px)/1 var(--pixel); font-weight: 300; }
 .hlist { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
 .hrow { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 16px; align-items: center; padding: 12px 6px; border-bottom: 1px solid var(--line); }
-.hrow b { font: 15px/1.2 var(--pixel); text-transform: uppercase; font-weight: 400; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.hrow b { font: 400 18px/1.2 var(--pixel); font-weight: 400; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .hrow .meta { margin-top: 4px; white-space: normal; }
 .hrow .confirm { justify-content: flex-end; }
 .hrow .hint { grid-column: 1 / -1; }
@@ -246,7 +246,7 @@ input::placeholder, textarea::placeholder { color: #5a4b43; }
 
 <header class="top">
 	<div class="brand">
-		<svg class="logo" id="logo" viewBox="0 0 8 8" shape-rendering="crispEdges" aria-hidden="true"><rect x="3" y="0" width="5" height="5" fill="#d9a19a"/><rect x="0" y="5" width="3" height="3" fill="#f4ece4"/></svg>
+		<svg class="logo" id="logo" viewBox="-462.5 -662.5 2470.9 856.2" aria-hidden="true"><path d="M153.60000000000002 -81Q153.60000000000002 -52 158.40000000000003 -37.0Q163.20000000000002 -22 178.8 -17.0Q194.4 -12 224.8 -12Q226.4 -12 226.4 -6.0Q226.4 0 224.8 0Q205.60000000000002 0 182.40000000000003 -1.0Q159.20000000000002 -2 131.20000000000002 -2Q104.80000000000001 -2 81.2 -1.0Q57.6 0 38.400000000000006 0Q36.0 0 36.0 -6.0Q36.0 -12 38.400000000000006 -12Q68.8 -12 84.4 -17.0Q100.0 -22 105.2 -37.0Q110.4 -52 110.4 -81V-544Q110.4 -573 105.2 -587.5Q100.0 -602 84.4 -607.5Q68.8 -613 38.400000000000006 -613Q36.0 -613 36.0 -619.0Q36.0 -625 38.400000000000006 -625Q57.6 -625 81.2 -623.5Q104.80000000000001 -622 131.20000000000002 -622Q159.20000000000002 -622 182.8 -623.5Q206.4 -625 224.8 -625Q226.4 -625 226.4 -619.0Q226.4 -613 224.8 -613Q194.4 -613 179.2 -607.0Q164.0 -601 158.8 -586.0Q153.60000000000002 -571 153.60000000000002 -542Z M604.8 -81V-544Q604.8 -573 599.5999999999999 -587.5Q594.4 -602 579.2 -607.5Q564.0 -613 533.6 -613Q532.0 -613 532.0 -619.0Q532.0 -625 533.6 -625Q552.8 -625 576.4 -623.5Q600.0 -622 625.6 -622Q653.6 -622 676.8 -623.5Q700.0 -625 718.4 -625Q720.0 -625 720.0 -619.0Q720.0 -613 718.4 -613Q688.0 -613 672.8 -607.0Q657.6 -601 652.4000000000001 -586.0Q647.2 -571 647.2 -542V-81Q647.2 -52 652.0 -37.0Q656.8 -22 672.4 -17.0Q688.0 -12 718.4 -12Q720.0 -12 720.0 -6.0Q720.0 0 718.4 0Q699.2 0 676.4000000000001 -1.0Q653.6 -2 625.6 -2Q600.0 -2 576.0 -1.0Q552.0 0 532.8 0Q531.2 0 531.2 -6.0Q531.2 -12 532.8 -12Q563.2 -12 578.8 -17.0Q594.4 -22 599.5999999999999 -37.0Q604.8 -52 604.8 -81ZM802.4000000000001 -145 671.2 -349 704.8 -379 820.0 -198Q857.6 -139 883.6 -102.5Q909.6 -66 927.2 -47.0Q944.8 -28 958.4 -20.5Q972.0 -13 984.4 -12.5Q996.8 -12 1012.0 -12Q1014.4000000000001 -12 1014.4000000000001 -6.0Q1014.4000000000001 0 1012.0 0Q976.0 0 954.4 0.0Q932.8 0 922.4000000000001 0Q916.8 0 913.2 0.5Q909.6 1 905.6 1Q894.4000000000001 1 888.0 -4.0Q881.6 -9 873.2 -24.0Q864.8 -39 848.8 -68.0Q832.8 -97 802.4000000000001 -145ZM617.6 -294 823.2 -550Q853.6 -588 850.0 -600.5Q846.4000000000001 -613 804.0 -613Q802.4000000000001 -613 802.4000000000001 -619.0Q802.4000000000001 -625 804.0 -625Q823.2 -625 842.8000000000001 -623.5Q862.4000000000001 -622 894.4000000000001 -622Q924.0 -622 941.2 -623.5Q958.4000000000001 -625 974.4000000000001 -625Q976.8 -625 976.8 -619.0Q976.8 -613 974.4000000000001 -613Q947.2 -613 911.2 -599.0Q875.2 -585 841.6 -544L636.8 -295Z M1416.8000000000002 -81Q1416.8000000000002 -52 1421.6000000000001 -37.0Q1426.4 -22 1442.0 -17.0Q1457.6000000000001 -12 1488.0 -12Q1489.6000000000001 -12 1489.6000000000001 -6.0Q1489.6000000000001 0 1488.0 0Q1468.8000000000002 0 1445.6000000000001 -1.0Q1422.4 -2 1394.4 -2Q1368.0 -2 1344.4 -1.0Q1320.8 0 1301.6000000000001 0Q1299.2 0 1299.2 -6.0Q1299.2 -12 1301.6000000000001 -12Q1332.0 -12 1347.6 -17.0Q1363.2 -22 1368.4 -37.0Q1373.6000000000001 -52 1373.6000000000001 -81V-544Q1373.6000000000001 -573 1368.4 -587.5Q1363.2 -602 1347.6 -607.5Q1332.0 -613 1301.6000000000001 -613Q1299.2 -613 1299.2 -619.0Q1299.2 -625 1301.6000000000001 -625Q1320.8 -625 1344.4 -623.5Q1368.0 -622 1394.4 -622Q1422.4 -622 1446.0 -623.5Q1469.6000000000001 -625 1488.0 -625Q1489.6000000000001 -625 1489.6000000000001 -619.0Q1489.6000000000001 -613 1488.0 -613Q1457.6000000000001 -613 1442.4 -607.0Q1427.2 -601 1422.0 -586.0Q1416.8000000000002 -571 1416.8000000000002 -542Z" fill="#f5f0eb"/><path d="M 914.4 -83.8 C 1101.9 53.8 1339.7 143.8 1996.0 162.5 C 1339.7 165.0 1076.9 100.0 914.4 -56.1 Z" fill="#f5f0eb"/><path d="M -437.5 -87.5 C -156.2 -250.0 156.2 -325.0 500.0 -350.0" fill="none" stroke="#f5f0eb" stroke-width="5.62" stroke-linecap="round"/></svg>
 		<b id="siteName">Portfolio</b><small data-i18n="brandSub">/ Projects</small>
 	</div>
 	<div class="publish">

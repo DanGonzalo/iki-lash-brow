@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Marquee from '@/components/ui/marquee';
-import PixelLogo from '@/components/ui/pixel-logo';
+import BrandLogo from '@/components/ui/brand-logo';
 import { SITE } from '@/data/site';
 import { useContent } from '@/lib/i18n';
 import { openLegal } from '@/lib/events';
@@ -28,12 +28,12 @@ export default function SiteFooter() {
 	const { copy: COPY, nav: NAV, ui } = useContent();
 	const t = ui.footer;
 	return (
-		<footer className="relative z-10 border-t border-line bg-ink">
+		<footer className="theme-dark relative z-10 border-t border-line bg-ink text-paper">
 			<div className="mx-auto grid max-w-[1400px] grid-cols-2 gap-10 px-5 py-16 text-[11px] uppercase tracking-[0.2em] md:grid-cols-4 md:px-10">
 				<div className="col-span-2 md:col-span-1">
-					<p className="flex items-center gap-3 font-pixel text-xl tracking-[0.15em]">
-						<PixelLogo className="h-6" />
-						{SITE.name}
+					<p className="flex flex-col items-start gap-2">
+						<BrandLogo className="h-10" title={SITE.name} />
+						<span className="pl-[0.35em] text-[9px] tracking-[0.42em] text-stone">{SITE.heroLines[1]}</span>
 					</p>
 					<p className="mt-4 max-w-[16rem] normal-case leading-relaxed tracking-normal text-paper/60">
 						{COPY.footer.description}
@@ -80,9 +80,9 @@ export default function SiteFooter() {
 
 			<div aria-hidden="true" className="border-t border-line py-6">
 				<Marquee speed={30} direction={-1}>
-					<span className="flex items-center gap-10 pr-10 font-pixel text-[clamp(4rem,12vw,10rem)] uppercase leading-none text-paper/10">
+					<span className="flex items-center gap-10 pr-10 font-pixel font-light text-[clamp(4rem,12vw,10rem)] leading-none text-paper/10">
 						{SITE.name}
-						<span className="h-6 w-6 bg-paper/10" />
+						<span className="font-serif text-[0.5em]">粋</span>
 					</span>
 				</Marquee>
 			</div>
@@ -93,7 +93,7 @@ export default function SiteFooter() {
 					<a href="#datenschutz" onClick={(e) => { e.preventDefault(); openLegal('privacy'); }} className="hover:text-paper">{t.privacy}</a>
 				</span>
 				<span className="flex items-center gap-3">
-					<span aria-hidden="true" className="tracking-[0.35em] text-accent">•·•·•</span>
+					<span aria-hidden="true" className="text-[13px] text-accent">粋</span>
 					{t.motto}
 				</span>
 			</div>
