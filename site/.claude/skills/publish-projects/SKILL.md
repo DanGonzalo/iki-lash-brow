@@ -124,6 +124,14 @@ Pick the target:
    when the local site is running, `offline` otherwise). Do not start a server
    from an automatic run.
 
+Then, whatever the target: **GitHub** when `github.push` is `true` in
+`deploy.config.json`. Run `node $SCRIPT push`: it commits only
+`src/data/projects.json` and the project images, pushes them, and GitHub
+Actions rebuilds the GitHub Pages copy at `github.pagesUrl` (about two
+minutes). It prints `pushed N file(s)` or `nothing to push`. If it fails
+(`push failed: …`), the publish itself is still done: keep `status: "done"`
+and add "GitHub not updated" to the message.
+
 ## 7. Report back to the artifact
 
 `ArtifactData update` `site/deploy` (pin the version from your last write):
@@ -134,7 +142,7 @@ Pick the target:
   "finishedAt": "<output of \"now\">",
   "lastPublishedAt": "<startedAt from step 1>",
   "target": "local" | "hostinger",
-  "siteUrl": <localUrl from deploy.config.json> | "https://<domain>",
+  "siteUrl": "https://<domain>" | <github.pagesUrl when pushed> | <localUrl>,
   "publishedCount": <published>,
   "message": "<one short English sentence>"
 }
@@ -142,6 +150,7 @@ Pick the target:
 
 The message is shown in the projects page (interface in English and German).
 Examples: "9 projects live on example.com.",
+"9 projects published · GitHub Pages updated in ~2 min.",
 "9 projects published · local site up to date.",
 "9 projects published · run `npm run dev` to see the local site."
 Mention skipped projects briefly when there are some

@@ -10,6 +10,7 @@
  *   node scripts/apply-projects.mjs pack               zip dist/ into .publish/site.zip
  *   node scripts/apply-projects.mjs status             HTTP status of the local dev site
  *   node scripts/apply-projects.mjs now                current time (ISO) — use it for every timestamp
+ *   node scripts/apply-projects.mjs push               commit the published projects and images, push them to GitHub
  *   node scripts/apply-projects.mjs <dir>              write src/data/projects.json
  *   node scripts/apply-projects.mjs <dir> --missing    only list the image ids not downloaded yet
  *   node scripts/apply-projects.mjs <dir> --prune      also delete images no project uses any more
@@ -33,7 +34,7 @@ const publishDir = path.join(root, '.publish');
 const backupFile = path.join(publishDir, 'projects.backup.json');
 const [arg, ...flags] = process.argv.slice(2);
 // Paths are relative to the project root, whatever folder the command runs from
-const dir = arg && !['prepare', 'restore', 'import', 'pack', 'now', 'status', 'build', 'set-domain', 'sizes'].includes(arg) ? path.resolve(root, arg) : arg;
+const dir = arg && !['prepare', 'restore', 'import', 'pack', 'now', 'status', 'build', 'set-domain', 'sizes', 'push'].includes(arg) ? path.resolve(root, arg) : arg;
 
 // ---------- Image size (read from the file header, no dependency) ----------
 function imageSize(file) {
@@ -166,6 +167,29 @@ if (dir === 'sizes') {
 	fs.writeFileSync(outFile, JSON.stringify(list, null, '\t') + '\n');
 	console.log(`sizes ${list.filter((p) => p.cover.width).length}/${list.length}`);
 	process.exit(0);
+}
+if (dir === 'push') {
+	// Send the published projects to GitHub: only projects.json and the project images
+	// are committed, so unrelated work in the folder is never published by accident.
+	// GitHub Actions then rebuilds the GitHub Pages site (about two minutes).
+	const run = (args, opts = {}) => execFileSync('git', args, { cwd: root, encoding: 'utf8', ...opts });
+	const paths = ['src/data/projects.json', 'public/projects/assets'];
+	try {
+		run(['add', '-A', '--', ...paths]);
+		const staged = run(['diff', '--cached', '--name-only', '--', ...paths]).trim();
+		if (!staged) {
+			console.log('nothing to push');
+			process.exit(0);
+		}
+		const stamp = new Date().toISOString().slice(0, 16).replace('T', ' ');
+		run(['commit', '-q', '-m', `Publish projects (${stamp} UTC)`, '--', ...paths]);
+		run(['push', '-q', 'origin', 'HEAD'], { stdio: ['ignore', 'pipe', 'pipe'] });
+		console.log(`pushed ${staged.split('\n').length} file(s)`);
+		process.exit(0);
+	} catch (error) {
+		console.error(`push failed: ${String(error.stderr || error.message).trim()}`);
+		process.exit(1);
+	}
 }
 if (dir === 'status') {
 	const config = JSON.parse(fs.readFileSync(path.join(root, 'deploy.config.json'), 'utf8'));

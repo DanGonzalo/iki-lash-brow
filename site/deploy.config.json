@@ -6,5 +6,9 @@
 	"hostinger": {
 		"domain": ""
 	},
-	"checkEveryMinutes": 720
+	"checkEveryMinutes": 720,
+	"github": {
+		"push": true,
+		"pagesUrl": "https://dangonzalo.github.io/iki-lash-atelier/"
+	}
 }
