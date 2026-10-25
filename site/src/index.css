@@ -7,7 +7,7 @@
   --font-pixel: 'Cormorant Garamond', 'Times New Roman', serif;
   --font-serif: 'Cormorant Garamond', 'Times New Roman', serif;
 
-  /* IKI palette: Atelier Ivory, Warm Sand, Soft Taupe, Champagne, Deep Espresso, Ink Black.
+  /* IKI palette: Ivory, Warm Sand, Soft Taupe, Champagne, Deep Espresso, Ink Black.
      "ink" is the background and "paper" the text: light sections by default,
      dark ones (intro, footer) swap them with .theme-dark */
   --color-ink: #f5f0eb;
@@ -89,4 +89,12 @@ html.has-pixel-cursor * {
   to {
     transform: scaleX(1);
   }
+}
+
+/* "LASH & BROW" under the wordmark: spaced serif capitals, as on the brand board */
+@utility brand-line {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.38em;
 }

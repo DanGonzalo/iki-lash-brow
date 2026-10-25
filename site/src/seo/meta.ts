@@ -93,6 +93,7 @@ export function structuredData(lang: Lang, origin = '') {
 				'@type': 'BeautySalon',
 				'@id': id('business'),
 				name: SITE.name,
+				alternateName: SITE.heroLines[0],
 				url: `${origin}/`,
 				description: m.description,
 				image: m.image,

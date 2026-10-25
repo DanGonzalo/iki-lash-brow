@@ -74,7 +74,7 @@ export default function SiteHeader() {
 						className="flex min-w-0 flex-col items-start gap-1 whitespace-nowrap"
 					>
 						<BrandLogo className="h-6 md:h-7" />
-						<span className="min-w-0 truncate pl-[0.35em] text-[8px] uppercase tracking-[0.42em] text-stone md:text-[9px]">
+						<span className="brand-line min-w-0 truncate pl-[0.38em] text-[10px] leading-none text-stone md:text-[11px]">
 							<DecodeText text={SITE.heroLines[1]} duration={900} />
 						</span>
 					</a>

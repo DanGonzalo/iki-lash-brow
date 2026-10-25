@@ -31,9 +31,10 @@ export default function SiteFooter() {
 		<footer className="theme-dark relative z-10 border-t border-line bg-ink text-paper">
 			<div className="mx-auto grid max-w-[1400px] grid-cols-2 gap-10 px-5 py-16 text-[11px] uppercase tracking-[0.2em] md:grid-cols-4 md:px-10">
 				<div className="col-span-2 md:col-span-1">
-					<p className="flex flex-col items-start gap-2">
+					<p className="inline-flex flex-col items-center gap-2.5">
 						<BrandLogo className="h-10" title={SITE.name} />
-						<span className="pl-[0.35em] text-[9px] tracking-[0.42em] text-stone">{SITE.heroLines[1]}</span>
+						<span className="brand-line pl-[0.38em] text-[12px] text-paper/80">{SITE.heroLines[1]}</span>
+						<span aria-hidden="true" className="h-px w-8 bg-stone" />
 					</p>
 					<p className="mt-4 max-w-[16rem] normal-case leading-relaxed tracking-normal text-paper/60">
 						{COPY.footer.description}

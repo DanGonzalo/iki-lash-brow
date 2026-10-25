@@ -25,11 +25,11 @@ export const ACCENT_PRESETS = {
 } as const;
 
 export const SITE = {
-	name: 'IKI Lash Atelier',
+	name: 'IKI Lash & Brow',
 	/** First name of the artist (about text, structured data) */
 	artist: 'Mai',
 	/** The wordmark (drawn as the logo), then the words spelled out under it */
-	heroLines: ['IKI', 'Lash Atelier'],
+	heroLines: ['IKI', 'Lash & Brow'],
 	/**
 	 * City of the studio. The most important detail for local search
 	 * ("Wimpernverlängerung Hamburg"): once filled in, it is added to the page
@@ -101,22 +101,22 @@ const BRUSH = ['.......##', '......###', '.....###.', '....##...', '...#.....', 
  */
 const en = {
 	meta: {
-		title: 'Lash Extensions & Permanent Makeup | IKI Lash Atelier',
+		title: 'Lash Extensions & Permanent Makeup | IKI Lash & Brow',
 		/** Used instead of `title` once SITE.city is filled in */
-		titleCity: 'Lash Extensions & Permanent Makeup in {city} | IKI Lash Atelier',
+		titleCity: 'Lash Extensions & Permanent Makeup in {city} | IKI Lash & Brow',
 		description:
 			'Natural lash extensions, signature lash design, powder brows, lip blush and permanent eyeliner, plus bridal makeup. Naturally beautiful, individually designed.',
 		jobTitle: 'Lash artist, permanent makeup artist & makeup artist',
 		image: '/og-image.jpg',
-		imageAlt: 'IKI Lash Atelier — lash extensions and permanent makeup',
+		imageAlt: 'IKI Lash & Brow — lash extensions, brows and permanent makeup',
 	},
 	copy: {
 		hero: {
 			label: '[Lashes · Permanent makeup · Makeup artist]',
-			tagline: 'Naturally beautiful, individually designed. Eight images to step inside the atelier.',
+			tagline: 'Naturally beautiful, individually designed. Eight images to step inside the studio.',
 		},
 		intro: {
-			label: '[01] — Atelier',
+			label: '[01] — Studio',
 			title: ['Naturally', 'beautiful.'],
 			text: 'Lash extensions, permanent makeup for brows, lips and eyes, and makeup for your wedding or shoot. Every look is designed for your face with precision and restraint, to enhance your natural features, never to cover them.',
 			primaryCta: 'Book an appointment',
@@ -173,7 +173,7 @@ const en = {
 		},
 		footer: {
 			description:
-				'Lash atelier for natural lash extensions and permanent makeup, and makeup artist for weddings, events and shoots.',
+				'Lash & brow studio for natural lash extensions and permanent makeup, and makeup artist for weddings, events and shoots.',
 		},
 		header: { cta: 'Book now', ctaShort: 'Book' },
 	},
@@ -265,7 +265,7 @@ const en = {
 	process: [
 		{
 			title: 'Consult',
-			text: 'A free 15-minute chat, in the atelier or by video. We talk about your wishes, your eye and face shape, and the treatment that suits you.',
+			text: 'A free 15-minute chat, in the studio or by video. We talk about your wishes, your eye and face shape, and the treatment that suits you.',
 			duration: '15 min',
 			icon: 'chat',
 		},
@@ -277,7 +277,7 @@ const en = {
 		},
 		{
 			title: 'Session',
-			text: 'A calm session in the atelier: lashes applied one by one, pigment placed dot by dot. Most clients relax; many fall asleep.',
+			text: 'A calm session in the studio: lashes applied one by one, pigment placed dot by dot. Most clients relax; many fall asleep.',
 			duration: '1–2.5 h',
 			icon: LASHES,
 		},
@@ -497,21 +497,21 @@ export type Content = typeof en;
 
 const de: Content = {
 	meta: {
-		title: 'Wimpernverlängerung & Permanent Make-up | IKI Lash Atelier',
-		titleCity: 'Wimpernverlängerung & Permanent Make-up in {city} | IKI Lash Atelier',
+		title: 'Wimpernverlängerung & Permanent Make-up | IKI Lash & Brow',
+		titleCity: 'Wimpernverlängerung & Permanent Make-up in {city} | IKI Lash & Brow',
 		description:
 			'Natürliche Wimpernverlängerung, Signature Design, Powder Brows, Lip Blush und Permanent Eyeliner – dazu Braut-Make-up. Natürlich schön. Individuell gestaltet.',
 		jobTitle: 'Lash-Artistin, Permanent-Make-up-Artistin & Visagistin',
 		image: '/og-image-de.jpg',
-		imageAlt: 'IKI Lash Atelier — Wimpernverlängerung und Permanent Make-up',
+		imageAlt: 'IKI Lash & Brow — Wimpernverlängerung, Augenbrauen und Permanent Make-up',
 	},
 	copy: {
 		hero: {
 			label: '[Wimpern · Permanent Make-up · Visagistin]',
-			tagline: 'Natürlich schön. Individuell gestaltet. Acht Bilder, um ins Atelier zu blicken.',
+			tagline: 'Natürlich schön. Individuell gestaltet. Acht Bilder, um ins Studio zu blicken.',
 		},
 		intro: {
-			label: '[01] — Atelier',
+			label: '[01] — Studio',
 			title: ['Natürlich', 'schön.'],
 			text: 'Wimpernverlängerung, Permanent Make-up für Brauen, Lippen und Augen und Make-up für deine Hochzeit oder dein Shooting. Jeder Look wird mit Präzision und Zurückhaltung für dein Gesicht gestaltet – um deine natürlichen Züge zu betonen, nie um sie zu überdecken.',
 			primaryCta: 'Termin buchen',
@@ -567,7 +567,7 @@ const de: Content = {
 		},
 		footer: {
 			description:
-				'Lash Atelier für natürliche Wimpernverlängerung und Permanent Make-up – und Visagistin für Hochzeiten, Events und Shootings.',
+				'Lash & Brow Studio für natürliche Wimpernverlängerung und Permanent Make-up – und Visagistin für Hochzeiten, Events und Shootings.',
 		},
 		header: { cta: 'Termin buchen', ctaShort: 'Termin' },
 	},
@@ -658,7 +658,7 @@ const de: Content = {
 	process: [
 		{
 			title: 'Beratung',
-			text: 'Ein kostenloses 15-Minuten-Gespräch, im Atelier oder per Video. Wir sprechen über deine Wünsche, deine Augen- und Gesichtsform und die Behandlung, die zu dir passt.',
+			text: 'Ein kostenloses 15-Minuten-Gespräch, im Studio oder per Video. Wir sprechen über deine Wünsche, deine Augen- und Gesichtsform und die Behandlung, die zu dir passt.',
 			duration: '15 Min.',
 			icon: 'chat',
 		},
@@ -670,7 +670,7 @@ const de: Content = {
 		},
 		{
 			title: 'Behandlung',
-			text: 'Eine ruhige Sitzung im Atelier: Wimpern einzeln gesetzt, Pigment Punkt für Punkt. Die meisten entspannen sich, viele schlafen sogar ein.',
+			text: 'Eine ruhige Sitzung im Studio: Wimpern einzeln gesetzt, Pigment Punkt für Punkt. Die meisten entspannen sich, viele schlafen sogar ein.',
 			duration: '1–2,5 Std.',
 			icon: LASHES,
 		},

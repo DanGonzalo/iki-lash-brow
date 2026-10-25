@@ -1,10 +1,10 @@
-# IKI Lash Atelier — bilingual portfolio for a lash & permanent makeup artist
+# IKI Lash & Brow — bilingual portfolio for a lash, brow & permanent makeup artist
 
-**Live preview:** https://dangonzalo.github.io/iki-lash-atelier/ · German version: https://dangonzalo.github.io/iki-lash-atelier/de/
+**Live preview:** https://dangonzalo.github.io/iki-lash-brow/ · German version: https://dangonzalo.github.io/iki-lash-brow/de/
 
 A bilingual (English / German) one-page site for Mai, a Vietnamese makeup artist: natural lash extensions, signature lash design, powder brows, lip blush, permanent eyeliner and bridal makeup.
 
-The brand, **IKI** (粋, the Japanese ideal of refined, understated elegance), is built on three words: *artistry, restraint, individuality*, and one promise: *Natürlich schön. Individuell gestaltet.* The palette is atelier ivory, warm sand, soft taupe, champagne and deep espresso; titles are set in Cormorant Garamond, text in Manrope. The custom wordmark draws its hairline and the K's long lash-like tail when the site opens.
+The brand, **IKI** (粋, the Japanese ideal of refined, understated elegance), is built on three words: *artistry, restraint, individuality*, and one promise: *Natürlich schön. Individuell gestaltet.* The palette is ivory, warm sand, soft taupe, champagne and deep espresso; titles are set in Cormorant Garamond, text in Manrope. The custom wordmark draws its hairline and the K's long lash-like tail when the site opens, above LASH & BROW set in spaced capitals; a round badge echoes the studio sign.
 
 ## Features
 

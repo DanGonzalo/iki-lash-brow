@@ -1,4 +1,4 @@
-# IKI Lash Atelier — portfolio (EN / DE)
+# IKI Lash & Brow — portfolio (EN / DE)
 
 Le code du site (Vite + React + Tailwind). Vos photos se rangent dans le
 dossier `images/`, à côté de ce dossier `site/`.

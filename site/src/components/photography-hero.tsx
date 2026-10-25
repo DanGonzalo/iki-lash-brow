@@ -221,7 +221,15 @@ export default function PhotographyHero({
 						out={leaving}
 						delay={700}
 						duration={1300}
-						className="mt-5 block pl-[0.6em] text-[clamp(0.8rem,1.7vw,1.15rem)] font-medium uppercase tracking-[0.6em] md:mt-7"
+						className="brand-line mt-5 block pl-[0.38em] text-[clamp(1rem,2.1vw,1.45rem)] md:mt-7"
+					/>
+					{/* The short rule under the name, as on the brand board */}
+					<span
+						aria-hidden="true"
+						className={cn(
+							'mt-4 block h-px w-12 bg-current transition-transform duration-1000 ease-[cubic-bezier(.6,0,.2,1)] md:mt-5 md:w-16',
+							started && !leaving ? 'scale-x-100 delay-[1300ms]' : 'scale-x-0'
+						)}
 					/>
 				</h1>
 				<DecodeText

@@ -1,3 +1,4 @@
+import BrandBadge from '@/components/ui/brand-badge';
 import DecodeText from '@/components/ui/decode-text';
 import PixelButton from '@/components/ui/pixel-button';
 import PixelEdgeImage from '@/components/ui/pixel-edge-image';
@@ -13,13 +14,15 @@ export default function AboutSection() {
 		<section id="apropos" className="relative z-10 scroll-mt-20 border-t border-line bg-ink">
 			<div className="mx-auto grid max-w-[1400px] items-center gap-14 px-5 py-24 md:px-10 md:py-36 lg:grid-cols-12 lg:gap-12">
 				{/* Portrait melting into the page through black pixels */}
-				<div className="lg:col-span-5">
+				<div className="relative lg:col-span-5">
 					<PixelEdgeImage
 						src={media.about.src}
 						alt={media.about.alt || COPY.about.title.join(' ')}
 						protect={ABOUT_FACE}
 						className="aspect-[4/5] w-full"
 					/>
+					{/* The round studio sign, set like a stamp on the corner of the portrait */}
+					<BrandBadge className="absolute -bottom-10 right-4 w-28 text-paper md:-bottom-12 md:right-6 md:w-36" />
 				</div>
 
 				<div className="lg:col-span-6 lg:col-start-7">
