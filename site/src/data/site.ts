@@ -93,6 +93,7 @@ const BROW = ['.........', '.........', '....####.', '..##....#', '.#..####.', '
 const LIPS = ['.........', '..##.##..', '.#..#..#.', '#.......#', '.#######.', '#.......#', '.#.....#.', '..#####..', '.........'];
 const EYE = ['.........', '.......##', '..#####..', '.#.....#.', '#..###..#', '.#.###.#.', '..#####..', '.........', '.........'];
 const LASHES = ['.........', '#.#.#.#.#', '.#######.', '#.......#', '#..###..#', '.#.....#.', '..#####..', '.........', '.........'];
+const BROW_LIFT = ['.........', '..#..#..#', '..#..#..#', '.#..#..#.', '.........', '...#####.', '.##.....#', '#........', '.........'];
 const BRUSH = ['.......##', '......###', '.....###.', '....##...', '...#.....', '..#......', '.#.......', '#........', '.........'];
 
 /**
@@ -105,7 +106,7 @@ const en = {
 		/** Used instead of `title` once SITE.city is filled in */
 		titleCity: 'Permanent Makeup & Lash Extensions in {city} | IKI Lash & Brow',
 		description:
-			'Powder brows, lip blush and permanent eyeliner, natural lash extensions and bridal makeup by Mai, makeup artist. Naturally beautiful, individually designed.',
+			'Powder brows, lip blush, permanent eyeliner, brow lifting, lash extensions and bridal makeup by Mai, makeup artist. Naturally beautiful, individually designed.',
 		jobTitle: 'Permanent makeup artist, lash artist & makeup artist',
 		image: '/og-image.jpg',
 		imageAlt: 'IKI Lash & Brow — lash extensions, brows and permanent makeup',
@@ -118,7 +119,7 @@ const en = {
 		intro: {
 			label: '[01] — Studio',
 			title: ['Naturally', 'beautiful.'],
-			text: 'Permanent makeup for brows, lips and eyes, lash extensions, and makeup for your wedding or shoot: one artist for your whole look. Every detail is designed for your face with precision and restraint, to enhance your natural features, never to cover them.',
+			text: 'Permanent makeup for brows, lips and eyes, brow lifting, lash extensions, and makeup for your wedding or shoot: one artist for your whole look. Every detail is designed for your face with precision and restraint, to enhance your natural features, never to cover them.',
 			primaryCta: 'Book an appointment',
 			secondaryCta: 'See the work',
 		},
@@ -131,6 +132,10 @@ const en = {
 			lasts: 'Lasts',
 			price: 'Price',
 			cta: 'Ask about this treatment',
+			/** Last card of the grid, for visitors who don't know what to choose */
+			consultTitle: 'Not sure yet?',
+			consultText: 'Tell me what you would like to change. In a free 15-minute consultation, we find the treatment that suits your face, your skin and your everyday life.',
+			consultCta: 'Book a free consultation',
 		},
 		work: {
 			label: '[03] — Work',
@@ -149,7 +154,7 @@ const en = {
 			pathLabel: 'My path',
 			path: [
 				{ title: 'Permanent makeup', text: 'Where it all began: brows, lips and eyeliner, placed dot by dot.' },
-				{ title: 'Lash extensions', text: 'Then lashes: natural and signature sets, mapped to each eye.' },
+				{ title: 'Lashes & brows', text: 'Then lash extensions and brow lifting: natural sets and brushed-up brows, designed for each face.' },
 				{ title: 'Makeup artistry', text: 'And the whole face: bridal, event and shoot makeup that lasts all day.' },
 			],
 			cta: 'Book an appointment',
@@ -170,7 +175,7 @@ const en = {
 			title: ['Book your', 'appointment.'],
 			text: 'Tell me what you have in mind, ideally with a photo of your eyes or brows without makeup. I reply within 24 h with available dates and a personal quote.',
 			typeLabel: 'Treatment',
-			sessionTypes: ['Lash extensions', 'Lash infill', 'Permanent makeup (brows, lips, eyes)', 'Bridal or event makeup', 'Other'],
+			sessionTypes: ['Lash extensions', 'Lash infill', 'Permanent makeup (brows, lips, eyes)', 'Bridal or event makeup', 'Brow lifting', 'Other'],
 			// 4th field of the form, next to the type: 'date', 'select' or 'text'
 			extraField: { label: 'Preferred date', kind: 'date' } as ExtraField,
 			messageLabel: 'Your request',
@@ -205,6 +210,7 @@ const en = {
 		'Powder brows',
 		'Lip blush',
 		'Permanent eyeliner',
+		'Brow lifting',
 		'Lash extensions',
 		'Signature lashes',
 		'Infill',
@@ -239,6 +245,15 @@ const en = {
 			price: '',
 			icon: DROP,
 			form: 2,
+		},
+		{
+			name: 'Brow lifting',
+			text: 'Your own brows, lifted and set in place for a fuller, brushed-up look that stays groomed for weeks. Nothing is pigmented: the gentle way to try a new shape.',
+			duration: '45–60 min',
+			lasts: '6–8 weeks',
+			price: '',
+			icon: BROW_LIFT,
+			form: 4,
 		},
 		{
 			name: 'Natural lash extensions',
@@ -330,6 +345,10 @@ const en = {
 		{
 			q: 'How long does permanent makeup last?',
 			a: 'One to three years for brows and lips, three to five years for eyeliner and lash line, depending on your skin, sun exposure and skincare. A colour refresh every 12 to 18 months keeps it crisp.',
+		},
+		{
+			q: 'Brow lifting or powder brows: which one is right for me?',
+			a: 'Brow lifting works with your own hairs: they are lifted and set in place for six to eight weeks, and nothing is pigmented. Powder brows add soft shading to the skin and last one to three years. Many clients start with a brow lift to try a shape, then decide.',
 		},
 		{
 			q: 'How do I prepare, and how do I care for it afterwards?',
@@ -507,7 +526,7 @@ const de: Content = {
 		title: 'Permanent Make-up & Wimpernverlängerung | IKI Lash & Brow',
 		titleCity: 'Permanent Make-up & Wimpernverlängerung in {city} | IKI Lash & Brow',
 		description:
-			'Powder Brows, Lip Blush und Permanent Eyeliner, natürliche Wimpernverlängerung und Braut-Make-up von Mai, Visagistin. Natürlich schön. Individuell gestaltet.',
+			'Powder Brows, Lip Blush, Permanent Eyeliner, Brow Lifting, Wimpernverlängerung und Braut-Make-up von Mai, Visagistin. Natürlich schön. Individuell gestaltet.',
 		jobTitle: 'Permanent-Make-up-Artistin, Lash-Artistin & Visagistin',
 		image: '/og-image-de.jpg',
 		imageAlt: 'IKI Lash & Brow — Wimpernverlängerung, Augenbrauen und Permanent Make-up',
@@ -520,7 +539,7 @@ const de: Content = {
 		intro: {
 			label: '[01] — Studio',
 			title: ['Natürlich', 'schön.'],
-			text: 'Permanent Make-up für Brauen, Lippen und Augen, Wimpernverlängerung und Make-up für deine Hochzeit oder dein Shooting – eine Artistin für deinen ganzen Look. Jedes Detail wird mit Präzision und Zurückhaltung für dein Gesicht gestaltet – um deine natürlichen Züge zu betonen, nie um sie zu überdecken.',
+			text: 'Permanent Make-up für Brauen, Lippen und Augen, Brow Lifting, Wimpernverlängerung und Make-up für deine Hochzeit oder dein Shooting – eine Artistin für deinen ganzen Look. Jedes Detail wird mit Präzision und Zurückhaltung für dein Gesicht gestaltet – um deine natürlichen Züge zu betonen, nie um sie zu überdecken.',
 			primaryCta: 'Termin buchen',
 			secondaryCta: 'Arbeiten ansehen',
 		},
@@ -533,6 +552,9 @@ const de: Content = {
 			lasts: 'Hält',
 			price: 'Preis',
 			cta: 'Zu dieser Behandlung anfragen',
+			consultTitle: 'Noch unsicher?',
+			consultText: 'Erzähl mir, was du dir wünschst. In einer kostenlosen 15-Minuten-Beratung finden wir die Behandlung, die zu deinem Gesicht, deiner Haut und deinem Alltag passt.',
+			consultCta: 'Kostenlose Beratung buchen',
 		},
 		work: {
 			label: '[03] — Arbeiten',
@@ -550,7 +572,7 @@ const de: Content = {
 			pathLabel: 'Mein Weg',
 			path: [
 				{ title: 'Permanent Make-up', text: 'Hier hat alles begonnen: Brauen, Lippen und Lidstrich, Punkt für Punkt gesetzt.' },
-				{ title: 'Wimpernverlängerung', text: 'Dann die Wimpern: natürliche und Signature-Sets, für jedes Auge geplant.' },
+				{ title: 'Wimpern & Brauen', text: 'Dann Wimpernverlängerung und Brow Lifting: natürliche Sets und aufgerichtete Brauen, für jedes Gesicht geplant.' },
 				{ title: 'Make-up', text: 'Und das ganze Gesicht: Braut-, Event- und Shooting-Make-up, das den ganzen Tag hält.' },
 			],
 			cta: 'Termin buchen',
@@ -571,7 +593,7 @@ const de: Content = {
 			title: ['Termin', 'buchen.'],
 			text: 'Erzähl mir, was du dir wünschst, am besten mit einem Foto deiner Augen oder Brauen ohne Make-up. Ich antworte innerhalb von 24 h mit freien Terminen und einem persönlichen Angebot.',
 			typeLabel: 'Behandlung',
-			sessionTypes: ['Wimpernverlängerung', 'Auffüllen (Infill)', 'Permanent Make-up (Brauen, Lippen, Augen)', 'Braut- oder Event-Make-up', 'Sonstiges'],
+			sessionTypes: ['Wimpernverlängerung', 'Auffüllen (Infill)', 'Permanent Make-up (Brauen, Lippen, Augen)', 'Braut- oder Event-Make-up', 'Brow Lifting', 'Sonstiges'],
 			extraField: { label: 'Wunschtermin', kind: 'date' } as ExtraField,
 			messageLabel: 'Deine Anfrage',
 			messagePlaceholder: 'Welche Behandlung, deine Wimpern oder Brauen heute, deine Fragen … Ein paar Worte genügen.',
@@ -604,6 +626,7 @@ const de: Content = {
 		'Powder Brows',
 		'Lip Blush',
 		'Permanent Eyeliner',
+		'Brow Lifting',
 		'Wimpernverlängerung',
 		'Signature Lashes',
 		'Auffüllen',
@@ -638,6 +661,15 @@ const de: Content = {
 			price: '',
 			icon: DROP,
 			form: 2,
+		},
+		{
+			name: 'Brow Lifting',
+			text: 'Deine eigenen Brauen, aufgerichtet und in Form gebracht – für einen volleren, gebürsteten Look, der wochenlang gepflegt aussieht. Ohne Pigment: die sanfte Art, eine neue Form auszuprobieren.',
+			duration: '45–60 Min.',
+			lasts: '6–8 Wochen',
+			price: '',
+			icon: BROW_LIFT,
+			form: 4,
 		},
 		{
 			name: 'Natürliche Wimpernverlängerung',
@@ -729,6 +761,10 @@ const de: Content = {
 		{
 			q: 'Wie lange hält Permanent Make-up?',
 			a: 'Ein bis drei Jahre bei Brauen und Lippen, drei bis fünf Jahre bei Lidstrich und Wimpernkranz, je nach Haut, Sonne und Pflege. Eine Auffrischung alle 12 bis 18 Monate hält das Ergebnis frisch.',
+		},
+		{
+			q: 'Brow Lifting oder Powder Brows – was passt zu mir?',
+			a: 'Beim Brow Lifting arbeite ich mit deinen eigenen Härchen: Sie werden aufgerichtet und für sechs bis acht Wochen in Form gebracht, pigmentiert wird nichts. Powder Brows legen eine weiche Schattierung in die Haut und halten ein bis drei Jahre. Viele starten mit einem Brow Lifting, um eine Form auszuprobieren, und entscheiden dann.',
 		},
 		{
 			q: 'Wie bereite ich mich vor und wie pflege ich es danach?',

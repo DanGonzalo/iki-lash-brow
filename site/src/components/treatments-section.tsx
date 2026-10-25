@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import BrandBadge from '@/components/ui/brand-badge';
 import DecodeText from '@/components/ui/decode-text';
 import PixelIcon, { type PixelBitmap, type PixelIconName } from '@/components/ui/pixel-icon';
 import Reveal from '@/components/ui/reveal';
@@ -6,6 +7,7 @@ import type { Content } from '@/data/site';
 import { useInView } from '@/hooks/use-in-view';
 import { useContent } from '@/lib/i18n';
 import { requestTreatment } from '@/lib/events';
+import { scrollToSection } from '@/lib/scroll';
 
 const pad = (n: number) => String(n).padStart(2, '0');
 
@@ -61,6 +63,34 @@ function Treatment({ item, index }: { item: Content['treatments'][number]; index
 	);
 }
 
+/** Closes the grid: a free consultation for visitors who don't know what to choose. */
+function ConsultCard({ index }: { index: number }) {
+	const { copy, ui } = useContent();
+	const c = copy.treatments;
+	return (
+		<li className="theme-dark border-b border-r border-line bg-ink text-paper lg:col-span-2">
+			<Reveal delay={(index % 3) * 90} className="flex h-full items-center gap-8 p-6 md:p-8">
+				<div className="flex min-w-0 flex-1 flex-col gap-6">
+					<h3 className="font-pixel font-light text-3xl leading-[0.95] md:text-[2.4rem]">
+						<DecodeText text={c.consultTitle} duration={900} />
+					</h3>
+					<p className="max-w-md text-[13px] leading-relaxed text-paper/75">{c.consultText}</p>
+					<button
+						type="button"
+						onClick={() => scrollToSection('contact')}
+						data-cursor={ui.cursor.book}
+						className="flex cursor-pointer items-center gap-3 self-start rounded-full border border-paper px-5 py-3 text-[11px] uppercase tracking-[0.2em] transition-colors hover:bg-paper hover:text-ink"
+					>
+						{c.consultCta}
+						<span aria-hidden="true">↗</span>
+					</button>
+				</div>
+				<BrandBadge className="hidden w-32 shrink-0 text-paper sm:block lg:w-40" />
+			</Reveal>
+		</li>
+	);
+}
+
 /** The treatments, each with what it is, how long it takes and how long it lasts. */
 export default function TreatmentsSection() {
 	const { copy, treatments } = useContent();
@@ -85,6 +115,7 @@ export default function TreatmentsSection() {
 					{treatments.map((item, i) => (
 						<Treatment key={i} item={item} index={i} />
 					))}
+					<ConsultCard index={treatments.length} />
 				</ul>
 			</div>
 		</section>
