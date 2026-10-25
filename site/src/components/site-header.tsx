@@ -71,10 +71,10 @@ export default function SiteHeader() {
 						href="#top"
 						onClick={goTo('top')}
 						aria-label={SITE.name}
-						className="flex min-w-0 flex-col items-start gap-1 whitespace-nowrap"
+						className="flex min-w-0 flex-col items-center gap-0.5 whitespace-nowrap"
 					>
-						<BrandLogo className="h-6 md:h-7" />
-						<span className="brand-line min-w-0 truncate pl-[0.38em] text-[10px] leading-none text-stone md:text-[11px]">
+						<BrandLogo className="h-10 md:h-12" />
+						<span className="brand-line min-w-0 truncate pl-[0.3em] text-[9px] leading-none text-stone [--brand-track:0.3em] md:text-[10px]">
 							<DecodeText text={SITE.heroLines[1]} duration={900} />
 						</span>
 					</a>
@@ -102,11 +102,11 @@ export default function SiteHeader() {
 					</nav>
 
 					<div className="flex shrink-0 items-center gap-2">
-						<LangSwitch className="hidden sm:flex" />
+						<LangSwitch />
 						<a
 							href="#contact"
 							onClick={goTo('contact')}
-							className="flex items-center gap-3 whitespace-nowrap rounded-full h-[38px] bg-paper px-3.5 text-[10px] font-semibold uppercase tracking-[0.12em] min-[380px]:px-4 min-[380px]:tracking-[0.16em] text-ink sm:px-5 sm:tracking-[0.2em] transition-colors hover:bg-paper/85 md:h-auto md:px-6 md:py-3 md:text-[11px]"
+							className="hidden min-[360px]:flex items-center gap-3 whitespace-nowrap rounded-full h-[38px] bg-paper px-3.5 text-[10px] font-semibold uppercase tracking-[0.12em] min-[380px]:px-4 min-[380px]:tracking-[0.16em] text-ink sm:px-5 sm:tracking-[0.2em] transition-colors hover:bg-paper/85 md:h-auto md:px-6 md:py-3 md:text-[11px]"
 						>
 							<span className="sm:hidden">{copy.header.ctaShort}</span>
 							<span className="hidden sm:inline">{copy.header.cta}</span>
@@ -159,12 +159,9 @@ export default function SiteHeader() {
 							</li>
 						))}
 					</ul>
-					<div className="flex items-end justify-between gap-6 text-[11px] uppercase tracking-[0.2em] text-stone">
-						<div className="min-w-0">
-							<p className="truncate">{SITE.email}</p>
-							{SITE.phone && <p className="mt-1">{SITE.phone}</p>}
-						</div>
-						<LangSwitch className="shrink-0 sm:hidden" tabIndex={menuOpen ? 0 : -1} />
+					<div className="min-w-0 text-[11px] uppercase tracking-[0.2em] text-stone">
+						<p className="truncate">{SITE.email}</p>
+						{SITE.phone && <p className="mt-1">{SITE.phone}</p>}
 					</div>
 				</nav>
 			</div>

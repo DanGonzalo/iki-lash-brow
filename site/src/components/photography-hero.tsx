@@ -194,7 +194,7 @@ export default function PhotographyHero({
 
 			{/* Title */}
 			<div
-				className="pointer-events-none absolute inset-0 z-10 flex flex-col items-center justify-center px-4 text-center mix-blend-difference"
+				className="pointer-events-none absolute inset-x-0 bottom-24 top-16 z-10 flex flex-col items-center justify-center px-4 text-center mix-blend-difference md:bottom-28 md:top-20 [@media(max-height:520px)]:bottom-16"
 				style={{ transform: 'translateY(calc(var(--exit, 0) * -12vh))' }}
 			>
 				{/* The h1 says what the studio does, then its name */}
@@ -204,14 +204,14 @@ export default function PhotographyHero({
 						play={started}
 						out={leaving}
 						delay={300}
-						className="mb-6 block text-[11px] uppercase tracking-[0.25em] md:mb-8"
+						className="mb-6 block text-[11px] uppercase tracking-[0.25em] md:mb-8 [@media(max-height:520px)]:hidden"
 					/>
 					<span className="sr-only">{brand} </span>
 					{/* The wordmark fades in, then its lash strokes are drawn */}
 					<BrandLogo
 						draw={started && !leaving}
 						className={cn(
-							'h-[clamp(5.5rem,17vw,13.5rem)] transition-opacity duration-700',
+							'h-[clamp(3.5rem,min(17vw,24svh),13.5rem)] transition-opacity duration-700',
 							started && !leaving ? 'opacity-100' : 'opacity-0'
 						)}
 					/>
@@ -239,7 +239,7 @@ export default function PhotographyHero({
 					out={leaving}
 					delay={900}
 					duration={1400}
-					className="mt-8 block max-w-md text-[13px] leading-relaxed text-paper/70 md:mt-10"
+					className="mt-8 block max-w-md text-[13px] leading-relaxed text-paper/70 md:mt-10 [@media(max-height:520px)]:hidden"
 				/>
 			</div>
 

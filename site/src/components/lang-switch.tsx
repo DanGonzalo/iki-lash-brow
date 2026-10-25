@@ -17,7 +17,7 @@ export default function LangSwitch({ className, tabIndex }: { className?: string
 					aria-pressed={lang === option}
 					onClick={() => setLang(option)}
 					className={cn(
-						'grid min-w-[38px] cursor-pointer place-items-center px-2 text-[10px] uppercase tracking-[0.16em] transition-colors duration-150 [transition-timing-function:steps(2)] md:text-[11px]',
+						'grid min-w-[34px] cursor-pointer place-items-center px-1.5 text-[10px] sm:min-w-[38px] sm:px-2 uppercase tracking-[0.16em] transition-colors duration-150 [transition-timing-function:steps(2)] md:text-[11px]',
 						lang === option ? 'bg-accent text-accent-ink' : 'text-stone hover:text-paper'
 					)}
 				>

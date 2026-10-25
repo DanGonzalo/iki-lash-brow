@@ -225,6 +225,8 @@ export function staticBody(lang: Lang, origin = ''): string {
   <section id="apropos">
     <h2>${esc(c.copy.about.title.join(' '))}</h2>
     ${p(c.copy.about.text)}
+    <h3>${esc(c.copy.about.pathLabel)}</h3>
+    <ol>${c.copy.about.path.map((s) => `<li><strong>${esc(s.title)}</strong> · ${esc(s.text)}</li>`).join('')}</ol>
   </section>
   <section>
     <h2>${esc(c.ui.testimonials.section)}</h2>

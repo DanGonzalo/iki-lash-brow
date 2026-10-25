@@ -101,24 +101,24 @@ const BRUSH = ['.......##', '......###', '.....###.', '....##...', '...#.....', 
  */
 const en = {
 	meta: {
-		title: 'Lash Extensions & Permanent Makeup | IKI Lash & Brow',
+		title: 'Permanent Makeup & Lash Extensions | IKI Lash & Brow',
 		/** Used instead of `title` once SITE.city is filled in */
-		titleCity: 'Lash Extensions & Permanent Makeup in {city} | IKI Lash & Brow',
+		titleCity: 'Permanent Makeup & Lash Extensions in {city} | IKI Lash & Brow',
 		description:
-			'Natural lash extensions, signature lash design, powder brows, lip blush and permanent eyeliner, plus bridal makeup. Naturally beautiful, individually designed.',
-		jobTitle: 'Lash artist, permanent makeup artist & makeup artist',
+			'Powder brows, lip blush and permanent eyeliner, natural lash extensions and bridal makeup by Mai, makeup artist. Naturally beautiful, individually designed.',
+		jobTitle: 'Permanent makeup artist, lash artist & makeup artist',
 		image: '/og-image.jpg',
 		imageAlt: 'IKI Lash & Brow — lash extensions, brows and permanent makeup',
 	},
 	copy: {
 		hero: {
-			label: '[Lashes · Permanent makeup · Makeup artist]',
+			label: '[Permanent makeup · Lashes · Makeup artist]',
 			tagline: 'Naturally beautiful, individually designed. Eight images to step inside the studio.',
 		},
 		intro: {
 			label: '[01] — Studio',
 			title: ['Naturally', 'beautiful.'],
-			text: 'Lash extensions, permanent makeup for brows, lips and eyes, and makeup for your wedding or shoot. Every look is designed for your face with precision and restraint, to enhance your natural features, never to cover them.',
+			text: 'Permanent makeup for brows, lips and eyes, lash extensions, and makeup for your wedding or shoot: one artist for your whole look. Every detail is designed for your face with precision and restraint, to enhance your natural features, never to cover them.',
 			primaryCta: 'Book an appointment',
 			secondaryCta: 'See the work',
 		},
@@ -144,7 +144,14 @@ const en = {
 		about: {
 			label: '[05] — About',
 			title: ['Artistry', '& restraint.'],
-			text: 'I’m Mai, a Vietnamese makeup artist with a deep passion for makeup and for the details that bring a face to life. At IKI, named after the Japanese ideal of understated elegance, I design lashes, brows and lips with restraint: to enhance your natural features, never to hide them.',
+			text: 'I’m Mai, a Vietnamese makeup artist with a deep passion for makeup and for the details that bring a face to life. At IKI, named after the Japanese ideal of understated elegance, I design brows, lips, lashes and complete looks with restraint: to enhance your natural features, never to hide them.',
+			/** Her training, in the order she followed it (listed under the text) */
+			pathLabel: 'My path',
+			path: [
+				{ title: 'Permanent makeup', text: 'Where it all began: brows, lips and eyeliner, placed dot by dot.' },
+				{ title: 'Lash extensions', text: 'Then lashes: natural and signature sets, mapped to each eye.' },
+				{ title: 'Makeup artistry', text: 'And the whole face: bridal, event and shoot makeup that lasts all day.' },
+			],
 			cta: 'Book an appointment',
 		},
 		testimonials: {
@@ -173,7 +180,7 @@ const en = {
 		},
 		footer: {
 			description:
-				'Lash & brow studio for natural lash extensions and permanent makeup, and makeup artist for weddings, events and shoots.',
+				'Lash & brow studio by Mai: permanent makeup, natural lash extensions and makeup for weddings, events and shoots.',
 		},
 		header: { cta: 'Book now', ctaShort: 'Book' },
 	},
@@ -195,35 +202,17 @@ const en = {
 
 	/** Services scrolling in the band under the intro (short, one or two words each) */
 	services: [
-		'Lash extensions',
-		'Signature design',
-		'Infill',
 		'Powder brows',
 		'Lip blush',
 		'Permanent eyeliner',
+		'Lash extensions',
+		'Signature lashes',
+		'Infill',
 		'Bridal makeup',
 		'Editorial',
 	],
 
 	treatments: [
-		{
-			name: 'Natural lash extensions',
-			text: 'Fine, light lashes applied one by one and matched to your eye shape, for a fresh, natural look that needs no mascara.',
-			duration: '2 h',
-			lasts: '3–4 weeks',
-			price: '',
-			icon: LASHES,
-			form: 0,
-		},
-		{
-			name: 'Signature design',
-			text: 'An individual lash map for more definition: length, curl and density chosen to open your eyes without ever looking heavy.',
-			duration: '2.5 h',
-			lasts: '3–4 weeks',
-			price: '',
-			icon: EYE,
-			form: 0,
-		},
 		{
 			name: 'Powder brows',
 			text: 'A soft, powdery shading that fills sparse brows and looks like perfectly applied brow makeup. Ideal for oily skin and a polished, defined look.',
@@ -250,6 +239,24 @@ const en = {
 			price: '',
 			icon: DROP,
 			form: 2,
+		},
+		{
+			name: 'Natural lash extensions',
+			text: 'Fine, light lashes applied one by one and matched to your eye shape, for a fresh, natural look that needs no mascara.',
+			duration: '2 h',
+			lasts: '3–4 weeks',
+			price: '',
+			icon: LASHES,
+			form: 0,
+		},
+		{
+			name: 'Signature lash design',
+			text: 'An individual lash map for more definition: length, curl and density chosen to open your eyes without ever looking heavy.',
+			duration: '2.5 h',
+			lasts: '3–4 weeks',
+			price: '',
+			icon: EYE,
+			form: 0,
 		},
 		{
 			name: 'Bridal & event makeup',
@@ -497,23 +504,23 @@ export type Content = typeof en;
 
 const de: Content = {
 	meta: {
-		title: 'Wimpernverlängerung & Permanent Make-up | IKI Lash & Brow',
-		titleCity: 'Wimpernverlängerung & Permanent Make-up in {city} | IKI Lash & Brow',
+		title: 'Permanent Make-up & Wimpernverlängerung | IKI Lash & Brow',
+		titleCity: 'Permanent Make-up & Wimpernverlängerung in {city} | IKI Lash & Brow',
 		description:
-			'Natürliche Wimpernverlängerung, Signature Design, Powder Brows, Lip Blush und Permanent Eyeliner – dazu Braut-Make-up. Natürlich schön. Individuell gestaltet.',
-		jobTitle: 'Lash-Artistin, Permanent-Make-up-Artistin & Visagistin',
+			'Powder Brows, Lip Blush und Permanent Eyeliner, natürliche Wimpernverlängerung und Braut-Make-up von Mai, Visagistin. Natürlich schön. Individuell gestaltet.',
+		jobTitle: 'Permanent-Make-up-Artistin, Lash-Artistin & Visagistin',
 		image: '/og-image-de.jpg',
 		imageAlt: 'IKI Lash & Brow — Wimpernverlängerung, Augenbrauen und Permanent Make-up',
 	},
 	copy: {
 		hero: {
-			label: '[Wimpern · Permanent Make-up · Visagistin]',
+			label: '[Permanent Make-up · Wimpern · Visagistin]',
 			tagline: 'Natürlich schön. Individuell gestaltet. Acht Bilder, um ins Studio zu blicken.',
 		},
 		intro: {
 			label: '[01] — Studio',
 			title: ['Natürlich', 'schön.'],
-			text: 'Wimpernverlängerung, Permanent Make-up für Brauen, Lippen und Augen und Make-up für deine Hochzeit oder dein Shooting. Jeder Look wird mit Präzision und Zurückhaltung für dein Gesicht gestaltet – um deine natürlichen Züge zu betonen, nie um sie zu überdecken.',
+			text: 'Permanent Make-up für Brauen, Lippen und Augen, Wimpernverlängerung und Make-up für deine Hochzeit oder dein Shooting – eine Artistin für deinen ganzen Look. Jedes Detail wird mit Präzision und Zurückhaltung für dein Gesicht gestaltet – um deine natürlichen Züge zu betonen, nie um sie zu überdecken.',
 			primaryCta: 'Termin buchen',
 			secondaryCta: 'Arbeiten ansehen',
 		},
@@ -539,7 +546,13 @@ const de: Content = {
 		about: {
 			label: '[05] — Über mich',
 			title: ['Feingefühl', '& Präzision.'],
-			text: 'Ich bin Mai, Make-up-Artistin aus Vietnam, mit einer tiefen Leidenschaft für Make-up und für die Details, die ein Gesicht zum Strahlen bringen. Bei IKI – benannt nach dem japanischen Ideal zurückhaltender Eleganz – gestalte ich Wimpern, Brauen und Lippen mit Feingefühl: um deine natürlichen Züge zu betonen, nie um sie zu verdecken.',
+			text: 'Ich bin Mai, Make-up-Artistin aus Vietnam, mit einer tiefen Leidenschaft für Make-up und für die Details, die ein Gesicht zum Strahlen bringen. Bei IKI – benannt nach dem japanischen Ideal zurückhaltender Eleganz – gestalte ich Brauen, Lippen, Wimpern und ganze Looks mit Feingefühl: um deine natürlichen Züge zu betonen, nie um sie zu verdecken.',
+			pathLabel: 'Mein Weg',
+			path: [
+				{ title: 'Permanent Make-up', text: 'Hier hat alles begonnen: Brauen, Lippen und Lidstrich, Punkt für Punkt gesetzt.' },
+				{ title: 'Wimpernverlängerung', text: 'Dann die Wimpern: natürliche und Signature-Sets, für jedes Auge geplant.' },
+				{ title: 'Make-up', text: 'Und das ganze Gesicht: Braut-, Event- und Shooting-Make-up, das den ganzen Tag hält.' },
+			],
 			cta: 'Termin buchen',
 		},
 		testimonials: {
@@ -567,7 +580,7 @@ const de: Content = {
 		},
 		footer: {
 			description:
-				'Lash & Brow Studio für natürliche Wimpernverlängerung und Permanent Make-up – und Visagistin für Hochzeiten, Events und Shootings.',
+				'Lash & Brow Studio von Mai: Permanent Make-up, natürliche Wimpernverlängerung und Make-up für Hochzeiten, Events und Shootings.',
 		},
 		header: { cta: 'Termin buchen', ctaShort: 'Termin' },
 	},
@@ -588,35 +601,17 @@ const de: Content = {
 	],
 
 	services: [
-		'Wimpernverlängerung',
-		'Signature Design',
-		'Auffüllen',
 		'Powder Brows',
 		'Lip Blush',
 		'Permanent Eyeliner',
+		'Wimpernverlängerung',
+		'Signature Lashes',
+		'Auffüllen',
 		'Braut-Make-up',
 		'Editorial',
 	],
 
 	treatments: [
-		{
-			name: 'Natürliche Wimpernverlängerung',
-			text: 'Feine, leichte Wimpern, einzeln gesetzt und perfekt auf deine Augenform abgestimmt – für einen frischen, natürlichen Look ganz ohne Mascara.',
-			duration: '2 Std.',
-			lasts: '3–4 Wochen',
-			price: '',
-			icon: LASHES,
-			form: 0,
-		},
-		{
-			name: 'Signature Design',
-			text: 'Ein individuelles Wimperndesign mit mehr Definition: Länge, Schwung und Dichte so gewählt, dass sie deine Augen öffnen, ohne je schwer zu wirken.',
-			duration: '2,5 Std.',
-			lasts: '3–4 Wochen',
-			price: '',
-			icon: EYE,
-			form: 0,
-		},
 		{
 			name: 'Powder Brows',
 			text: 'Eine weiche, pudrige Schattierung, die lichte Brauen auffüllt und wie perfekt geschminkt wirkt. Ideal bei öliger Haut und für einen gepflegten, definierten Look.',
@@ -643,6 +638,24 @@ const de: Content = {
 			price: '',
 			icon: DROP,
 			form: 2,
+		},
+		{
+			name: 'Natürliche Wimpernverlängerung',
+			text: 'Feine, leichte Wimpern, einzeln gesetzt und perfekt auf deine Augenform abgestimmt – für einen frischen, natürlichen Look ganz ohne Mascara.',
+			duration: '2 Std.',
+			lasts: '3–4 Wochen',
+			price: '',
+			icon: LASHES,
+			form: 0,
+		},
+		{
+			name: 'Signature Lash Design',
+			text: 'Ein individuelles Wimperndesign mit mehr Definition: Länge, Schwung und Dichte so gewählt, dass sie deine Augen öffnen, ohne je schwer zu wirken.',
+			duration: '2,5 Std.',
+			lasts: '3–4 Wochen',
+			price: '',
+			icon: EYE,
+			form: 0,
 		},
 		{
 			name: 'Braut- & Event-Make-up',

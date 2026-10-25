@@ -8,6 +8,8 @@ import { ABOUT_FACE } from '@/data/site';
 import { useContent } from '@/lib/i18n';
 import { scrollToSection } from '@/lib/scroll';
 
+const pad = (n: number) => String(n).padStart(2, '0');
+
 export default function AboutSection() {
 	const { copy: COPY, ui } = useContent();
 	return (
@@ -37,6 +39,20 @@ export default function AboutSection() {
 						<p className="mt-10 max-w-xl font-serif text-2xl leading-snug text-paper/85 md:text-[2rem] md:leading-[1.2]">
 							{COPY.about.text}
 						</p>
+					</Reveal>
+
+					{/* Her path: permanent makeup first, then lashes, then the whole face */}
+					<Reveal delay={100} className="mt-12 max-w-xl">
+						<p className="text-[11px] uppercase tracking-[0.25em] text-stone">{COPY.about.pathLabel}</p>
+						<ol className="mt-4 border-t border-line">
+							{COPY.about.path.map((step, i) => (
+								<li key={i} className="grid grid-cols-[2.25rem_1fr] gap-x-4 gap-y-1 border-b border-line py-4">
+									<span className="pt-1.5 text-[11px] tabular-nums tracking-[0.2em] text-stone">{pad(i + 1)}</span>
+									<h3 className="font-pixel font-light text-2xl leading-tight">{step.title}</h3>
+									<p className="col-start-2 text-[13px] leading-relaxed text-paper/70">{step.text}</p>
+								</li>
+							))}
+						</ol>
 					</Reveal>
 
 					<Reveal delay={150} className="mt-10">

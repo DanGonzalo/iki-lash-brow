@@ -96,5 +96,5 @@ html.has-pixel-cursor * {
   font-family: var(--font-serif);
   font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 0.38em;
+  letter-spacing: var(--brand-track, 0.38em);
 }
